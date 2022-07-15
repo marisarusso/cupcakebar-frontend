@@ -1,0 +1,297 @@
+// Base
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  color: var(--base-txt-color);
+  font-family: var(--base-font-family);
+  font-weight: 300;
+  background: var(--body-bg);
+  height: 100vh;
+}
+
+.background {
+  background-size: 2px;
+}
+
+// headings ------------
+h1,
+h2,
+h3,
+h5,
+h6 {
+  margin: 0 0 0.5em;
+  color: var(--heading-color);
+}
+
+// links ---------------
+a {
+  color: var(--link-color);
+}
+
+// app splash screen -------
+.app-splash {
+  position: fixed;
+  background: #fff;
+  color: #777;
+  display: flex;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  .app-logo {
+    width: 180px;
+    display: block;
+    margin-bottom: 1em;
+  }
+}
+
+// helper classes ---------
+.calign {
+  text-align: center;
+}
+
+.large-text {
+  font-size: 1.6em;
+}
+
+.brand-color {
+  color: var(--brand-color);
+}
+
+// generic-entry ------------
+.generic-entry {
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.07);
+  border-radius: 5px;
+  margin-bottom: 0.5em;
+  padding: 1em;
+  background: #fff;
+}
+
+// root ---------------
+#root {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+// page --------------------
+.page-content {
+  position: absolute;
+  top: var(--app-header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  padding: 1em;
+  &.no-pad {
+    padding: 0;
+  }
+}
+
+.page-content-post {
+  position: absolute;
+  top: var(--app-header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  padding: 1em;
+  &.no-pad {
+    padding: 0;
+  }
+}
+
+.bio {
+  display: flex;
+  border: 4px solid #fff;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: #fff;
+  align-items: right;
+}
+
+.page-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-title {
+  font-family: var(--body-font-family);
+}
+
+.prof-border {
+  margin-top: 20px;
+  max-width: 800px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border: 4px solid #fff;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  height: auto;
+}
+
+.prof-txt {
+  color: var(--brand-color);
+}
+
+.prof-txt-secondary {
+  color: #fff;
+}
+
+.form-box {
+  margin-top: 20px;
+  max-width: 500px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border: 4px solid var(--sl-color-primary-100);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  height: auto;
+}
+
+// sign in + sign up pages ----------
+.signinup-box,
+.signup-box {
+  //max-width: 320px;
+  text-align: center;
+}
+
+.signinup-logo {
+  width: 20%;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-logo {
+  width: 50%;
+  margin-top: 1.5em;
+  height: auto;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.link:hover {
+  color: var(--brand-color);
+}
+
+// guide page ---------------
+.guide-step {
+  padding: 1em;
+  margin: 1.5em auto;
+  max-width: 600px;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.workers-grid {
+  display: inline-block;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  //flex-wrap: wrap;
+
+  .worker-card {
+    width: calc(33.3% - 1em);
+    margin: 0.5em;
+  }
+}
+
+.filter-by {
+  margin-right: 10px;
+}
+
+.jobs-grid {
+  /*display: flex;
+  flex-wrap: wrap;*/
+  display: inline-block;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10%;
+
+  .job-card {
+    width: calc(33.3% - 1em);
+    margin: 0.5em;
+  }
+}
+
+.job-desc-title {
+  color: var(--heading-color);
+}
+
+.worker-dialog {
+  --width: 50%;
+}
+
+.worker-dialog::part(body) {
+  margin-top: -4em;
+}
+
+.worker-dialog::part(panel) {
+  background: var(--sl-color-primary-50);
+  border: 3px solid #fff;
+  border-radius: 15px;
+  color: white;
+}
+
+.worker-bio {
+  width: auto;
+}
+
+.dialog-worker-name {
+  color: #fff;
+}
+
+.job-dialog {
+  --width: 30%;
+}
+
+.job-dialog::part(body) {
+  margin-top: -4em;
+  color: #fff;
+}
+
+.job-dialog::part(close-button):hover {
+  color: var(--brand-color);
+}
+
+.job-dialog::part(panel) {
+  background: var(--sl-color-primary-50);
+  border: 3px solid #fff;
+  border-radius: 15px;
+}
+
+// RESPONSIVE - MOBILE -------------------
+@media all and (max-width: 768px) {
+  .signinup-box {
+    width: 90%;
+    max-width: none;
+  }
+}
