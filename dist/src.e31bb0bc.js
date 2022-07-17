@@ -7970,7 +7970,7 @@ class HomeView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Home\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content-feature feature-box\">\n        <img class=\"feature-img\" src=\"/images/feature-img.png\"> \n        <div class=\"feature-txt-box\">\n        <p>ORDER A DOZEN OF THE</p>       \n        <h1 class=\"logo-txt\">CUPCAKE OF THE MONTH</h1>\n        <p>THIS MONTHS SPECIAL IS OUR STRAWBERRY AND CREAM DELIGHT!</p>\n        <sl-button class=\"show-now-btn\" @click=", ">SHOP NOW!</sl-button>\n        </div>   \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)("/products"));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Home\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content-feature feature-box\">\n        <img class=\"feature-img\" src=\"/images/feature-img.png\"> \n        <div class=\"feature-txt-box\">\n        <img class=\"feature-txt\" src=\"/images/feature-txt.png\"> \n        <sl-button class=\"shop-now-btn\" @click=", ">SHOP NOW!</sl-button>\n        </div>   \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)("/products"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 

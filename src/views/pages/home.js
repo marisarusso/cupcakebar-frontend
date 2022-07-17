@@ -17,10 +17,8 @@ class HomeView {
       <div class="page-content-feature feature-box">
         <img class="feature-img" src="/images/feature-img.png"> 
         <div class="feature-txt-box">
-        <p>ORDER A DOZEN OF THE</p>       
-        <h1 class="logo-txt">CUPCAKE OF THE MONTH</h1>
-        <p>THIS MONTHS SPECIAL IS OUR STRAWBERRY AND CREAM DELIGHT!</p>
-        <sl-button class="show-now-btn" @click=${() => gotoRoute("/products")}>SHOP NOW!</sl-button>
+        <img class="feature-txt" src="/images/feature-txt.png"> 
+        <sl-button class="shop-now-btn" @click=${() => gotoRoute("/products")}>SHOP NOW!</sl-button>
         </div>   
       </div>      
     `

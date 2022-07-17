@@ -63,9 +63,14 @@ a {
 }
 
 .feature-txt-box {
-  padding: 50px;
-  margin: 50px;
+  margin-top: 150px;
+  margin-right: 50px;
+  margin-bottom: 0;
   text-align: center;
+}
+
+.feature-txt {
+  width: 100%;
 }
 
 .feature-img {
@@ -373,6 +378,16 @@ sl-button::part(base) {
   border: 3px solid var(--brand-color);
   background: var(--sl-color-primary-50);
   color: var(--brand-color);
+}
+
+.shop-now-btn::part(base) {
+  background: var(--brand-color);
+  color: var(--page-body-bg);
+  width: 12em;
+  height: 4em;
+  border-radius: 50px;
+  padding: 5px;
+  margin-top: 0px;
 }
 
 sl-card {
