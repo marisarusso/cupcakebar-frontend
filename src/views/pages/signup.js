@@ -66,8 +66,8 @@ class SignUpView {
             </div>
             <div class="input-group">
               <sl-select name="accessLevel" placeholder="I am a ..." required>
-                <sl-menu-item value="1">Worker</sl-menu-item>
-                <sl-menu-item value="2">Seeker</sl-menu-item>
+                <sl-menu-item value="1">Admin</sl-menu-item>
+                <sl-menu-item value="2">Customer</sl-menu-item>
               </sl-select>
             </div>
             <sl-button
