@@ -61,13 +61,13 @@ class Auth {
     // redirect to home
     Router.init()
     // redirection
-    if (data.user.newUser == true) {
+    //if (data.user.newUser == true) {
       // new user! - redirect to the guide page (/guide)
-      gotoRoute('/guide')
-    } else {
+     // gotoRoute('/guide')
+   // } else {
       // existing user - redirect to the home page(/)
       gotoRoute('/')
-    }
+    //}
   }
 
   async check(success) {

@@ -63,18 +63,17 @@ customElements.define(
             box-sizing: border-box;
           }
           .app-header {
-            background: var(--brand-color);
+            background: var(--sl-color-primary-50);
             position: fixed;
             top: 0;
             right: 0;
             left: 0;
             height: var(--app-header-height);
-            color: #fff;
+            color: var(--brand-color);
             display: flex;
             z-index: 9;
             box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
             align-items: center;
-            border-bottom: 3px solid #fff;
           }
 
           .app-header-main {
@@ -87,16 +86,16 @@ customElements.define(
             color: #fff;
           }
 
-          .app-logo a {
+          /*.app-logo a {
             color: #fff;
             text-decoration: none;
             font-weight: bold;
             font-size: 1.2em;
             padding: 0.6em;
             display: inline-block;
-          }
+          }*/
 
-          .app-logo img {
+          img {
             width: 90px;
           }
 
@@ -114,7 +113,8 @@ customElements.define(
             display: inline-block;
             padding: 0.8em;
             text-decoration: none;
-            color: #fff;
+            color: var(--brand-color);
+            align-items: center;
           }
 
           /*.app-side-menu-items {
@@ -137,11 +137,11 @@ customElements.define(
             left: 1.5em;
           }*/
 
-          .page-title {
+          /*.page-title {
             color: var(--app-header-txt-color);
             margin-right: 0.5em;
             font-size: var(--app-header-title-font-size);
-          }
+          }*/
 
           /* active nav links */
           .app-top-nav a.active,
@@ -166,15 +166,13 @@ customElements.define(
           ></sl-icon-button>-->
 
           <div class="app-header-main">
-            ${this.title
-              ? html` <h1 class="page-title">${this.title}</h1> `
-              : ``}
-            <slot></slot>
           </div>
 
           <nav class="app-top-nav">
             <a href="/" @click="${anchorRoute}">Home</a>
-            <a href="/cupcakes" @click="${anchorRoute}">Cupcakes</a>
+            <a href="/cupcakes" @click="${anchorRoute}">Shop</a>
+            <a href="/favouriteProducts" @click="${anchorRoute}">Favourites</a>
+            <img class="app-logo" src="/images/brandmark.png" />
             <a href="/AboutUs" @click="${anchorRoute}">About Us</a>
             ${this.user.accessLevel == 2
               ? html` <a href="/newJob" @click="${anchorRoute}">Add Product</a> `
