@@ -76,7 +76,6 @@ customElements.define(
           }
 
           .app-header-main {
-            flex-grow: 1;
             display: flex;
             align-items: center;
           }
@@ -110,10 +109,12 @@ customElements.define(
 
           .app-top-nav a {
             display: inline-block;
-            padding: 5em;
+            padding: 1em;
+            margin: 7em;
             text-decoration: none;
             color: var(--brand-color);
             align-items: center;
+            left: 0;
           }
 
           /*.app-side-menu-items {
@@ -164,20 +165,31 @@ customElements.define(
             style="font-size: 1.5em;"
           ></sl-icon-button>-->
 
-          <div class="app-header-main">
-          </div>
-
+          <div class="app-header-main"></div>
           <nav class="app-top-nav">
-            <a href="/" @click="${anchorRoute}">Home</a>
-            <a href="/products" @click="${anchorRoute}">Shop</a>
-            <a href="/favouriteProducts" @click="${anchorRoute}">Favourites</a>
+            <a href="/" @click="${anchorRoute}">HOME</a>
+            <a href="/products" @click="${anchorRoute}">SHOP</a>
+            <a href="/favouriteProducts" @click="${anchorRoute}">FAVOURITES</a>
             <img class="app-logo" src="/images/brandmark.png" />
-            <a href="/AboutUs" @click="${anchorRoute}">About Us</a>
-            ${this.user.accessLevel == 2
-              ? html` <a href="/newJob" @click="${anchorRoute}">Add Product</a> `
-              : ""}
-
+            <a href="/AboutUs" @click="${anchorRoute}">CONTACT</a>
             <sl-dropdown>
+              <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">ACCOUNT</a>
+              <sl-menu>
+                <sl-menu-item @click="${() => gotoRoute("/profile")}"
+                  >Profile</sl-menu-item
+                >
+                <sl-menu-item @click="${() => gotoRoute("/editProfile")}"
+                  >Edit Profile</sl-menu-item
+                >
+              </sl-menu>
+             </sl-dropdown>
+             ${this.user.accessLevel == 2
+              ? html` <a href="/newJob" @click="${anchorRoute}">ADD PRODUCT</a> `
+              : ""}
+            <a href="#" @click="${() => Auth.signOut()}">SIGN OUT</a>
+            
+
+            <!--<sl-dropdown>
               <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">
                 <sl-avatar
                   style="--size: 24px;"
@@ -198,7 +210,7 @@ customElements.define(
                   >Sign Out</sl-menu-item
                 >
               </sl-menu>
-            </sl-dropdown>
+            </sl-dropdown>-->
           </nav>
         </header>
 
