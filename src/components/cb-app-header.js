@@ -96,7 +96,7 @@ customElements.define(
           }*/
 
           img {
-            width: 80px;
+            width: 90px;
           }
 
           /*.hamburger-btn::part(base) {
@@ -114,6 +114,7 @@ customElements.define(
             padding: 0.8em;
             text-decoration: none;
             color: var(--brand-color);
+            align-items: center;
           }
 
           /*.app-side-menu-items {
@@ -136,11 +137,11 @@ customElements.define(
             left: 1.5em;
           }*/
 
-          .page-title {
+          /*.page-title {
             color: var(--app-header-txt-color);
             margin-right: 0.5em;
             font-size: var(--app-header-title-font-size);
-          }
+          }*/
 
           /* active nav links */
           .app-top-nav a.active,
@@ -165,10 +166,6 @@ customElements.define(
           ></sl-icon-button>-->
 
           <div class="app-header-main">
-            ${this.title
-              ? html` <h1 class="page-title">${this.title}</h1> `
-              : ``}
-            <slot></slot>
           </div>
 
           <nav class="app-top-nav">
