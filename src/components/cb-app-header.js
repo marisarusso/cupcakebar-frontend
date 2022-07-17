@@ -69,10 +69,9 @@ customElements.define(
             right: 0;
             left: 0;
             height: var(--app-header-height);
-            color: var(--brand-color);
+            color: var(--app-header-txt-color);
             display: flex;
             z-index: 9;
-            box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
             align-items: center;
           }
 
@@ -82,9 +81,9 @@ customElements.define(
             align-items: center;
           }
 
-          .app-header-main::slotted(h1) {
+          /*.app-header-main::slotted(h1) {
             color: #fff;
-          }
+          }*/
 
           /*.app-logo a {
             color: #fff;
@@ -96,7 +95,7 @@ customElements.define(
           }*/
 
           img {
-            width: 90px;
+            width: 150px;
           }
 
           /*.hamburger-btn::part(base) {
@@ -111,7 +110,7 @@ customElements.define(
 
           .app-top-nav a {
             display: inline-block;
-            padding: 0.8em;
+            padding: 5em;
             text-decoration: none;
             color: var(--brand-color);
             align-items: center;
@@ -170,7 +169,7 @@ customElements.define(
 
           <nav class="app-top-nav">
             <a href="/" @click="${anchorRoute}">Home</a>
-            <a href="/cupcakes" @click="${anchorRoute}">Shop</a>
+            <a href="/products" @click="${anchorRoute}">Shop</a>
             <a href="/favouriteProducts" @click="${anchorRoute}">Favourites</a>
             <img class="app-logo" src="/images/brandmark.png" />
             <a href="/AboutUs" @click="${anchorRoute}">About Us</a>

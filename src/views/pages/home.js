@@ -13,11 +13,15 @@ class HomeView {
 
   render(){
     const template = html`
-      <cb-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
-      <div class="page-content">        
-        <h1>Page title</h1>
-        <p>Page content ...</p>
-        
+      <cb-app-header title="Home" user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+      <div class="page-content-feature feature-box">
+        <img class="feature-img" src="/images/feature-img.png"> 
+        <div class="feature-txt-box">
+        <p>ORDER A DOZEN OF THE</p>       
+        <h1 class="logo-txt">CUPCAKE OF THE MONTH</h1>
+        <p>THIS MONTHS SPECIAL IS OUR STRAWBERRY AND CREAM DELIGHT!</p>
+        <sl-button class="show-now-btn" @click=${() => gotoRoute("/products")}>SHOP NOW!</sl-button>
+        </div>   
       </div>      
     `
     render(template, App.rootEl)

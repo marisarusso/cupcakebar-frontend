@@ -11,7 +11,7 @@ body {
   color: var(--base-txt-color);
   font-family: var(--base-font-family);
   font-weight: 300;
-  background: var(--body-bg);
+  background: var(--page-body-bg);
   height: 100vh;
 }
 
@@ -32,6 +32,26 @@ h6 {
 // links ---------------
 a {
   color: var(--link-color);
+}
+
+.feature-box {
+  display: flex;
+  background: var(--body-bg);
+  margin: 50px;
+  padding: 0;
+}
+
+.feature-txt-box {
+  padding: 50px;
+  margin: 50px;
+  text-align: center;
+}
+
+.feature-img {
+  width: 800px;
+  height: 800px;
+  margin-right: 50px;
+  margin-left: 0;
 }
 
 // app splash screen -------
@@ -98,6 +118,14 @@ a {
   &.no-pad {
     padding: 0;
   }
+}
+
+.page-content-feature {
+  position: absolute;
+  top: var(--app-header-height);
+  left: 0;
+  right: 0;
+ // bottom: 0;
 }
 
 .page-content-post {
