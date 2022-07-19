@@ -76,7 +76,7 @@ customElements.define(
           }
 
           .app-header-main {
-            flex-shrink: 1;
+            flex-grow: 1;
             display: flex;
             align-items: center;
           }
@@ -95,7 +95,7 @@ customElements.define(
           }*/
 
           img {
-            width: 10%;
+            width: 9%;
           }
 
           /*.hamburger-btn::part(base) {
@@ -114,9 +114,7 @@ customElements.define(
             margin: 5em;
             text-decoration: none;
             color: var(--brand-color);
-            align-items: center;
-            left: 0;
-            max-width: 100%;
+            
           }
 
           /*.app-side-menu-items {
@@ -183,13 +181,16 @@ customElements.define(
                 <sl-menu-item @click="${() => gotoRoute("/editProfile")}"
                   >Edit Profile</sl-menu-item
                 >
+                <sl-menu-item @click="${() => Auth.signOut()}"
+                  >Sign Out</sl-menu-item
+                >
               </sl-menu>
              </sl-dropdown>
              ${this.user.accessLevel == 2
               ? html` <a href="/newJob" @click="${anchorRoute}">ADD PRODUCT</a> `
               : ""}
-            <a href="#" @click="${() => Auth.signOut()}">SIGN OUT</a>
-            
+            <!--<a href="#" @click="${() => Auth.cart()}">CART</a>-->
+            <a href="/cart" @click="${anchorRoute}">CART</a>
 
             <!--<sl-dropdown>
               <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">
