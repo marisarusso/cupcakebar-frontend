@@ -76,6 +76,7 @@ customElements.define(
           }
 
           .app-header-main {
+            flex-shrink: 1;
             display: flex;
             align-items: center;
           }
@@ -94,7 +95,7 @@ customElements.define(
           }*/
 
           img {
-            width: 150px;
+            width: 10%;
           }
 
           /*.hamburger-btn::part(base) {
@@ -110,11 +111,12 @@ customElements.define(
           .app-top-nav a {
             display: inline-block;
             padding: 1em;
-            margin: 7em;
+            margin: 5em;
             text-decoration: none;
             color: var(--brand-color);
             align-items: center;
             left: 0;
+            max-width: 100%;
           }
 
           /*.app-side-menu-items {

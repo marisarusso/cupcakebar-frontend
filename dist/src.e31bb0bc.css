@@ -63,19 +63,19 @@ a {
 }
 
 .feature-txt-box {
-  margin-top: 150px;
+  margin-top: 15%;
   margin-right: 50px;
   margin-bottom: 0;
   text-align: center;
 }
 
 .feature-txt {
-  width: 100%;
+  max-width: 100%;
 }
 
 .feature-img {
-  width: 800px;
-  height: 800px;
+  width: 50%;
+  height: 50%;
   margin-right: 50px;
   margin-left: 0;
 }
