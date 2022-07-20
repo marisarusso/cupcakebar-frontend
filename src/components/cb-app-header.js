@@ -173,7 +173,7 @@ customElements.define(
             <a href="/products" @click="${anchorRoute}">SHOP</a>
             <a href="/favouriteProducts" @click="${anchorRoute}">FAVOURITES</a>
             <img class="app-logo" src="/images/brandmark.png" />
-            <a href="/AboutUs" @click="${anchorRoute}">CONTACT</a>
+            <a href="/aboutUs" @click="${anchorRoute}">CONTACT</a>
             <sl-dropdown>
               <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">ACCOUNT</a>
               <sl-menu>
@@ -183,13 +183,16 @@ customElements.define(
                 <sl-menu-item @click="${() => gotoRoute("/editProfile")}"
                   >Edit Profile</sl-menu-item
                 >
+                <sl-menu-item @click="${() => Auth.signOut()}"
+                  >Sign Out</sl-menu-item
+                >
               </sl-menu>
              </sl-dropdown>
              ${this.user.accessLevel == 2
               ? html` <a href="/newJob" @click="${anchorRoute}">ADD PRODUCT</a> `
               : ""}
-            <a href="#" @click="${() => Auth.signOut()}">SIGN OUT</a>
-            
+            <!--<a href="#" @click="${() => Auth.cart()}">CART</a>-->
+            <a href="/cart" @click="${anchorRoute}">CART</a>
 
             <!--<sl-dropdown>
               <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">

@@ -15,8 +15,9 @@ class AboutUsView {
     const template = html`
       <cb-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
       <div class="page-content">        
-        <h1>Page title</h1>
-        <p>Page content ...</p>
+        <h1>About Us</h1>
+        <p>Looking to learn more about Cupcake Bar?
+        <br> More details coming soon!! </p>
         
       </div>      
     `
