@@ -14,7 +14,6 @@ class HomeView {
   render() {
     const template = html`
       <cb-app-header
-        title="Home"
         user="${JSON.stringify(Auth.currentUser)}"
       ></cb-app-header>
       <div class="page-content">
