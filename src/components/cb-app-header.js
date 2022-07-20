@@ -66,8 +66,7 @@ customElements.define(
             background: var(--sl-color-primary-50);
             position: fixed;
             top: 0;
-            right: 0;
-            left: 0;
+            width: 100%;
             height: var(--app-header-height);
             color: var(--app-header-txt-color);
             display: flex;
@@ -76,6 +75,7 @@ customElements.define(
           }
 
           .app-header-main {
+            flex-grow: 1;
             display: flex;
             align-items: center;
           }
@@ -94,7 +94,7 @@ customElements.define(
           }*/
 
           img {
-            width: 150px;
+            width: 9%;
           }
 
           /*.hamburger-btn::part(base) {
@@ -110,11 +110,10 @@ customElements.define(
           .app-top-nav a {
             display: inline-block;
             padding: 1em;
-            margin: 7em;
+            margin: 5em;
             text-decoration: none;
             color: var(--brand-color);
-            align-items: center;
-            left: 0;
+            
           }
 
           /*.app-side-menu-items {
@@ -181,13 +180,16 @@ customElements.define(
                 <sl-menu-item @click="${() => gotoRoute("/editProfile")}"
                   >Edit Profile</sl-menu-item
                 >
+                <sl-menu-item @click="${() => Auth.signOut()}"
+                  >Sign Out</sl-menu-item
+                >
               </sl-menu>
              </sl-dropdown>
              ${this.user.accessLevel == 2
               ? html` <a href="/newJob" @click="${anchorRoute}">ADD PRODUCT</a> `
               : ""}
-            <a href="#" @click="${() => Auth.signOut()}">SIGN OUT</a>
-            
+            <!--<a href="#" @click="${() => Auth.cart()}">CART</a>-->
+            <a href="/cart" @click="${anchorRoute}">CART</a>
 
             <!--<sl-dropdown>
               <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">

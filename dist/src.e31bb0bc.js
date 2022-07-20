@@ -7884,7 +7884,7 @@ class Auth {
 
     localStorage.removeItem('accessToken'); // redirect to sign in    
 
-    (0, _Router.gotoRoute)('/signin'); // unset currentUser
+    (0, _Router.gotoRoute)('/'); // unset currentUser
 
     this.currentUser = null;
   }
@@ -7963,14 +7963,14 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class HomeView {
   init() {
-    document.title = 'Home';
+    document.title = "Home";
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Home\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content-feature feature-box\">\n        <img class=\"feature-img\" src=\"/images/feature-img.png\"> \n        <div class=\"feature-txt-box\">\n        <img class=\"feature-txt\" src=\"/images/feature-txt.png\"> \n        <sl-button class=\"shop-now-btn\" @click=", ">SHOP NOW!</sl-button>\n        </div>   \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)("/products"));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header\n        title=\"Home\"\n        user=\"", "\"\n      ></cb-app-header>\n      <div class=\"page-content\">\n        <div class=\"feature-box\">\n          <img class=\"feature-img\" src=\"/images/feature-img.png\" />\n          <div class=\"feature-txt-box\">\n            <img class=\"feature-txt\" src=\"/images/feature-txt.png\" />\n            <sl-button\n              class=\"shop-now-btn\"\n              @click=", "\n              >SHOP NOW!</sl-button\n            >\n          </div>\n        </div>\n        <div class=\"image-box\">\n          <img class=\"home-img1\" src=\"/images/pink-two.png\" />\n          <img class=\"home-img2\" src=\"/images/mint-two.png\" />\n          <img class=\"home-img3\" src=\"/images/coral-two.png\" />\n          <img class=\"home-img4\" src=\"/images/yellow-two.png\" />\n        </div>\n        <div class=\"blurb-box\">\n          <img class=\"blurb-img\" src=\"/images/blurb-img.png\" />\n          <div class=\"blurb-txt-box\">\n            <a class=\"blurb-txt\"\n              >Scrumptious, retro inspired cupcakes, handmade from scratch with\n              a whole lotta love using premium quality, locally sourced\n              ingredients. All of our cupcakes are freshly baked on site all\n              day, every day, untill they're golden and crispy on the outside\n              and soft and fluffy on the inside. Topped with your favourite\n              frosting and topping!\n            </a>\n          </div>\n        </div>\n        <div class=\"social-media-box calign\">\n          <h1 class=\"insta\">Follow us on Instagram</h1>\n          <div class=\"image-box\">\n            <img class=\"home-img5\" src=\"/images/feature-img.png\" />\n            <img class=\"home-img6\" src=\"/images/yellow.jpeg\" />\n            <img class=\"home-img7\" src=\"/images/cupcake-queen.png\" />\n            <img class=\"home-img8\" src=\"/images/coral.jpeg\" />\n          </div>\n          <div class=\"txt-box calign\">\n            <div class=\"acknowledge-txt-box\">\n            <a class=\"acknowledge-txt\">\n              Cupcake Bar acknowledges that we live and work on lands belonging\n              to the Julin Nation. we pay our respects to Elders, both past,\n              present and emerging of the Kulin Nation and any lands to which we\n              may travel. This always was and always will be Aboriginal land.\n            </a>\n            </div>\n          </div>\n        </div>\n        <footer>\n\n        </footer>\n      </div>\n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)("/products"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -8120,7 +8120,7 @@ class SignUpView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <style>\n      body {\n        background: var(--body-bg);\n      }\n    </style>\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/brandmark.png\" />\n          <h1>Sign Up</h1>\n          <sl-form class=\"form-signup\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input\n                name=\"firstName\"\n                type=\"text\"\n                placeholder=\"First Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"lastName\"\n                type=\"text\"\n                placeholder=\"Last Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"email\"\n                type=\"email\"\n                placeholder=\"Email\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"password\"\n                type=\"password\"\n                placeholder=\"Password\"\n                required\n                toggle-password\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-select name=\"accessLevel\" placeholder=\"I am a ...\" required>\n                <sl-menu-item value=\"1\">Admin</sl-menu-item>\n                <sl-menu-item value=\"2\">Customer</sl-menu-item>\n              </sl-select>\n            </div>\n            <sl-button\n              type=\"primary\"\n              class=\"submit-btn\"\n              submit\n              style=\"width: 100%;\"\n              >Sign Up</sl-button\n            >\n          </sl-form>\n          <p>\n            Have an account? <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "])), this.signUpSubmitHandler, _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <style>\n      body {\n        background: var(--body-bg);\n      }\n    </style>\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/brandmark.png\" />\n          <h3>Sign Up</h3>\n          <sl-form class=\"form-signup\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input\n                name=\"firstName\"\n                type=\"text\"\n                placeholder=\"First Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"lastName\"\n                type=\"text\"\n                placeholder=\"Last Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"email\"\n                type=\"email\"\n                placeholder=\"Email\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"password\"\n                type=\"password\"\n                placeholder=\"Password\"\n                required\n                toggle-password\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-select class=\"sign-up-level\" name=\"accessLevel\" placeholder=\"I am a ...\" required>\n                <sl-menu-item value=\"1\">Admin</sl-menu-item>\n                <sl-menu-item value=\"2\">Customer</sl-menu-item>\n              </sl-select>\n            </div>\n            <sl-button\n              type=\"primary\"\n              class=\"submit-btn\"\n              submit\n              style=\"width: 100%;\"\n              >Sign Up</sl-button\n            >\n          </sl-form>\n          <p>\n            Have an account? <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "])), this.signUpSubmitHandler, _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -8161,10 +8161,32 @@ class ProfileView {
     _Utils.default.pageIntroAnim();
   }
 
+
   render() {
     const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
+
+  commit() {
+    while ((0, _directive.isDirective)(this.__pendingValue)) {
+      const directive = this.__pendingValue;
+      this.__pendingValue = _part.noChange;
+      directive(this);
+    }
+
+    if (this.__pendingValue === _part.noChange) {
+      return;
+    }
+
+    const value = !!this.__pendingValue;
+
+    if (this.value !== value) {
+      if (value) {
+        this.element.setAttribute(this.name, '');
+      } else {
+        this.element.removeAttribute(this.name);
+      }
+
 
 }
 
@@ -8246,7 +8268,7 @@ class AboutUsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>About Us</h1>\n        <p>Looking to learn more about Cupcake Bar?\n        <br> More details coming soon!! </p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -8288,7 +8310,7 @@ class ProductsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -8330,7 +8352,7 @@ class FavouriteProductsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <p>Save your favourite tasty cupcakes for later!\n        <br> Coming soon... </p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -8414,7 +8436,7 @@ class CartView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>My Cart</h1>\n        <p> For cupcake purchases on the go!\n        <br> Coming soon...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -8544,10 +8566,24 @@ class App {
   constructor() {
     this.name = "Cupcake Bar";
     this.version = "1.0.0";
-    this.apiBase = 'http://localhost:5500';
+    this.apiBase = 'https://cupcakebar.herokuapp.com';
     this.rootEl = document.getElementById("root");
     this.version = "1.0.0";
   }
+
+/**
+ *
+ * Main lit-html module.
+ *
+ * Main exports:
+ *
+ * -  [[html]]
+ * -  [[svg]]
+ * -  [[render]]
+ *
+ * @packageDocumentation
+ */
+
 
   init() {
     console.log("App.init"); // Toast init
@@ -10383,7 +10419,7 @@ customElements.define("cb-app-header", class AppHeader extends _litElement.LitEl
 
 
   render() {
-    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n          .app-header {\n            background: var(--sl-color-primary-50);\n            position: fixed;\n            top: 0;\n            right: 0;\n            left: 0;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            display: flex;\n            z-index: 9;\n            align-items: center;\n          }\n\n          .app-header-main {\n            display: flex;\n            align-items: center;\n          }\n\n          /*.app-header-main::slotted(h1) {\n            color: #fff;\n          }*/\n\n          /*.app-logo a {\n            color: #fff;\n            text-decoration: none;\n            font-weight: bold;\n            font-size: 1.2em;\n            padding: 0.6em;\n            display: inline-block;\n          }*/\n\n          img {\n            width: 150px;\n          }\n\n          /*.hamburger-btn::part(base) {\n            color: #fff;\n          }*/\n\n          .app-top-nav {\n            display: flex;\n            height: 100%;\n            align-items: center;\n          }\n\n          .app-top-nav a {\n            display: inline-block;\n            padding: 1em;\n            margin: 7em;\n            text-decoration: none;\n            color: var(--brand-color);\n            align-items: center;\n            left: 0;\n          }\n\n          /*.app-side-menu-items {\n            margin-top: 3em;\n          }\n\n          .app-side-menu-items a {\n            display: block;\n            padding: 0.5em;\n            text-decoration: none;\n            font-size: 1.3em;\n            color: #333;\n          }\n\n          .app-side-menu-logo {\n            width: 180px;\n            margin-bottom: 1em;\n            position: absolute;\n            top: 2em;\n            left: 1.5em;\n          }*/\n\n          /*.page-title {\n            color: var(--app-header-txt-color);\n            margin-right: 0.5em;\n            font-size: var(--app-header-title-font-size);\n          }*/\n\n          /* active nav links */\n          .app-top-nav a.active,\n          .app-side-menu-items a.active {\n            font-weight: bold;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n            .app-top-nav {\n              display: none;\n            }\n          }\n        </style>\n\n        <header class=\"app-header\">\n          <!--<sl-icon-button\n            class=\"hamburger-btn\"\n            name=\"list\"\n            @click=\"", "\"\n            style=\"font-size: 1.5em;\"\n          ></sl-icon-button>-->\n\n          <div class=\"app-header-main\"></div>\n          <nav class=\"app-top-nav\">\n            <a href=\"/\" @click=\"", "\">HOME</a>\n            <a href=\"/products\" @click=\"", "\">SHOP</a>\n            <a href=\"/favouriteProducts\" @click=\"", "\">FAVOURITES</a>\n            <img class=\"app-logo\" src=\"/images/brandmark.png\" />\n            <a href=\"/AboutUs\" @click=\"", "\">CONTACT</a>\n            <sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">ACCOUNT</a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n              </sl-menu>\n             </sl-dropdown>\n             ", "\n            <a href=\"#\" @click=\"", "\">SIGN OUT</a>\n            \n\n            <!--<sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">\n                <sl-avatar\n                  style=\"--size: 24px;\"\n                  image=", "\n                ></sl-avatar>\n                ", "\n              </a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n            </sl-dropdown>-->\n          </nav>\n        </header>\n\n        <!--<sl-drawer class=\"app-side-menu\" placement=\"left\">\n          <img class=\"app-side-menu-logo\" src=\"/images/ss3.svg\" />\n          <nav class=\"app-side-menu-items\">\n            <a href=\"/\" @click=\"", "\">Home</a>\n            <a href=\"/cupcakes\" @click=\"", "\"\n                    >Cupcakes</a\n                  >\n            <a href=\"/favouriteCupcakes\" @click=\"", "\"\n                    >Favourite Cupcakes</a\n                  >\n            ", "\n            <a href=\"/jobs\" @click=\"", "\">Jobs</a>\n            <a href=\"#\" @click=\"", "\">Sign Out</a>\n          </nav>\n        </sl-drawer>-->\n      "])), this.hamburgerClick, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, e => e.preventDefault(), () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <a href=\"/newJob\" @click=\"", "\">ADD PRODUCT</a> "])), _Router.anchorRoute) : "", () => _Auth.default.signOut(), e => e.preventDefault(), this.user && this.user.avatar ? "".concat(_App.default.apiBase, "/images/").concat(this.user.avatar) : "", this.user && this.user.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.menuClick, this.menuClick, this.menuClick, this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  <a href=\"/newProduct\" @click=\"", "\">Post Job</a>\n                "])), this.menuClick) : "", this.menuClick, () => _Auth.default.signOut());
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n          .app-header {\n            background: var(--sl-color-primary-50);\n            position: fixed;\n            top: 0;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            display: flex;\n            z-index: 9;\n            align-items: center;\n          }\n\n          /* .app-header-main {\n            display: flex;\n            align-items: center;\n          } */\n\n          /*.app-header-main::slotted(h1) {\n            color: #fff;\n          }*/\n\n          /*.app-logo a {\n            color: #fff;\n            text-decoration: none;\n            font-weight: bold;\n            font-size: 1.2em;\n            padding: 0.6em;\n            display: inline-block;\n          }*/\n\n          img {\n            width: 18vw;\n            padding: 0 1.5vw;\n            margin: 0 2vw;\n          }\n\n          /*.hamburger-btn::part(base) {\n            color: #fff;\n          }*/\n\n          .app-top-nav {\n            display: flex;\n            margin: 0 auto;\n            height: 100%;\n            align-items: center;\n          }\n\n          .app-top-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 1.5vw;\n            text-decoration: none;\n            color: var(--brand-color);\n            align-items: center;\n          }\n\n          /*.app-side-menu-items {\n            margin-top: 3em;\n          }\n\n          .app-side-menu-items a {\n            display: block;\n            padding: 0.5em;\n            text-decoration: none;\n            font-size: 1.3em;\n            color: #333;\n          }\n\n          .app-side-menu-logo {\n            width: 180px;\n            margin-bottom: 1em;\n            position: absolute;\n            top: 2em;\n            left: 1.5em;\n          }*/\n\n          /*.page-title {\n            color: var(--app-header-txt-color);\n            margin-right: 0.5em;\n            font-size: var(--app-header-title-font-size);\n          }*/\n\n          /* active nav links */\n          .app-top-nav a.active,\n          .app-side-menu-items a.active {\n            font-weight: bold;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n            .app-top-nav {\n              display: none;\n            }\n          }\n        </style>\n\n        <header class=\"app-header\">\n          <!--<sl-icon-button\n            class=\"hamburger-btn\"\n            name=\"list\"\n            @click=\"", "\"\n            style=\"font-size: 1.5em;\"\n          ></sl-icon-button>-->\n\n          <div class=\"app-header-main\"></div>\n          <nav class=\"app-top-nav\">\n            <a href=\"/\" @click=\"", "\">HOME</a>\n            <a href=\"/products\" @click=\"", "\">SHOP</a>\n            <a href=\"/favouriteProducts\" @click=\"", "\">FAVOURITES</a>\n            <img class=\"app-logo\" src=\"/images/brandmark.png\" />\n            <a href=\"/aboutUs\" @click=\"", "\">CONTACT</a>\n            <sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">ACCOUNT</a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n             </sl-dropdown>\n             ", "\n            <!--<a href=\"#\" @click=\"", "\">CART</a>-->\n            <a href=\"/cart\" @click=\"", "\">CART</a>\n\n            <!--<sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">\n                <sl-avatar\n                  style=\"--size: 24px;\"\n                  image=", "\n                ></sl-avatar>\n                ", "\n              </a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n            </sl-dropdown>-->\n          </nav>\n        </header>\n\n        <!--<sl-drawer class=\"app-side-menu\" placement=\"left\">\n          <img class=\"app-side-menu-logo\" src=\"/images/ss3.svg\" />\n          <nav class=\"app-side-menu-items\">\n            <a href=\"/\" @click=\"", "\">Home</a>\n            <a href=\"/cupcakes\" @click=\"", "\"\n                    >Cupcakes</a\n                  >\n            <a href=\"/favouriteCupcakes\" @click=\"", "\"\n                    >Favourite Cupcakes</a\n                  >\n            ", "\n            <a href=\"/jobs\" @click=\"", "\">Jobs</a>\n            <a href=\"#\" @click=\"", "\">Sign Out</a>\n          </nav>\n        </sl-drawer>-->\n      "])), this.hamburgerClick, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, e => e.preventDefault(), () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <a href=\"/newJob\" @click=\"", "\">ADD PRODUCT</a> "])), _Router.anchorRoute) : "", () => _Auth.default.cart(), _Router.anchorRoute, e => e.preventDefault(), this.user && this.user.avatar ? "".concat(_App.default.apiBase, "/images/").concat(this.user.avatar) : "", this.user && this.user.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.menuClick, this.menuClick, this.menuClick, this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  <a href=\"/newProduct\" @click=\"", "\">Post Job</a>\n                "])), this.menuClick) : "", this.menuClick, () => _Auth.default.signOut());
   }
 
 });
@@ -10508,6 +10544,8 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53262" + '/');
+
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "51461" + '/');
 
   ws.onmessage = function (event) {
