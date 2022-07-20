@@ -34,7 +34,7 @@ class SignUpView {
       <div class="page-content page-centered">
         <div class="signinup-box">
           <img class="signinup-logo" src="/images/brandmark.png" />
-          <h1>Sign Up</h1>
+          <h3>Sign Up</h3>
           <sl-form class="form-signup" @sl-submit=${this.signUpSubmitHandler}>
             <div class="input-group">
               <sl-input
@@ -70,7 +70,7 @@ class SignUpView {
               ></sl-input>
             </div>
             <div class="input-group">
-              <sl-select name="accessLevel" placeholder="I am a ..." required>
+              <sl-select class="sign-up-level" name="accessLevel" placeholder="I am a ..." required>
                 <sl-menu-item value="1">Admin</sl-menu-item>
                 <sl-menu-item value="2">Customer</sl-menu-item>
               </sl-select>
