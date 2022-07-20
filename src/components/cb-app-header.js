@@ -66,8 +66,7 @@ customElements.define(
             background: var(--sl-color-primary-50);
             position: fixed;
             top: 0;
-            right: 0;
-            left: 0;
+            width: 100%;
             height: var(--app-header-height);
             color: var(--app-header-txt-color);
             display: flex;
@@ -75,10 +74,10 @@ customElements.define(
             align-items: center;
           }
 
-          .app-header-main {
+          /* .app-header-main {
             display: flex;
             align-items: center;
-          }
+          } */
 
           /*.app-header-main::slotted(h1) {
             color: #fff;
@@ -94,7 +93,9 @@ customElements.define(
           }*/
 
           img {
-            width: 150px;
+            width: 18vw;
+            padding: 0 1.5vw;
+            margin: 0 2vw;
           }
 
           /*.hamburger-btn::part(base) {
@@ -103,18 +104,18 @@ customElements.define(
 
           .app-top-nav {
             display: flex;
+            margin: 0 auto;
             height: 100%;
             align-items: center;
           }
 
           .app-top-nav a {
-            display: inline-block;
-            padding: 1em;
-            margin: 7em;
+            display: flex;
+            padding: 1vw;
+            margin: 0 1.5vw;
             text-decoration: none;
             color: var(--brand-color);
             align-items: center;
-            left: 0;
           }
 
           /*.app-side-menu-items {
