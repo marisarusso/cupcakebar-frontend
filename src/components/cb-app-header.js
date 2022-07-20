@@ -139,12 +139,6 @@ customElements.define(
             left: 1.5em;
           }*/
 
-          /*.page-title {
-            color: var(--app-header-txt-color);
-            margin-right: 0.5em;
-            font-size: var(--app-header-title-font-size);
-          }*/
-
           /* active nav links */
           .app-top-nav a.active,
           .app-side-menu-items a.active {
