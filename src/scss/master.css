@@ -212,18 +212,19 @@ a {
 .signinup-box,
 .signup-box {
   text-align: center;
+  z-index: 9;
 }
 
 .signinup-logo {
-  width: 20%;
-  margin-bottom: 1em;
+  width: 18vw;
+  margin-bottom: 1vw;
   margin-left: auto;
   margin-right: auto;
 }
 
 .home-logo {
-  width: 50%;
-  margin-top: 1.5em;
+  width: 18vw;
+  margin-top: 1.5vw;
   height: auto;
 }
 
@@ -339,7 +340,7 @@ a {
 }
 
 .page-form {
-  max-width: 700px;
+  max-width: 80vw;
 }
 
 sl-dialog::part(title) {
