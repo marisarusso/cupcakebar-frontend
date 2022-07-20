@@ -380,6 +380,10 @@ footer {
   color: var(--brand-color);
 }
 
+.cart {
+  text-align: center;
+}
+
 .guide-step {
   padding: 1em;
   margin: 1.5em auto;
