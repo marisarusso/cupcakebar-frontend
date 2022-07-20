@@ -13,7 +13,7 @@ class CartView {
 
   render(){
     const template = html`
-      <cb-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+    <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
       <div class="page-content">        
         <h1>My Cart</h1>
         <p> For cupcake purchases on the go!
