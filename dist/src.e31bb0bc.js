@@ -6886,7 +6886,7 @@ class AboutUsView {
 var _default = new AboutUsView();
 
 exports.default = _default;
-},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"views/pages/products.js":[function(require,module,exports) {
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"views/pages/shop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6910,9 +6910,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class ProductsView {
+class ShopView {
   init() {
-    document.title = 'Products';
+    document.title = 'Shop';
     this.render();
 
     _Utils.default.pageIntroAnim();
@@ -6925,7 +6925,7 @@ class ProductsView {
 
 }
 
-var _default = new ProductsView();
+var _default = new ShopView();
 
 exports.default = _default;
 },{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"views/pages/favouriteProducts.js":[function(require,module,exports) {
@@ -7078,7 +7078,7 @@ var _editProfile = _interopRequireDefault(require("./views/pages/editProfile"));
 
 var _aboutUs = _interopRequireDefault(require("./views/pages/aboutUs"));
 
-var _products = _interopRequireDefault(require("./views/pages/products"));
+var _shop = _interopRequireDefault(require("./views/pages/shop"));
 
 var _favouriteProducts = _interopRequireDefault(require("./views/pages/favouriteProducts"));
 
@@ -7093,7 +7093,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const routes = {
   '/': _home.default,
   '/aboutUs': _aboutUs.default,
-  '/products': _products.default,
+  '/shop': _shop.default,
   '/favouriteProducts': _favouriteProducts.default,
   '/newProduct': _newProduct.default,
   '/cart': _cart.default,
@@ -7155,7 +7155,7 @@ function anchorRoute(e) {
   const pathname = e.target.closest('a').pathname;
   AppRouter.gotoRoute(pathname);
 }
-},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/aboutUs":"views/pages/aboutUs.js","./views/pages/products":"views/pages/products.js","./views/pages/favouriteProducts":"views/pages/favouriteProducts.js","./views/pages/newProduct":"views/pages/newProduct.js","./views/pages/cart":"views/pages/cart.js"}],"App.js":[function(require,module,exports) {
+},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/aboutUs":"views/pages/aboutUs.js","./views/pages/shop":"views/pages/shop.js","./views/pages/favouriteProducts":"views/pages/favouriteProducts.js","./views/pages/newProduct":"views/pages/newProduct.js","./views/pages/cart":"views/pages/cart.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

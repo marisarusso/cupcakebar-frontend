@@ -4,9 +4,9 @@ import {gotoRoute, anchorRoute} from '../../Router'
 import Auth from '../../Auth'
 import Utils from '../../Utils'
 
-class ProductsView {
+class ShopView {
   init(){
-    document.title = 'Products'    
+    document.title = 'Shop'    
     this.render()    
     Utils.pageIntroAnim()
   }
@@ -25,4 +25,4 @@ class ProductsView {
 }
 
 
-export default new ProductsView()
+export default new ShopView()
