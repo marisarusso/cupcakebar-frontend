@@ -7,7 +7,7 @@
   --page-body-bg: #fff;
   --brand-color: #e16a2f;
   --link-color: --brand-color;
-  --app-header-height: 10vw;
+  --app-header-height: 100px;
   --app-header-txt-color: #e16a2f;
   --body-font-family: "sofia-pro", sans-serif;
   --sl-color-primary-50: #f5dbdf;
@@ -345,12 +345,7 @@ footer {
 
 .signinup-box,
 .signup-box {
-  width: 60vw;
   text-align: center;
-}
-
-.signinup-box {
-  margin-top: -2vw;
 }
 
 .signinup-logo {
@@ -360,14 +355,9 @@ footer {
   margin-right: auto;
 }
 
-.sign-up-level {
-  width: 20vw;
-  margin: 1vw auto;
-}
-
 .home-logo {
-  width: 10vw;
-  margin-top: 1.5vw 0;
+  width: 50%;
+  margin-top: 1.5em;
   height: auto;
 }
 
@@ -471,7 +461,7 @@ footer {
   }
 }
 .input-group {
-  margin-bottom: 0.5vw;
+  margin-bottom: 0.5em;
 }
 
 .page-form {

@@ -8161,10 +8161,32 @@ class ProfileView {
     _Utils.default.pageIntroAnim();
   }
 
+
   render() {
     const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
+
+  commit() {
+    while ((0, _directive.isDirective)(this.__pendingValue)) {
+      const directive = this.__pendingValue;
+      this.__pendingValue = _part.noChange;
+      directive(this);
+    }
+
+    if (this.__pendingValue === _part.noChange) {
+      return;
+    }
+
+    const value = !!this.__pendingValue;
+
+    if (this.value !== value) {
+      if (value) {
+        this.element.setAttribute(this.name, '');
+      } else {
+        this.element.removeAttribute(this.name);
+      }
+
 
 }
 
@@ -8548,6 +8570,20 @@ class App {
     this.rootEl = document.getElementById("root");
     this.version = "1.0.0";
   }
+
+/**
+ *
+ * Main lit-html module.
+ *
+ * Main exports:
+ *
+ * -  [[html]]
+ * -  [[svg]]
+ * -  [[render]]
+ *
+ * @packageDocumentation
+ */
+
 
   init() {
     console.log("App.init"); // Toast init
@@ -10509,6 +10545,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "53262" + '/');
+
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51461" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
