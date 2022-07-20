@@ -117,435 +117,1804 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/lit-html/lit-html.js":[function(require,module,exports) {
+})({"../node_modules/lit-html/lib/directive.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.svg = exports.render = exports.nothing = exports.noChange = exports.html = exports._$LH = void 0;
+exports.isDirective = exports.directive = void 0;
 
 /**
  * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
  */
-var t;
+const directives = new WeakMap();
+/**
+ * Brands a function as a directive factory function so that lit-html will call
+ * the function during template rendering, rather than passing as a value.
+ *
+ * A _directive_ is a function that takes a Part as an argument. It has the
+ * signature: `(part: Part) => void`.
+ *
+ * A directive _factory_ is a function that takes arguments for data and
+ * configuration and returns a directive. Users of directive usually refer to
+ * the directive factory as the directive. For example, "The repeat directive".
+ *
+ * Usually a template author will invoke a directive factory in their template
+ * with relevant arguments, which will then return a directive function.
+ *
+ * Here's an example of using the `repeat()` directive factory that takes an
+ * array and a function to render an item:
+ *
+ * ```js
+ * html`<ul><${repeat(items, (item) => html`<li>${item}</li>`)}</ul>`
+ * ```
+ *
+ * When `repeat` is invoked, it returns a directive function that closes over
+ * `items` and the template function. When the outer template is rendered, the
+ * return directive function is called with the Part for the expression.
+ * `repeat` then performs it's custom logic to render multiple items.
+ *
+ * @param f The directive factory function. Must be a function that returns a
+ * function of the signature `(part: Part) => void`. The returned function will
+ * be called with the part object.
+ *
+ * @example
+ *
+ * import {directive, html} from 'lit-html';
+ *
+ * const immutable = directive((v) => (part) => {
+ *   if (part.value !== v) {
+ *     part.setValue(v)
+ *   }
+ * });
+ */
 
-const i = globalThis.trustedTypes,
-      s = i ? i.createPolicy("lit-html", {
-  createHTML: t => t
-}) : void 0,
-      e = `lit$${(Math.random() + "").slice(9)}$`,
-      o = "?" + e,
-      n = `<${o}>`,
-      l = document,
-      h = (t = "") => l.createComment(t),
-      r = t => null === t || "object" != typeof t && "function" != typeof t,
-      d = Array.isArray,
-      u = t => {
-  var i;
-  return d(t) || "function" == typeof (null === (i = t) || void 0 === i ? void 0 : i[Symbol.iterator]);
-},
-      c = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,
-      v = /-->/g,
-      a = />/g,
-      f = />|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,
-      _ = /'/g,
-      m = /"/g,
-      g = /^(?:script|style|textarea|title)$/i,
-      p = t => (i, ...s) => ({
-  _$litType$: t,
-  strings: i,
-  values: s
-}),
-      $ = p(1),
-      y = p(2),
-      b = Symbol.for("lit-noChange"),
-      w = Symbol.for("lit-nothing"),
-      T = new WeakMap(),
-      x = (t, i, s) => {
-  var e, o;
-  const n = null !== (e = null == s ? void 0 : s.renderBefore) && void 0 !== e ? e : i;
-  let l = n._$litPart$;
-
-  if (void 0 === l) {
-    const t = null !== (o = null == s ? void 0 : s.renderBefore) && void 0 !== o ? o : null;
-    n._$litPart$ = l = new N(i.insertBefore(h(), t), t, void 0, null != s ? s : {});
-  }
-
-  return l._$AI(t), l;
-},
-      A = l.createTreeWalker(l, 129, null, !1),
-      C = (t, i) => {
-  const o = t.length - 1,
-        l = [];
-  let h,
-      r = 2 === i ? "<svg>" : "",
-      d = c;
-
-  for (let i = 0; i < o; i++) {
-    const s = t[i];
-    let o,
-        u,
-        p = -1,
-        $ = 0;
-
-    for (; $ < s.length && (d.lastIndex = $, u = d.exec(s), null !== u);) $ = d.lastIndex, d === c ? "!--" === u[1] ? d = v : void 0 !== u[1] ? d = a : void 0 !== u[2] ? (g.test(u[2]) && (h = RegExp("</" + u[2], "g")), d = f) : void 0 !== u[3] && (d = f) : d === f ? ">" === u[0] ? (d = null != h ? h : c, p = -1) : void 0 === u[1] ? p = -2 : (p = d.lastIndex - u[2].length, o = u[1], d = void 0 === u[3] ? f : '"' === u[3] ? m : _) : d === m || d === _ ? d = f : d === v || d === a ? d = c : (d = f, h = void 0);
-
-    const y = d === f && t[i + 1].startsWith("/>") ? " " : "";
-    r += d === c ? s + n : p >= 0 ? (l.push(o), s.slice(0, p) + "$lit$" + s.slice(p) + e + y) : s + e + (-2 === p ? (l.push(void 0), i) : y);
-  }
-
-  const u = r + (t[o] || "<?>") + (2 === i ? "</svg>" : "");
-  if (!Array.isArray(t) || !t.hasOwnProperty("raw")) throw Error("invalid template strings array");
-  return [void 0 !== s ? s.createHTML(u) : u, l];
+const directive = f => (...args) => {
+  const d = f(...args);
+  directives.set(d, true);
+  return d;
 };
 
-exports.render = x;
-exports.nothing = w;
-exports.noChange = b;
-exports.svg = y;
-exports.html = $;
+exports.directive = directive;
 
-class E {
-  constructor({
-    strings: t,
-    _$litType$: s
-  }, n) {
-    let l;
+const isDirective = o => {
+  return typeof o === 'function' && directives.has(o);
+};
+
+exports.isDirective = isDirective;
+},{}],"../node_modules/lit-html/lib/dom.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.reparentNodes = exports.removeNodes = exports.isCEPolyfill = void 0;
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * True if the custom elements polyfill is in use.
+ */
+const isCEPolyfill = typeof window !== 'undefined' && window.customElements != null && window.customElements.polyfillWrapFlushCallback !== undefined;
+/**
+ * Reparents nodes, starting from `start` (inclusive) to `end` (exclusive),
+ * into another container (could be the same container), before `before`. If
+ * `before` is null, it appends the nodes to the container.
+ */
+
+exports.isCEPolyfill = isCEPolyfill;
+
+const reparentNodes = (container, start, end = null, before = null) => {
+  while (start !== end) {
+    const n = start.nextSibling;
+    container.insertBefore(start, before);
+    start = n;
+  }
+};
+/**
+ * Removes nodes, starting from `start` (inclusive) to `end` (exclusive), from
+ * `container`.
+ */
+
+
+exports.reparentNodes = reparentNodes;
+
+const removeNodes = (container, start, end = null) => {
+  while (start !== end) {
+    const n = start.nextSibling;
+    container.removeChild(start);
+    start = n;
+  }
+};
+
+exports.removeNodes = removeNodes;
+},{}],"../node_modules/lit-html/lib/part.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.nothing = exports.noChange = void 0;
+
+/**
+ * @license
+ * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * A sentinel value that signals that a value was handled by a directive and
+ * should not be written to the DOM.
+ */
+const noChange = {};
+/**
+ * A sentinel value that signals a NodePart to fully clear its content.
+ */
+
+exports.noChange = noChange;
+const nothing = {};
+exports.nothing = nothing;
+},{}],"../node_modules/lit-html/lib/template.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.nodeMarker = exports.markerRegex = exports.marker = exports.lastAttributeNameRegex = exports.isTemplatePartActive = exports.createMarker = exports.boundAttributeSuffix = exports.Template = void 0;
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * An expression marker with embedded unique key to avoid collision with
+ * possible text in templates.
+ */
+const marker = `{{lit-${String(Math.random()).slice(2)}}}`;
+/**
+ * An expression marker used text-positions, multi-binding attributes, and
+ * attributes with markup-like text values.
+ */
+
+exports.marker = marker;
+const nodeMarker = `<!--${marker}-->`;
+exports.nodeMarker = nodeMarker;
+const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
+/**
+ * Suffix appended to all bound attribute names.
+ */
+
+exports.markerRegex = markerRegex;
+const boundAttributeSuffix = '$lit$';
+/**
+ * An updatable Template that tracks the location of dynamic parts.
+ */
+
+exports.boundAttributeSuffix = boundAttributeSuffix;
+
+class Template {
+  constructor(result, element) {
     this.parts = [];
-    let r = 0,
-        d = 0;
-    const u = t.length - 1,
-          c = this.parts,
-          [v, a] = C(t, s);
+    this.element = element;
+    const nodesToRemove = [];
+    const stack = []; // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
 
-    if (this.el = E.createElement(v, n), A.currentNode = this.el.content, 2 === s) {
-      const t = this.el.content,
-            i = t.firstChild;
-      i.remove(), t.append(...i.childNodes);
-    }
+    const walker = document.createTreeWalker(element.content, 133
+    /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
+    , null, false); // Keeps track of the last index associated with a part. We try to delete
+    // unnecessary nodes, but we never want to associate two different parts
+    // to the same index. They must have a constant node between.
 
-    for (; null !== (l = A.nextNode()) && c.length < u;) {
-      if (1 === l.nodeType) {
-        if (l.hasAttributes()) {
-          const t = [];
-
-          for (const i of l.getAttributeNames()) if (i.endsWith("$lit$") || i.startsWith(e)) {
-            const s = a[d++];
-
-            if (t.push(i), void 0 !== s) {
-              const t = l.getAttribute(s.toLowerCase() + "$lit$").split(e),
-                    i = /([.?@])?(.*)/.exec(s);
-              c.push({
-                type: 1,
-                index: r,
-                name: i[2],
-                strings: t,
-                ctor: "." === i[1] ? M : "?" === i[1] ? H : "@" === i[1] ? I : S
-              });
-            } else c.push({
-              type: 6,
-              index: r
-            });
-          }
-
-          for (const i of t) l.removeAttribute(i);
-        }
-
-        if (g.test(l.tagName)) {
-          const t = l.textContent.split(e),
-                s = t.length - 1;
-
-          if (s > 0) {
-            l.textContent = i ? i.emptyScript : "";
-
-            for (let i = 0; i < s; i++) l.append(t[i], h()), A.nextNode(), c.push({
-              type: 2,
-              index: ++r
-            });
-
-            l.append(t[s], h());
-          }
-        }
-      } else if (8 === l.nodeType) if (l.data === o) c.push({
-        type: 2,
-        index: r
-      });else {
-        let t = -1;
-
-        for (; -1 !== (t = l.data.indexOf(e, t + 1));) c.push({
-          type: 7,
-          index: r
-        }), t += e.length - 1;
-      }
-
-      r++;
-    }
-  }
-
-  static createElement(t, i) {
-    const s = l.createElement("template");
-    return s.innerHTML = t, s;
-  }
-
-}
-
-function P(t, i, s = t, e) {
-  var o, n, l, h;
-  if (i === b) return i;
-  let d = void 0 !== e ? null === (o = s._$Cl) || void 0 === o ? void 0 : o[e] : s._$Cu;
-  const u = r(i) ? void 0 : i._$litDirective$;
-  return (null == d ? void 0 : d.constructor) !== u && (null === (n = null == d ? void 0 : d._$AO) || void 0 === n || n.call(d, !1), void 0 === u ? d = void 0 : (d = new u(t), d._$AT(t, s, e)), void 0 !== e ? (null !== (l = (h = s)._$Cl) && void 0 !== l ? l : h._$Cl = [])[e] = d : s._$Cu = d), void 0 !== d && (i = P(t, d._$AS(t, i.values), d, e)), i;
-}
-
-class V {
-  constructor(t, i) {
-    this.v = [], this._$AN = void 0, this._$AD = t, this._$AM = i;
-  }
-
-  get parentNode() {
-    return this._$AM.parentNode;
-  }
-
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-
-  p(t) {
-    var i;
+    let lastPartIndex = 0;
+    let index = -1;
+    let partIndex = 0;
     const {
-      el: {
-        content: s
-      },
-      parts: e
-    } = this._$AD,
-          o = (null !== (i = null == t ? void 0 : t.creationScope) && void 0 !== i ? i : l).importNode(s, !0);
-    A.currentNode = o;
-    let n = A.nextNode(),
-        h = 0,
-        r = 0,
-        d = e[0];
+      strings,
+      values: {
+        length
+      }
+    } = result;
 
-    for (; void 0 !== d;) {
-      if (h === d.index) {
-        let i;
-        2 === d.type ? i = new N(n, n.nextSibling, this, t) : 1 === d.type ? i = new d.ctor(n, d.name, d.strings, this, t) : 6 === d.type && (i = new L(n, this, t)), this.v.push(i), d = e[++r];
+    while (partIndex < length) {
+      const node = walker.nextNode();
+
+      if (node === null) {
+        // We've exhausted the content inside a nested template element.
+        // Because we still have parts (the outer for-loop), we know:
+        // - There is a template in the stack
+        // - The walker will find a nextNode outside the template
+        walker.currentNode = stack.pop();
+        continue;
       }
 
-      h !== (null == d ? void 0 : d.index) && (n = A.nextNode(), h++);
-    }
+      index++;
 
-    return o;
+      if (node.nodeType === 1
+      /* Node.ELEMENT_NODE */
+      ) {
+        if (node.hasAttributes()) {
+          const attributes = node.attributes;
+          const {
+            length
+          } = attributes; // Per
+          // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
+          // attributes are not guaranteed to be returned in document order.
+          // In particular, Edge/IE can return them out of order, so we cannot
+          // assume a correspondence between part index and attribute index.
+
+          let count = 0;
+
+          for (let i = 0; i < length; i++) {
+            if (endsWith(attributes[i].name, boundAttributeSuffix)) {
+              count++;
+            }
+          }
+
+          while (count-- > 0) {
+            // Get the template literal section leading up to the first
+            // expression in this attribute
+            const stringForPart = strings[partIndex]; // Find the attribute name
+
+            const name = lastAttributeNameRegex.exec(stringForPart)[2]; // Find the corresponding attribute
+            // All bound attributes have had a suffix added in
+            // TemplateResult#getHTML to opt out of special attribute
+            // handling. To look up the attribute value we also need to add
+            // the suffix.
+
+            const attributeLookupName = name.toLowerCase() + boundAttributeSuffix;
+            const attributeValue = node.getAttribute(attributeLookupName);
+            node.removeAttribute(attributeLookupName);
+            const statics = attributeValue.split(markerRegex);
+            this.parts.push({
+              type: 'attribute',
+              index,
+              name,
+              strings: statics
+            });
+            partIndex += statics.length - 1;
+          }
+        }
+
+        if (node.tagName === 'TEMPLATE') {
+          stack.push(node);
+          walker.currentNode = node.content;
+        }
+      } else if (node.nodeType === 3
+      /* Node.TEXT_NODE */
+      ) {
+        const data = node.data;
+
+        if (data.indexOf(marker) >= 0) {
+          const parent = node.parentNode;
+          const strings = data.split(markerRegex);
+          const lastIndex = strings.length - 1; // Generate a new text node for each literal section
+          // These nodes are also used as the markers for node parts
+
+          for (let i = 0; i < lastIndex; i++) {
+            let insert;
+            let s = strings[i];
+
+            if (s === '') {
+              insert = createMarker();
+            } else {
+              const match = lastAttributeNameRegex.exec(s);
+
+              if (match !== null && endsWith(match[2], boundAttributeSuffix)) {
+                s = s.slice(0, match.index) + match[1] + match[2].slice(0, -boundAttributeSuffix.length) + match[3];
+              }
+
+              insert = document.createTextNode(s);
+            }
+
+            parent.insertBefore(insert, node);
+            this.parts.push({
+              type: 'node',
+              index: ++index
+            });
+          } // If there's no text, we must insert a comment to mark our place.
+          // Else, we can trust it will stick around after cloning.
+
+
+          if (strings[lastIndex] === '') {
+            parent.insertBefore(createMarker(), node);
+            nodesToRemove.push(node);
+          } else {
+            node.data = strings[lastIndex];
+          } // We have a part for each match found
+
+
+          partIndex += lastIndex;
+        }
+      } else if (node.nodeType === 8
+      /* Node.COMMENT_NODE */
+      ) {
+        if (node.data === marker) {
+          const parent = node.parentNode; // Add a new marker node to be the startNode of the Part if any of
+          // the following are true:
+          //  * We don't have a previousSibling
+          //  * The previousSibling is already the start of a previous part
+
+          if (node.previousSibling === null || index === lastPartIndex) {
+            index++;
+            parent.insertBefore(createMarker(), node);
+          }
+
+          lastPartIndex = index;
+          this.parts.push({
+            type: 'node',
+            index
+          }); // If we don't have a nextSibling, keep this node so we have an end.
+          // Else, we can remove it to save future costs.
+
+          if (node.nextSibling === null) {
+            node.data = '';
+          } else {
+            nodesToRemove.push(node);
+            index--;
+          }
+
+          partIndex++;
+        } else {
+          let i = -1;
+
+          while ((i = node.data.indexOf(marker, i + 1)) !== -1) {
+            // Comment node has a binding marker inside, make an inactive part
+            // The binding won't work, but subsequent bindings will
+            // TODO (justinfagnani): consider whether it's even worth it to
+            // make bindings in comments work
+            this.parts.push({
+              type: 'node',
+              index: -1
+            });
+            partIndex++;
+          }
+        }
+      }
+    } // Remove text binding nodes after the walk to not disturb the TreeWalker
+
+
+    for (const n of nodesToRemove) {
+      n.parentNode.removeChild(n);
+    }
   }
 
-  m(t) {
+}
+
+exports.Template = Template;
+
+const endsWith = (str, suffix) => {
+  const index = str.length - suffix.length;
+  return index >= 0 && str.slice(index) === suffix;
+};
+
+const isTemplatePartActive = part => part.index !== -1; // Allows `document.createComment('')` to be renamed for a
+// small manual size-savings.
+
+
+exports.isTemplatePartActive = isTemplatePartActive;
+
+const createMarker = () => document.createComment('');
+/**
+ * This regex extracts the attribute name preceding an attribute-position
+ * expression. It does this by matching the syntax allowed for attributes
+ * against the string literal directly preceding the expression, assuming that
+ * the expression is in an attribute-value position.
+ *
+ * See attributes in the HTML spec:
+ * https://www.w3.org/TR/html5/syntax.html#elements-attributes
+ *
+ * " \x09\x0a\x0c\x0d" are HTML space characters:
+ * https://www.w3.org/TR/html5/infrastructure.html#space-characters
+ *
+ * "\0-\x1F\x7F-\x9F" are Unicode control characters, which includes every
+ * space character except " ".
+ *
+ * So an attribute is:
+ *  * The name: any character except a control character, space character, ('),
+ *    ("), ">", "=", or "/"
+ *  * Followed by zero or more space characters
+ *  * Followed by "="
+ *  * Followed by zero or more space characters
+ *  * Followed by:
+ *    * Any character except space, ('), ("), "<", ">", "=", (`), or
+ *    * (") then any non-("), or
+ *    * (') then any non-(')
+ */
+
+
+exports.createMarker = createMarker;
+const lastAttributeNameRegex = // eslint-disable-next-line no-control-regex
+/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+exports.lastAttributeNameRegex = lastAttributeNameRegex;
+},{}],"../node_modules/lit-html/lib/template-instance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TemplateInstance = void 0;
+
+var _dom = require("./dom.js");
+
+var _template = require("./template.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * An instance of a `Template` that can be attached to the DOM and updated
+ * with new values.
+ */
+class TemplateInstance {
+  constructor(template, processor, options) {
+    this.__parts = [];
+    this.template = template;
+    this.processor = processor;
+    this.options = options;
+  }
+
+  update(values) {
     let i = 0;
 
-    for (const s of this.v) void 0 !== s && (void 0 !== s.strings ? (s._$AI(t, s, i), i += s.strings.length - 2) : s._$AI(t[i])), i++;
-  }
+    for (const part of this.__parts) {
+      if (part !== undefined) {
+        part.setValue(values[i]);
+      }
 
-}
+      i++;
+    }
 
-class N {
-  constructor(t, i, s, e) {
-    var o;
-    this.type = 2, this._$AH = w, this._$AN = void 0, this._$AA = t, this._$AB = i, this._$AM = s, this.options = e, this._$Cg = null === (o = null == e ? void 0 : e.isConnected) || void 0 === o || o;
-  }
-
-  get _$AU() {
-    var t, i;
-    return null !== (i = null === (t = this._$AM) || void 0 === t ? void 0 : t._$AU) && void 0 !== i ? i : this._$Cg;
-  }
-
-  get parentNode() {
-    let t = this._$AA.parentNode;
-    const i = this._$AM;
-    return void 0 !== i && 11 === t.nodeType && (t = i.parentNode), t;
-  }
-
-  get startNode() {
-    return this._$AA;
-  }
-
-  get endNode() {
-    return this._$AB;
-  }
-
-  _$AI(t, i = this) {
-    t = P(this, t, i), r(t) ? t === w || null == t || "" === t ? (this._$AH !== w && this._$AR(), this._$AH = w) : t !== this._$AH && t !== b && this.$(t) : void 0 !== t._$litType$ ? this.T(t) : void 0 !== t.nodeType ? this.k(t) : u(t) ? this.S(t) : this.$(t);
-  }
-
-  M(t, i = this._$AB) {
-    return this._$AA.parentNode.insertBefore(t, i);
-  }
-
-  k(t) {
-    this._$AH !== t && (this._$AR(), this._$AH = this.M(t));
-  }
-
-  $(t) {
-    this._$AH !== w && r(this._$AH) ? this._$AA.nextSibling.data = t : this.k(l.createTextNode(t)), this._$AH = t;
-  }
-
-  T(t) {
-    var i;
-    const {
-      values: s,
-      _$litType$: e
-    } = t,
-          o = "number" == typeof e ? this._$AC(t) : (void 0 === e.el && (e.el = E.createElement(e.h, this.options)), e);
-    if ((null === (i = this._$AH) || void 0 === i ? void 0 : i._$AD) === o) this._$AH.m(s);else {
-      const t = new V(o, this),
-            i = t.p(this.options);
-      t.m(s), this.k(i), this._$AH = t;
+    for (const part of this.__parts) {
+      if (part !== undefined) {
+        part.commit();
+      }
     }
   }
 
-  _$AC(t) {
-    let i = T.get(t.strings);
-    return void 0 === i && T.set(t.strings, i = new E(t)), i;
+  _clone() {
+    // There are a number of steps in the lifecycle of a template instance's
+    // DOM fragment:
+    //  1. Clone - create the instance fragment
+    //  2. Adopt - adopt into the main document
+    //  3. Process - find part markers and create parts
+    //  4. Upgrade - upgrade custom elements
+    //  5. Update - set node, attribute, property, etc., values
+    //  6. Connect - connect to the document. Optional and outside of this
+    //     method.
+    //
+    // We have a few constraints on the ordering of these steps:
+    //  * We need to upgrade before updating, so that property values will pass
+    //    through any property setters.
+    //  * We would like to process before upgrading so that we're sure that the
+    //    cloned fragment is inert and not disturbed by self-modifying DOM.
+    //  * We want custom elements to upgrade even in disconnected fragments.
+    //
+    // Given these constraints, with full custom elements support we would
+    // prefer the order: Clone, Process, Adopt, Upgrade, Update, Connect
+    //
+    // But Safari does not implement CustomElementRegistry#upgrade, so we
+    // can not implement that order and still have upgrade-before-update and
+    // upgrade disconnected fragments. So we instead sacrifice the
+    // process-before-upgrade constraint, since in Custom Elements v1 elements
+    // must not modify their light DOM in the constructor. We still have issues
+    // when co-existing with CEv0 elements like Polymer 1, and with polyfills
+    // that don't strictly adhere to the no-modification rule because shadow
+    // DOM, which may be created in the constructor, is emulated by being placed
+    // in the light DOM.
+    //
+    // The resulting order is on native is: Clone, Adopt, Upgrade, Process,
+    // Update, Connect. document.importNode() performs Clone, Adopt, and Upgrade
+    // in one step.
+    //
+    // The Custom Elements v1 polyfill supports upgrade(), so the order when
+    // polyfilled is the more ideal: Clone, Process, Adopt, Upgrade, Update,
+    // Connect.
+    const fragment = _dom.isCEPolyfill ? this.template.element.content.cloneNode(true) : document.importNode(this.template.element.content, true);
+    const stack = [];
+    const parts = this.template.parts; // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
+
+    const walker = document.createTreeWalker(fragment, 133
+    /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
+    , null, false);
+    let partIndex = 0;
+    let nodeIndex = 0;
+    let part;
+    let node = walker.nextNode(); // Loop through all the nodes and parts of a template
+
+    while (partIndex < parts.length) {
+      part = parts[partIndex];
+
+      if (!(0, _template.isTemplatePartActive)(part)) {
+        this.__parts.push(undefined);
+
+        partIndex++;
+        continue;
+      } // Progress the tree walker until we find our next part's node.
+      // Note that multiple parts may share the same node (attribute parts
+      // on a single element), so this loop may not run at all.
+
+
+      while (nodeIndex < part.index) {
+        nodeIndex++;
+
+        if (node.nodeName === 'TEMPLATE') {
+          stack.push(node);
+          walker.currentNode = node.content;
+        }
+
+        if ((node = walker.nextNode()) === null) {
+          // We've exhausted the content inside a nested template element.
+          // Because we still have parts (the outer for-loop), we know:
+          // - There is a template in the stack
+          // - The walker will find a nextNode outside the template
+          walker.currentNode = stack.pop();
+          node = walker.nextNode();
+        }
+      } // We've arrived at our part's node.
+
+
+      if (part.type === 'node') {
+        const part = this.processor.handleTextExpression(this.options);
+        part.insertAfterNode(node.previousSibling);
+
+        this.__parts.push(part);
+      } else {
+        this.__parts.push(...this.processor.handleAttributeExpressions(node, part.name, part.strings, this.options));
+      }
+
+      partIndex++;
+    }
+
+    if (_dom.isCEPolyfill) {
+      document.adoptNode(fragment);
+      customElements.upgrade(fragment);
+    }
+
+    return fragment;
   }
 
-  S(t) {
-    d(this._$AH) || (this._$AH = [], this._$AR());
-    const i = this._$AH;
-    let s,
-        e = 0;
+}
 
-    for (const o of t) e === i.length ? i.push(s = new N(this.M(h()), this.M(h()), this, this.options)) : s = i[e], s._$AI(o), e++;
+exports.TemplateInstance = TemplateInstance;
+},{"./dom.js":"../node_modules/lit-html/lib/dom.js","./template.js":"../node_modules/lit-html/lib/template.js"}],"../node_modules/lit-html/lib/template-result.js":[function(require,module,exports) {
+"use strict";
 
-    e < i.length && (this._$AR(s && s._$AB.nextSibling, e), i.length = e);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TemplateResult = exports.SVGTemplateResult = void 0;
+
+var _dom = require("./dom.js");
+
+var _template = require("./template.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * @module lit-html
+ */
+
+/**
+ * Our TrustedTypePolicy for HTML which is declared using the html template
+ * tag function.
+ *
+ * That HTML is a developer-authored constant, and is parsed with innerHTML
+ * before any untrusted expressions have been mixed in. Therefor it is
+ * considered safe by construction.
+ */
+const policy = window.trustedTypes && trustedTypes.createPolicy('lit-html', {
+  createHTML: s => s
+});
+const commentMarker = ` ${_template.marker} `;
+/**
+ * The return type of `html`, which holds a Template and the values from
+ * interpolated expressions.
+ */
+
+class TemplateResult {
+  constructor(strings, values, type, processor) {
+    this.strings = strings;
+    this.values = values;
+    this.type = type;
+    this.processor = processor;
+  }
+  /**
+   * Returns a string of HTML used to create a `<template>` element.
+   */
+
+
+  getHTML() {
+    const l = this.strings.length - 1;
+    let html = '';
+    let isCommentBinding = false;
+
+    for (let i = 0; i < l; i++) {
+      const s = this.strings[i]; // For each binding we want to determine the kind of marker to insert
+      // into the template source before it's parsed by the browser's HTML
+      // parser. The marker type is based on whether the expression is in an
+      // attribute, text, or comment position.
+      //   * For node-position bindings we insert a comment with the marker
+      //     sentinel as its text content, like <!--{{lit-guid}}-->.
+      //   * For attribute bindings we insert just the marker sentinel for the
+      //     first binding, so that we support unquoted attribute bindings.
+      //     Subsequent bindings can use a comment marker because multi-binding
+      //     attributes must be quoted.
+      //   * For comment bindings we insert just the marker sentinel so we don't
+      //     close the comment.
+      //
+      // The following code scans the template source, but is *not* an HTML
+      // parser. We don't need to track the tree structure of the HTML, only
+      // whether a binding is inside a comment, and if not, if it appears to be
+      // the first binding in an attribute.
+
+      const commentOpen = s.lastIndexOf('<!--'); // We're in comment position if we have a comment open with no following
+      // comment close. Because <-- can appear in an attribute value there can
+      // be false positives.
+
+      isCommentBinding = (commentOpen > -1 || isCommentBinding) && s.indexOf('-->', commentOpen + 1) === -1; // Check to see if we have an attribute-like sequence preceding the
+      // expression. This can match "name=value" like structures in text,
+      // comments, and attribute values, so there can be false-positives.
+
+      const attributeMatch = _template.lastAttributeNameRegex.exec(s);
+
+      if (attributeMatch === null) {
+        // We're only in this branch if we don't have a attribute-like
+        // preceding sequence. For comments, this guards against unusual
+        // attribute values like <div foo="<!--${'bar'}">. Cases like
+        // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
+        // below.
+        html += s + (isCommentBinding ? commentMarker : _template.nodeMarker);
+      } else {
+        // For attributes we use just a marker sentinel, and also append a
+        // $lit$ suffix to the name to opt-out of attribute-specific parsing
+        // that IE and Edge do for style and certain SVG attributes.
+        html += s.substr(0, attributeMatch.index) + attributeMatch[1] + attributeMatch[2] + _template.boundAttributeSuffix + attributeMatch[3] + _template.marker;
+      }
+    }
+
+    html += this.strings[l];
+    return html;
   }
 
-  _$AR(t = this._$AA.nextSibling, i) {
-    var s;
+  getTemplateElement() {
+    const template = document.createElement('template');
+    let value = this.getHTML();
 
-    for (null === (s = this._$AP) || void 0 === s || s.call(this, !1, !0, i); t && t !== this._$AB;) {
-      const i = t.nextSibling;
-      t.remove(), t = i;
+    if (policy !== undefined) {
+      // this is secure because `this.strings` is a TemplateStringsArray.
+      // TODO: validate this when
+      // https://github.com/tc39/proposal-array-is-template-object is
+      // implemented.
+      value = policy.createHTML(value);
+    }
+
+    template.innerHTML = value;
+    return template;
+  }
+
+}
+/**
+ * A TemplateResult for SVG fragments.
+ *
+ * This class wraps HTML in an `<svg>` tag in order to parse its contents in the
+ * SVG namespace, then modifies the template to remove the `<svg>` tag so that
+ * clones only container the original fragment.
+ */
+
+
+exports.TemplateResult = TemplateResult;
+
+class SVGTemplateResult extends TemplateResult {
+  getHTML() {
+    return `<svg>${super.getHTML()}</svg>`;
+  }
+
+  getTemplateElement() {
+    const template = super.getTemplateElement();
+    const content = template.content;
+    const svgElement = content.firstChild;
+    content.removeChild(svgElement);
+    (0, _dom.reparentNodes)(content, svgElement.firstChild);
+    return template;
+  }
+
+}
+
+exports.SVGTemplateResult = SVGTemplateResult;
+},{"./dom.js":"../node_modules/lit-html/lib/dom.js","./template.js":"../node_modules/lit-html/lib/template.js"}],"../node_modules/lit-html/lib/parts.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isPrimitive = exports.isIterable = exports.PropertyPart = exports.PropertyCommitter = exports.NodePart = exports.EventPart = exports.BooleanAttributePart = exports.AttributePart = exports.AttributeCommitter = void 0;
+
+var _directive = require("./directive.js");
+
+var _dom = require("./dom.js");
+
+var _part = require("./part.js");
+
+var _templateInstance = require("./template-instance.js");
+
+var _templateResult = require("./template-result.js");
+
+var _template = require("./template.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const isPrimitive = value => {
+  return value === null || !(typeof value === 'object' || typeof value === 'function');
+};
+
+exports.isPrimitive = isPrimitive;
+
+const isIterable = value => {
+  return Array.isArray(value) || // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  !!(value && value[Symbol.iterator]);
+};
+/**
+ * Writes attribute values to the DOM for a group of AttributeParts bound to a
+ * single attribute. The value is only set once even if there are multiple parts
+ * for an attribute.
+ */
+
+
+exports.isIterable = isIterable;
+
+class AttributeCommitter {
+  constructor(element, name, strings) {
+    this.dirty = true;
+    this.element = element;
+    this.name = name;
+    this.strings = strings;
+    this.parts = [];
+
+    for (let i = 0; i < strings.length - 1; i++) {
+      this.parts[i] = this._createPart();
+    }
+  }
+  /**
+   * Creates a single part. Override this to create a differnt type of part.
+   */
+
+
+  _createPart() {
+    return new AttributePart(this);
+  }
+
+  _getValue() {
+    const strings = this.strings;
+    const l = strings.length - 1;
+    const parts = this.parts; // If we're assigning an attribute via syntax like:
+    //    attr="${foo}"  or  attr=${foo}
+    // but not
+    //    attr="${foo} ${bar}" or attr="${foo} baz"
+    // then we don't want to coerce the attribute value into one long
+    // string. Instead we want to just return the value itself directly,
+    // so that sanitizeDOMValue can get the actual value rather than
+    // String(value)
+    // The exception is if v is an array, in which case we do want to smash
+    // it together into a string without calling String() on the array.
+    //
+    // This also allows trusted values (when using TrustedTypes) being
+    // assigned to DOM sinks without being stringified in the process.
+
+    if (l === 1 && strings[0] === '' && strings[1] === '') {
+      const v = parts[0].value;
+
+      if (typeof v === 'symbol') {
+        return String(v);
+      }
+
+      if (typeof v === 'string' || !isIterable(v)) {
+        return v;
+      }
+    }
+
+    let text = '';
+
+    for (let i = 0; i < l; i++) {
+      text += strings[i];
+      const part = parts[i];
+
+      if (part !== undefined) {
+        const v = part.value;
+
+        if (isPrimitive(v) || !isIterable(v)) {
+          text += typeof v === 'string' ? v : String(v);
+        } else {
+          for (const t of v) {
+            text += typeof t === 'string' ? t : String(t);
+          }
+        }
+      }
+    }
+
+    text += strings[l];
+    return text;
+  }
+
+  commit() {
+    if (this.dirty) {
+      this.dirty = false;
+      this.element.setAttribute(this.name, this._getValue());
     }
   }
 
-  setConnected(t) {
-    var i;
-    void 0 === this._$AM && (this._$Cg = t, null === (i = this._$AP) || void 0 === i || i.call(this, t));
-  }
-
 }
+/**
+ * A Part that controls all or part of an attribute value.
+ */
 
-class S {
-  constructor(t, i, s, e, o) {
-    this.type = 1, this._$AH = w, this._$AN = void 0, this.element = t, this.name = i, this._$AM = e, this.options = o, s.length > 2 || "" !== s[0] || "" !== s[1] ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = w;
+
+exports.AttributeCommitter = AttributeCommitter;
+
+class AttributePart {
+  constructor(committer) {
+    this.value = undefined;
+    this.committer = committer;
   }
 
-  get tagName() {
-    return this.element.tagName;
-  }
+  setValue(value) {
+    if (value !== _part.noChange && (!isPrimitive(value) || value !== this.value)) {
+      this.value = value; // If the value is a not a directive, dirty the committer so that it'll
+      // call setAttribute. If the value is a directive, it'll dirty the
+      // committer if it calls setValue().
 
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-
-  _$AI(t, i = this, s, e) {
-    const o = this.strings;
-    let n = !1;
-    if (void 0 === o) t = P(this, t, i, 0), n = !r(t) || t !== this._$AH && t !== b, n && (this._$AH = t);else {
-      const e = t;
-      let l, h;
-
-      for (t = o[0], l = 0; l < o.length - 1; l++) h = P(this, e[s + l], i, l), h === b && (h = this._$AH[l]), n || (n = !r(h) || h !== this._$AH[l]), h === w ? t = w : t !== w && (t += (null != h ? h : "") + o[l + 1]), this._$AH[l] = h;
+      if (!(0, _directive.isDirective)(value)) {
+        this.committer.dirty = true;
+      }
     }
-    n && !e && this.C(t);
   }
 
-  C(t) {
-    t === w ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, null != t ? t : "");
+  commit() {
+    while ((0, _directive.isDirective)(this.value)) {
+      const directive = this.value;
+      this.value = _part.noChange;
+      directive(this);
+    }
+
+    if (this.value === _part.noChange) {
+      return;
+    }
+
+    this.committer.commit();
+  }
+
+}
+/**
+ * A Part that controls a location within a Node tree. Like a Range, NodePart
+ * has start and end locations and can set and update the Nodes between those
+ * locations.
+ *
+ * NodeParts support several value types: primitives, Nodes, TemplateResults,
+ * as well as arrays and iterables of those types.
+ */
+
+
+exports.AttributePart = AttributePart;
+
+class NodePart {
+  constructor(options) {
+    this.value = undefined;
+    this.__pendingValue = undefined;
+    this.options = options;
+  }
+  /**
+   * Appends this part into a container.
+   *
+   * This part must be empty, as its contents are not automatically moved.
+   */
+
+
+  appendInto(container) {
+    this.startNode = container.appendChild((0, _template.createMarker)());
+    this.endNode = container.appendChild((0, _template.createMarker)());
+  }
+  /**
+   * Inserts this part after the `ref` node (between `ref` and `ref`'s next
+   * sibling). Both `ref` and its next sibling must be static, unchanging nodes
+   * such as those that appear in a literal section of a template.
+   *
+   * This part must be empty, as its contents are not automatically moved.
+   */
+
+
+  insertAfterNode(ref) {
+    this.startNode = ref;
+    this.endNode = ref.nextSibling;
+  }
+  /**
+   * Appends this part into a parent part.
+   *
+   * This part must be empty, as its contents are not automatically moved.
+   */
+
+
+  appendIntoPart(part) {
+    part.__insert(this.startNode = (0, _template.createMarker)());
+
+    part.__insert(this.endNode = (0, _template.createMarker)());
+  }
+  /**
+   * Inserts this part after the `ref` part.
+   *
+   * This part must be empty, as its contents are not automatically moved.
+   */
+
+
+  insertAfterPart(ref) {
+    ref.__insert(this.startNode = (0, _template.createMarker)());
+
+    this.endNode = ref.endNode;
+    ref.endNode = this.startNode;
+  }
+
+  setValue(value) {
+    this.__pendingValue = value;
+  }
+
+  commit() {
+    if (this.startNode.parentNode === null) {
+      return;
+    }
+
+    while ((0, _directive.isDirective)(this.__pendingValue)) {
+      const directive = this.__pendingValue;
+      this.__pendingValue = _part.noChange;
+      directive(this);
+    }
+
+    const value = this.__pendingValue;
+
+    if (value === _part.noChange) {
+      return;
+    }
+
+    if (isPrimitive(value)) {
+      if (value !== this.value) {
+        this.__commitText(value);
+      }
+    } else if (value instanceof _templateResult.TemplateResult) {
+      this.__commitTemplateResult(value);
+    } else if (value instanceof Node) {
+      this.__commitNode(value);
+    } else if (isIterable(value)) {
+      this.__commitIterable(value);
+    } else if (value === _part.nothing) {
+      this.value = _part.nothing;
+      this.clear();
+    } else {
+      // Fallback, will render the string representation
+      this.__commitText(value);
+    }
+  }
+
+  __insert(node) {
+    this.endNode.parentNode.insertBefore(node, this.endNode);
+  }
+
+  __commitNode(value) {
+    if (this.value === value) {
+      return;
+    }
+
+    this.clear();
+
+    this.__insert(value);
+
+    this.value = value;
+  }
+
+  __commitText(value) {
+    const node = this.startNode.nextSibling;
+    value = value == null ? '' : value; // If `value` isn't already a string, we explicitly convert it here in case
+    // it can't be implicitly converted - i.e. it's a symbol.
+
+    const valueAsString = typeof value === 'string' ? value : String(value);
+
+    if (node === this.endNode.previousSibling && node.nodeType === 3
+    /* Node.TEXT_NODE */
+    ) {
+      // If we only have a single text node between the markers, we can just
+      // set its value, rather than replacing it.
+      // TODO(justinfagnani): Can we just check if this.value is primitive?
+      node.data = valueAsString;
+    } else {
+      this.__commitNode(document.createTextNode(valueAsString));
+    }
+
+    this.value = value;
+  }
+
+  __commitTemplateResult(value) {
+    const template = this.options.templateFactory(value);
+
+    if (this.value instanceof _templateInstance.TemplateInstance && this.value.template === template) {
+      this.value.update(value.values);
+    } else {
+      // Make sure we propagate the template processor from the TemplateResult
+      // so that we use its syntax extension, etc. The template factory comes
+      // from the render function options so that it can control template
+      // caching and preprocessing.
+      const instance = new _templateInstance.TemplateInstance(template, value.processor, this.options);
+
+      const fragment = instance._clone();
+
+      instance.update(value.values);
+
+      this.__commitNode(fragment);
+
+      this.value = instance;
+    }
+  }
+
+  __commitIterable(value) {
+    // For an Iterable, we create a new InstancePart per item, then set its
+    // value to the item. This is a little bit of overhead for every item in
+    // an Iterable, but it lets us recurse easily and efficiently update Arrays
+    // of TemplateResults that will be commonly returned from expressions like:
+    // array.map((i) => html`${i}`), by reusing existing TemplateInstances.
+    // If _value is an array, then the previous render was of an
+    // iterable and _value will contain the NodeParts from the previous
+    // render. If _value is not an array, clear this part and make a new
+    // array for NodeParts.
+    if (!Array.isArray(this.value)) {
+      this.value = [];
+      this.clear();
+    } // Lets us keep track of how many items we stamped so we can clear leftover
+    // items from a previous render
+
+
+    const itemParts = this.value;
+    let partIndex = 0;
+    let itemPart;
+
+    for (const item of value) {
+      // Try to reuse an existing part
+      itemPart = itemParts[partIndex]; // If no existing part, create a new one
+
+      if (itemPart === undefined) {
+        itemPart = new NodePart(this.options);
+        itemParts.push(itemPart);
+
+        if (partIndex === 0) {
+          itemPart.appendIntoPart(this);
+        } else {
+          itemPart.insertAfterPart(itemParts[partIndex - 1]);
+        }
+      }
+
+      itemPart.setValue(item);
+      itemPart.commit();
+      partIndex++;
+    }
+
+    if (partIndex < itemParts.length) {
+      // Truncate the parts array so _value reflects the current state
+      itemParts.length = partIndex;
+      this.clear(itemPart && itemPart.endNode);
+    }
+  }
+
+  clear(startNode = this.startNode) {
+    (0, _dom.removeNodes)(this.startNode.parentNode, startNode.nextSibling, this.endNode);
+  }
+
+}
+/**
+ * Implements a boolean attribute, roughly as defined in the HTML
+ * specification.
+ *
+ * If the value is truthy, then the attribute is present with a value of
+ * ''. If the value is falsey, the attribute is removed.
+ */
+
+
+exports.NodePart = NodePart;
+
+class BooleanAttributePart {
+  constructor(element, name, strings) {
+    this.value = undefined;
+    this.__pendingValue = undefined;
+
+    if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
+      throw new Error('Boolean attributes can only contain a single expression');
+    }
+
+    this.element = element;
+    this.name = name;
+    this.strings = strings;
+  }
+
+  setValue(value) {
+    this.__pendingValue = value;
+  }
+
+  commit() {
+    while ((0, _directive.isDirective)(this.__pendingValue)) {
+      const directive = this.__pendingValue;
+      this.__pendingValue = _part.noChange;
+      directive(this);
+    }
+
+    if (this.__pendingValue === _part.noChange) {
+      return;
+    }
+
+    const value = !!this.__pendingValue;
+
+    if (this.value !== value) {
+      if (value) {
+        this.element.setAttribute(this.name, '');
+      } else {
+        this.element.removeAttribute(this.name);
+      }
+
+      this.value = value;
+    }
+
+    this.__pendingValue = _part.noChange;
+  }
+
+}
+/**
+ * Sets attribute values for PropertyParts, so that the value is only set once
+ * even if there are multiple parts for a property.
+ *
+ * If an expression controls the whole property value, then the value is simply
+ * assigned to the property under control. If there are string literals or
+ * multiple expressions, then the strings are expressions are interpolated into
+ * a string first.
+ */
+
+
+exports.BooleanAttributePart = BooleanAttributePart;
+
+class PropertyCommitter extends AttributeCommitter {
+  constructor(element, name, strings) {
+    super(element, name, strings);
+    this.single = strings.length === 2 && strings[0] === '' && strings[1] === '';
+  }
+
+  _createPart() {
+    return new PropertyPart(this);
+  }
+
+  _getValue() {
+    if (this.single) {
+      return this.parts[0].value;
+    }
+
+    return super._getValue();
+  }
+
+  commit() {
+    if (this.dirty) {
+      this.dirty = false; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+      this.element[this.name] = this._getValue();
+    }
   }
 
 }
 
-class M extends S {
-  constructor() {
-    super(...arguments), this.type = 3;
+exports.PropertyCommitter = PropertyCommitter;
+
+class PropertyPart extends AttributePart {} // Detect event listener options support. If the `capture` property is read
+// from the options object, then options are supported. If not, then the third
+// argument to add/removeEventListener is interpreted as the boolean capture
+// value so we should only pass the `capture` property.
+
+
+exports.PropertyPart = PropertyPart;
+let eventOptionsSupported = false; // Wrap into an IIFE because MS Edge <= v41 does not support having try/catch
+// blocks right into the body of a module
+
+(() => {
+  try {
+    const options = {
+      get capture() {
+        eventOptionsSupported = true;
+        return false;
+      }
+
+    }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    window.addEventListener('test', options, options); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    window.removeEventListener('test', options, options);
+  } catch (_e) {// event options not supported
+  }
+})();
+
+class EventPart {
+  constructor(element, eventName, eventContext) {
+    this.value = undefined;
+    this.__pendingValue = undefined;
+    this.element = element;
+    this.eventName = eventName;
+    this.eventContext = eventContext;
+
+    this.__boundHandleEvent = e => this.handleEvent(e);
   }
 
-  C(t) {
-    this.element[this.name] = t === w ? void 0 : t;
+  setValue(value) {
+    this.__pendingValue = value;
+  }
+
+  commit() {
+    while ((0, _directive.isDirective)(this.__pendingValue)) {
+      const directive = this.__pendingValue;
+      this.__pendingValue = _part.noChange;
+      directive(this);
+    }
+
+    if (this.__pendingValue === _part.noChange) {
+      return;
+    }
+
+    const newListener = this.__pendingValue;
+    const oldListener = this.value;
+    const shouldRemoveListener = newListener == null || oldListener != null && (newListener.capture !== oldListener.capture || newListener.once !== oldListener.once || newListener.passive !== oldListener.passive);
+    const shouldAddListener = newListener != null && (oldListener == null || shouldRemoveListener);
+
+    if (shouldRemoveListener) {
+      this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options);
+    }
+
+    if (shouldAddListener) {
+      this.__options = getOptions(newListener);
+      this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options);
+    }
+
+    this.value = newListener;
+    this.__pendingValue = _part.noChange;
+  }
+
+  handleEvent(event) {
+    if (typeof this.value === 'function') {
+      this.value.call(this.eventContext || this.element, event);
+    } else {
+      this.value.handleEvent(event);
+    }
+  }
+
+} // We copy options because of the inconsistent behavior of browsers when reading
+// the third argument of add/removeEventListener. IE11 doesn't support options
+// at all. Chrome 41 only reads `capture` if the argument is an object.
+
+
+exports.EventPart = EventPart;
+
+const getOptions = o => o && (eventOptionsSupported ? {
+  capture: o.capture,
+  passive: o.passive,
+  once: o.once
+} : o.capture);
+},{"./directive.js":"../node_modules/lit-html/lib/directive.js","./dom.js":"../node_modules/lit-html/lib/dom.js","./part.js":"../node_modules/lit-html/lib/part.js","./template-instance.js":"../node_modules/lit-html/lib/template-instance.js","./template-result.js":"../node_modules/lit-html/lib/template-result.js","./template.js":"../node_modules/lit-html/lib/template.js"}],"../node_modules/lit-html/lib/default-template-processor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.defaultTemplateProcessor = exports.DefaultTemplateProcessor = void 0;
+
+var _parts = require("./parts.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * Creates Parts when a template is instantiated.
+ */
+class DefaultTemplateProcessor {
+  /**
+   * Create parts for an attribute-position binding, given the event, attribute
+   * name, and string literals.
+   *
+   * @param element The element containing the binding
+   * @param name  The attribute name
+   * @param strings The string literals. There are always at least two strings,
+   *   event for fully-controlled bindings with a single expression.
+   */
+  handleAttributeExpressions(element, name, strings, options) {
+    const prefix = name[0];
+
+    if (prefix === '.') {
+      const committer = new _parts.PropertyCommitter(element, name.slice(1), strings);
+      return committer.parts;
+    }
+
+    if (prefix === '@') {
+      return [new _parts.EventPart(element, name.slice(1), options.eventContext)];
+    }
+
+    if (prefix === '?') {
+      return [new _parts.BooleanAttributePart(element, name.slice(1), strings)];
+    }
+
+    const committer = new _parts.AttributeCommitter(element, name, strings);
+    return committer.parts;
+  }
+  /**
+   * Create parts for a text-position binding.
+   * @param templateFactory
+   */
+
+
+  handleTextExpression(options) {
+    return new _parts.NodePart(options);
   }
 
 }
 
-const k = i ? i.emptyScript : "";
+exports.DefaultTemplateProcessor = DefaultTemplateProcessor;
+const defaultTemplateProcessor = new DefaultTemplateProcessor();
+exports.defaultTemplateProcessor = defaultTemplateProcessor;
+},{"./parts.js":"../node_modules/lit-html/lib/parts.js"}],"../node_modules/lit-html/lib/template-factory.js":[function(require,module,exports) {
+"use strict";
 
-class H extends S {
-  constructor() {
-    super(...arguments), this.type = 4;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.templateCaches = void 0;
+exports.templateFactory = templateFactory;
+
+var _template = require("./template.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * The default TemplateFactory which caches Templates keyed on
+ * result.type and result.strings.
+ */
+function templateFactory(result) {
+  let templateCache = templateCaches.get(result.type);
+
+  if (templateCache === undefined) {
+    templateCache = {
+      stringsArray: new WeakMap(),
+      keyString: new Map()
+    };
+    templateCaches.set(result.type, templateCache);
   }
 
-  C(t) {
-    t && t !== w ? this.element.setAttribute(this.name, k) : this.element.removeAttribute(this.name);
-  }
+  let template = templateCache.stringsArray.get(result.strings);
 
+  if (template !== undefined) {
+    return template;
+  } // If the TemplateStringsArray is new, generate a key from the strings
+  // This key is shared between all templates with identical content
+
+
+  const key = result.strings.join(_template.marker); // Check if we already have a Template for this key
+
+  template = templateCache.keyString.get(key);
+
+  if (template === undefined) {
+    // If we have not seen this key before, create a new Template
+    template = new _template.Template(result, result.getTemplateElement()); // Cache the Template for this key
+
+    templateCache.keyString.set(key, template);
+  } // Cache all future queries for this TemplateStringsArray
+
+
+  templateCache.stringsArray.set(result.strings, template);
+  return template;
 }
 
-class I extends S {
-  constructor(t, i, s, e, o) {
-    super(t, i, s, e, o), this.type = 5;
+const templateCaches = new Map();
+exports.templateCaches = templateCaches;
+},{"./template.js":"../node_modules/lit-html/lib/template.js"}],"../node_modules/lit-html/lib/render.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.render = exports.parts = void 0;
+
+var _dom = require("./dom.js");
+
+var _parts = require("./parts.js");
+
+var _templateFactory = require("./template-factory.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const parts = new WeakMap();
+/**
+ * Renders a template result or other value to a container.
+ *
+ * To update a container with new values, reevaluate the template literal and
+ * call `render` with the new result.
+ *
+ * @param result Any value renderable by NodePart - typically a TemplateResult
+ *     created by evaluating a template tag like `html` or `svg`.
+ * @param container A DOM parent to render to. The entire contents are either
+ *     replaced, or efficiently updated if the same result type was previous
+ *     rendered there.
+ * @param options RenderOptions for the entire render tree rendered to this
+ *     container. Render options must *not* change between renders to the same
+ *     container, as those changes will not effect previously rendered DOM.
+ */
+
+exports.parts = parts;
+
+const render = (result, container, options) => {
+  let part = parts.get(container);
+
+  if (part === undefined) {
+    (0, _dom.removeNodes)(container, container.firstChild);
+    parts.set(container, part = new _parts.NodePart(Object.assign({
+      templateFactory: _templateFactory.templateFactory
+    }, options)));
+    part.appendInto(container);
   }
 
-  _$AI(t, i = this) {
-    var s;
-    if ((t = null !== (s = P(this, t, i, 0)) && void 0 !== s ? s : w) === b) return;
-    const e = this._$AH,
-          o = t === w && e !== w || t.capture !== e.capture || t.once !== e.once || t.passive !== e.passive,
-          n = t !== w && (e === w || o);
-    o && this.element.removeEventListener(this.name, this, e), n && this.element.addEventListener(this.name, this, t), this._$AH = t;
-  }
+  part.setValue(result);
+  part.commit();
+};
 
-  handleEvent(t) {
-    var i, s;
-    "function" == typeof this._$AH ? this._$AH.call(null !== (s = null === (i = this.options) || void 0 === i ? void 0 : i.host) && void 0 !== s ? s : this.element, t) : this._$AH.handleEvent(t);
-  }
+exports.render = render;
+},{"./dom.js":"../node_modules/lit-html/lib/dom.js","./parts.js":"../node_modules/lit-html/lib/parts.js","./template-factory.js":"../node_modules/lit-html/lib/template-factory.js"}],"../node_modules/lit-html/lit-html.js":[function(require,module,exports) {
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "AttributeCommitter", {
+  enumerable: true,
+  get: function () {
+    return _parts.AttributeCommitter;
+  }
+});
+Object.defineProperty(exports, "AttributePart", {
+  enumerable: true,
+  get: function () {
+    return _parts.AttributePart;
+  }
+});
+Object.defineProperty(exports, "BooleanAttributePart", {
+  enumerable: true,
+  get: function () {
+    return _parts.BooleanAttributePart;
+  }
+});
+Object.defineProperty(exports, "DefaultTemplateProcessor", {
+  enumerable: true,
+  get: function () {
+    return _defaultTemplateProcessor.DefaultTemplateProcessor;
+  }
+});
+Object.defineProperty(exports, "EventPart", {
+  enumerable: true,
+  get: function () {
+    return _parts.EventPart;
+  }
+});
+Object.defineProperty(exports, "NodePart", {
+  enumerable: true,
+  get: function () {
+    return _parts.NodePart;
+  }
+});
+Object.defineProperty(exports, "PropertyCommitter", {
+  enumerable: true,
+  get: function () {
+    return _parts.PropertyCommitter;
+  }
+});
+Object.defineProperty(exports, "PropertyPart", {
+  enumerable: true,
+  get: function () {
+    return _parts.PropertyPart;
+  }
+});
+Object.defineProperty(exports, "SVGTemplateResult", {
+  enumerable: true,
+  get: function () {
+    return _templateResult.SVGTemplateResult;
+  }
+});
+Object.defineProperty(exports, "Template", {
+  enumerable: true,
+  get: function () {
+    return _template.Template;
+  }
+});
+Object.defineProperty(exports, "TemplateInstance", {
+  enumerable: true,
+  get: function () {
+    return _templateInstance.TemplateInstance;
+  }
+});
+Object.defineProperty(exports, "TemplateResult", {
+  enumerable: true,
+  get: function () {
+    return _templateResult.TemplateResult;
+  }
+});
+Object.defineProperty(exports, "createMarker", {
+  enumerable: true,
+  get: function () {
+    return _template.createMarker;
+  }
+});
+Object.defineProperty(exports, "defaultTemplateProcessor", {
+  enumerable: true,
+  get: function () {
+    return _defaultTemplateProcessor.defaultTemplateProcessor;
+  }
+});
+Object.defineProperty(exports, "directive", {
+  enumerable: true,
+  get: function () {
+    return _directive.directive;
+  }
+});
+exports.html = void 0;
+Object.defineProperty(exports, "isDirective", {
+  enumerable: true,
+  get: function () {
+    return _directive.isDirective;
+  }
+});
+Object.defineProperty(exports, "isIterable", {
+  enumerable: true,
+  get: function () {
+    return _parts.isIterable;
+  }
+});
+Object.defineProperty(exports, "isPrimitive", {
+  enumerable: true,
+  get: function () {
+    return _parts.isPrimitive;
+  }
+});
+Object.defineProperty(exports, "isTemplatePartActive", {
+  enumerable: true,
+  get: function () {
+    return _template.isTemplatePartActive;
+  }
+});
+Object.defineProperty(exports, "noChange", {
+  enumerable: true,
+  get: function () {
+    return _part.noChange;
+  }
+});
+Object.defineProperty(exports, "nothing", {
+  enumerable: true,
+  get: function () {
+    return _part.nothing;
+  }
+});
+Object.defineProperty(exports, "parts", {
+  enumerable: true,
+  get: function () {
+    return _render.parts;
+  }
+});
+Object.defineProperty(exports, "removeNodes", {
+  enumerable: true,
+  get: function () {
+    return _dom.removeNodes;
+  }
+});
+Object.defineProperty(exports, "render", {
+  enumerable: true,
+  get: function () {
+    return _render.render;
+  }
+});
+Object.defineProperty(exports, "reparentNodes", {
+  enumerable: true,
+  get: function () {
+    return _dom.reparentNodes;
+  }
+});
+exports.svg = void 0;
+Object.defineProperty(exports, "templateCaches", {
+  enumerable: true,
+  get: function () {
+    return _templateFactory.templateCaches;
+  }
+});
+Object.defineProperty(exports, "templateFactory", {
+  enumerable: true,
+  get: function () {
+    return _templateFactory.templateFactory;
+  }
+});
+
+var _defaultTemplateProcessor = require("./lib/default-template-processor.js");
+
+var _templateResult = require("./lib/template-result.js");
+
+var _directive = require("./lib/directive.js");
+
+var _dom = require("./lib/dom.js");
+
+var _part = require("./lib/part.js");
+
+var _parts = require("./lib/parts.js");
+
+var _render = require("./lib/render.js");
+
+var _templateFactory = require("./lib/template-factory.js");
+
+var _templateInstance = require("./lib/template-instance.js");
+
+var _template = require("./lib/template.js");
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ *
+ * Main lit-html module.
+ *
+ * Main exports:
+ *
+ * -  [[html]]
+ * -  [[svg]]
+ * -  [[render]]
+ *
+ * @packageDocumentation
+ */
+
+/**
+ * Do not remove this comment; it keeps typedoc from misplacing the module
+ * docs.
+ */
+// TODO(justinfagnani): remove line when we get NodePart moving methods
+// IMPORTANT: do not change the property name or the assignment expression.
+// This line will be used in regexes to search for lit-html usage.
+// TODO(justinfagnani): inject version number at build time
+if (typeof window !== 'undefined') {
+  (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.4.1');
 }
+/**
+ * Interprets a template literal as an HTML template that can efficiently
+ * render to and update a container.
+ */
 
-class L {
-  constructor(t, i, s) {
-    this.element = t, this.type = 6, this._$AN = void 0, this._$AM = i, this.options = s;
-  }
 
-  get _$AU() {
-    return this._$AM._$AU;
-  }
+const html = (strings, ...values) => new _templateResult.TemplateResult(strings, values, 'html', _defaultTemplateProcessor.defaultTemplateProcessor);
+/**
+ * Interprets a template literal as an SVG template that can efficiently
+ * render to and update a container.
+ */
 
-  _$AI(t) {
-    P(this, t);
-  }
 
-}
+exports.html = html;
 
-const R = {
-  L: "$lit$",
-  P: e,
-  V: o,
-  I: 1,
-  N: C,
-  R: V,
-  j: u,
-  D: P,
-  H: N,
-  F: S,
-  O: H,
-  W: I,
-  B: M,
-  Z: L
-},
-      z = window.litHtmlPolyfillSupport;
-exports._$LH = R;
-null == z || z(E, N), (null !== (t = globalThis.litHtmlVersions) && void 0 !== t ? t : globalThis.litHtmlVersions = []).push("2.2.6");
-},{}],"views/partials/splash.js":[function(require,module,exports) {
+const svg = (strings, ...values) => new _templateResult.SVGTemplateResult(strings, values, 'svg', _defaultTemplateProcessor.defaultTemplateProcessor);
+
+exports.svg = svg;
+},{"./lib/default-template-processor.js":"../node_modules/lit-html/lib/default-template-processor.js","./lib/template-result.js":"../node_modules/lit-html/lib/template-result.js","./lib/directive.js":"../node_modules/lit-html/lib/directive.js","./lib/dom.js":"../node_modules/lit-html/lib/dom.js","./lib/part.js":"../node_modules/lit-html/lib/part.js","./lib/parts.js":"../node_modules/lit-html/lib/parts.js","./lib/render.js":"../node_modules/lit-html/lib/render.js","./lib/template-factory.js":"../node_modules/lit-html/lib/template-factory.js","./lib/template-instance.js":"../node_modules/lit-html/lib/template-instance.js","./lib/template.js":"../node_modules/lit-html/lib/template.js"}],"views/partials/splash.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6751,7 +8120,7 @@ class SignUpView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <style>\n      body {\n        background: var(--body-bg);\n      }\n    </style>\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/brandmark.png\" />\n          <h1>Sign Up</h1>\n          <sl-form class=\"form-signup\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input\n                name=\"firstName\"\n                type=\"text\"\n                placeholder=\"First Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"lastName\"\n                type=\"text\"\n                placeholder=\"Last Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"email\"\n                type=\"email\"\n                placeholder=\"Email\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"password\"\n                type=\"password\"\n                placeholder=\"Password\"\n                required\n                toggle-password\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-select name=\"accessLevel\" placeholder=\"I am a ...\" required>\n                <sl-menu-item value=\"1\">Admin</sl-menu-item>\n                <sl-menu-item value=\"2\">Customer</sl-menu-item>\n              </sl-select>\n            </div>\n            <sl-button\n              type=\"primary\"\n              class=\"submit-btn\"\n              submit\n              style=\"width: 100%;\"\n              >Sign Up</sl-button\n            >\n          </sl-form>\n          <p>\n            Have an account? <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "])), this.signUpSubmitHandler, _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <style>\n      body {\n        background: var(--body-bg);\n      }\n    </style>\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/brandmark.png\" />\n          <h3>Sign Up</h3>\n          <sl-form class=\"form-signup\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input\n                name=\"firstName\"\n                type=\"text\"\n                placeholder=\"First Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"lastName\"\n                type=\"text\"\n                placeholder=\"Last Name\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"email\"\n                type=\"email\"\n                placeholder=\"Email\"\n                required\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input\n                name=\"password\"\n                type=\"password\"\n                placeholder=\"Password\"\n                required\n                toggle-password\n              ></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-select class=\"sign-up-level\" name=\"accessLevel\" placeholder=\"I am a ...\" required>\n                <sl-menu-item value=\"1\">Admin</sl-menu-item>\n                <sl-menu-item value=\"2\">Customer</sl-menu-item>\n              </sl-select>\n            </div>\n            <sl-button\n              type=\"primary\"\n              class=\"submit-btn\"\n              submit\n              style=\"width: 100%;\"\n              >Sign Up</sl-button\n            >\n          </sl-form>\n          <p>\n            Have an account? <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "])), this.signUpSubmitHandler, _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6792,10 +8161,32 @@ class ProfileView {
     _Utils.default.pageIntroAnim();
   }
 
+
   render() {
     const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
+
+  commit() {
+    while ((0, _directive.isDirective)(this.__pendingValue)) {
+      const directive = this.__pendingValue;
+      this.__pendingValue = _part.noChange;
+      directive(this);
+    }
+
+    if (this.__pendingValue === _part.noChange) {
+      return;
+    }
+
+    const value = !!this.__pendingValue;
+
+    if (this.value !== value) {
+      if (value) {
+        this.element.setAttribute(this.name, '');
+      } else {
+        this.element.removeAttribute(this.name);
+      }
+
 
 }
 
@@ -6877,7 +8268,7 @@ class AboutUsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>About Us</h1>\n        <p>Looking to learn more about Cupcake Bar?\n        <br> More details coming soon!! </p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6919,7 +8310,7 @@ class ProductsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6961,7 +8352,7 @@ class FavouriteProductsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <p>Save your favourite tasty cupcakes for later!\n        <br> Coming soon... </p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -7045,7 +8436,7 @@ class CartView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header title=\"Profile\" user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>My Cart</h1>\n        <p> For cupcake purchases on the go!\n        <br> Coming soon...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -7175,10 +8566,24 @@ class App {
   constructor() {
     this.name = "Cupcake Bar";
     this.version = "1.0.0";
-    this.apiBase = 'http://localhost:5500';
+    this.apiBase = 'https://cupcakebar.herokuapp.com';
     this.rootEl = document.getElementById("root");
     this.version = "1.0.0";
   }
+
+/**
+ *
+ * Main lit-html module.
+ *
+ * Main exports:
+ *
+ * -  [[html]]
+ * -  [[svg]]
+ * -  [[render]]
+ *
+ * @packageDocumentation
+ */
+
 
   init() {
     console.log("App.init"); // Toast init
@@ -7197,1804 +8602,7 @@ class App {
 var _default = new App();
 
 exports.default = _default;
-},{"./Router":"Router.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/directive.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isDirective = exports.directive = void 0;
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const directives = new WeakMap();
-/**
- * Brands a function as a directive factory function so that lit-html will call
- * the function during template rendering, rather than passing as a value.
- *
- * A _directive_ is a function that takes a Part as an argument. It has the
- * signature: `(part: Part) => void`.
- *
- * A directive _factory_ is a function that takes arguments for data and
- * configuration and returns a directive. Users of directive usually refer to
- * the directive factory as the directive. For example, "The repeat directive".
- *
- * Usually a template author will invoke a directive factory in their template
- * with relevant arguments, which will then return a directive function.
- *
- * Here's an example of using the `repeat()` directive factory that takes an
- * array and a function to render an item:
- *
- * ```js
- * html`<ul><${repeat(items, (item) => html`<li>${item}</li>`)}</ul>`
- * ```
- *
- * When `repeat` is invoked, it returns a directive function that closes over
- * `items` and the template function. When the outer template is rendered, the
- * return directive function is called with the Part for the expression.
- * `repeat` then performs it's custom logic to render multiple items.
- *
- * @param f The directive factory function. Must be a function that returns a
- * function of the signature `(part: Part) => void`. The returned function will
- * be called with the part object.
- *
- * @example
- *
- * import {directive, html} from 'lit-html';
- *
- * const immutable = directive((v) => (part) => {
- *   if (part.value !== v) {
- *     part.setValue(v)
- *   }
- * });
- */
-
-const directive = f => (...args) => {
-  const d = f(...args);
-  directives.set(d, true);
-  return d;
-};
-
-exports.directive = directive;
-
-const isDirective = o => {
-  return typeof o === 'function' && directives.has(o);
-};
-
-exports.isDirective = isDirective;
-},{}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.reparentNodes = exports.removeNodes = exports.isCEPolyfill = void 0;
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * True if the custom elements polyfill is in use.
- */
-const isCEPolyfill = typeof window !== 'undefined' && window.customElements != null && window.customElements.polyfillWrapFlushCallback !== undefined;
-/**
- * Reparents nodes, starting from `start` (inclusive) to `end` (exclusive),
- * into another container (could be the same container), before `before`. If
- * `before` is null, it appends the nodes to the container.
- */
-
-exports.isCEPolyfill = isCEPolyfill;
-
-const reparentNodes = (container, start, end = null, before = null) => {
-  while (start !== end) {
-    const n = start.nextSibling;
-    container.insertBefore(start, before);
-    start = n;
-  }
-};
-/**
- * Removes nodes, starting from `start` (inclusive) to `end` (exclusive), from
- * `container`.
- */
-
-
-exports.reparentNodes = reparentNodes;
-
-const removeNodes = (container, start, end = null) => {
-  while (start !== end) {
-    const n = start.nextSibling;
-    container.removeChild(start);
-    start = n;
-  }
-};
-
-exports.removeNodes = removeNodes;
-},{}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/part.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.nothing = exports.noChange = void 0;
-
-/**
- * @license
- * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * A sentinel value that signals that a value was handled by a directive and
- * should not be written to the DOM.
- */
-const noChange = {};
-/**
- * A sentinel value that signals a NodePart to fully clear its content.
- */
-
-exports.noChange = noChange;
-const nothing = {};
-exports.nothing = nothing;
-},{}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.nodeMarker = exports.markerRegex = exports.marker = exports.lastAttributeNameRegex = exports.isTemplatePartActive = exports.createMarker = exports.boundAttributeSuffix = exports.Template = void 0;
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * An expression marker with embedded unique key to avoid collision with
- * possible text in templates.
- */
-const marker = `{{lit-${String(Math.random()).slice(2)}}}`;
-/**
- * An expression marker used text-positions, multi-binding attributes, and
- * attributes with markup-like text values.
- */
-
-exports.marker = marker;
-const nodeMarker = `<!--${marker}-->`;
-exports.nodeMarker = nodeMarker;
-const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
-/**
- * Suffix appended to all bound attribute names.
- */
-
-exports.markerRegex = markerRegex;
-const boundAttributeSuffix = '$lit$';
-/**
- * An updatable Template that tracks the location of dynamic parts.
- */
-
-exports.boundAttributeSuffix = boundAttributeSuffix;
-
-class Template {
-  constructor(result, element) {
-    this.parts = [];
-    this.element = element;
-    const nodesToRemove = [];
-    const stack = []; // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
-
-    const walker = document.createTreeWalker(element.content, 133
-    /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
-    , null, false); // Keeps track of the last index associated with a part. We try to delete
-    // unnecessary nodes, but we never want to associate two different parts
-    // to the same index. They must have a constant node between.
-
-    let lastPartIndex = 0;
-    let index = -1;
-    let partIndex = 0;
-    const {
-      strings,
-      values: {
-        length
-      }
-    } = result;
-
-    while (partIndex < length) {
-      const node = walker.nextNode();
-
-      if (node === null) {
-        // We've exhausted the content inside a nested template element.
-        // Because we still have parts (the outer for-loop), we know:
-        // - There is a template in the stack
-        // - The walker will find a nextNode outside the template
-        walker.currentNode = stack.pop();
-        continue;
-      }
-
-      index++;
-
-      if (node.nodeType === 1
-      /* Node.ELEMENT_NODE */
-      ) {
-        if (node.hasAttributes()) {
-          const attributes = node.attributes;
-          const {
-            length
-          } = attributes; // Per
-          // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
-          // attributes are not guaranteed to be returned in document order.
-          // In particular, Edge/IE can return them out of order, so we cannot
-          // assume a correspondence between part index and attribute index.
-
-          let count = 0;
-
-          for (let i = 0; i < length; i++) {
-            if (endsWith(attributes[i].name, boundAttributeSuffix)) {
-              count++;
-            }
-          }
-
-          while (count-- > 0) {
-            // Get the template literal section leading up to the first
-            // expression in this attribute
-            const stringForPart = strings[partIndex]; // Find the attribute name
-
-            const name = lastAttributeNameRegex.exec(stringForPart)[2]; // Find the corresponding attribute
-            // All bound attributes have had a suffix added in
-            // TemplateResult#getHTML to opt out of special attribute
-            // handling. To look up the attribute value we also need to add
-            // the suffix.
-
-            const attributeLookupName = name.toLowerCase() + boundAttributeSuffix;
-            const attributeValue = node.getAttribute(attributeLookupName);
-            node.removeAttribute(attributeLookupName);
-            const statics = attributeValue.split(markerRegex);
-            this.parts.push({
-              type: 'attribute',
-              index,
-              name,
-              strings: statics
-            });
-            partIndex += statics.length - 1;
-          }
-        }
-
-        if (node.tagName === 'TEMPLATE') {
-          stack.push(node);
-          walker.currentNode = node.content;
-        }
-      } else if (node.nodeType === 3
-      /* Node.TEXT_NODE */
-      ) {
-        const data = node.data;
-
-        if (data.indexOf(marker) >= 0) {
-          const parent = node.parentNode;
-          const strings = data.split(markerRegex);
-          const lastIndex = strings.length - 1; // Generate a new text node for each literal section
-          // These nodes are also used as the markers for node parts
-
-          for (let i = 0; i < lastIndex; i++) {
-            let insert;
-            let s = strings[i];
-
-            if (s === '') {
-              insert = createMarker();
-            } else {
-              const match = lastAttributeNameRegex.exec(s);
-
-              if (match !== null && endsWith(match[2], boundAttributeSuffix)) {
-                s = s.slice(0, match.index) + match[1] + match[2].slice(0, -boundAttributeSuffix.length) + match[3];
-              }
-
-              insert = document.createTextNode(s);
-            }
-
-            parent.insertBefore(insert, node);
-            this.parts.push({
-              type: 'node',
-              index: ++index
-            });
-          } // If there's no text, we must insert a comment to mark our place.
-          // Else, we can trust it will stick around after cloning.
-
-
-          if (strings[lastIndex] === '') {
-            parent.insertBefore(createMarker(), node);
-            nodesToRemove.push(node);
-          } else {
-            node.data = strings[lastIndex];
-          } // We have a part for each match found
-
-
-          partIndex += lastIndex;
-        }
-      } else if (node.nodeType === 8
-      /* Node.COMMENT_NODE */
-      ) {
-        if (node.data === marker) {
-          const parent = node.parentNode; // Add a new marker node to be the startNode of the Part if any of
-          // the following are true:
-          //  * We don't have a previousSibling
-          //  * The previousSibling is already the start of a previous part
-
-          if (node.previousSibling === null || index === lastPartIndex) {
-            index++;
-            parent.insertBefore(createMarker(), node);
-          }
-
-          lastPartIndex = index;
-          this.parts.push({
-            type: 'node',
-            index
-          }); // If we don't have a nextSibling, keep this node so we have an end.
-          // Else, we can remove it to save future costs.
-
-          if (node.nextSibling === null) {
-            node.data = '';
-          } else {
-            nodesToRemove.push(node);
-            index--;
-          }
-
-          partIndex++;
-        } else {
-          let i = -1;
-
-          while ((i = node.data.indexOf(marker, i + 1)) !== -1) {
-            // Comment node has a binding marker inside, make an inactive part
-            // The binding won't work, but subsequent bindings will
-            // TODO (justinfagnani): consider whether it's even worth it to
-            // make bindings in comments work
-            this.parts.push({
-              type: 'node',
-              index: -1
-            });
-            partIndex++;
-          }
-        }
-      }
-    } // Remove text binding nodes after the walk to not disturb the TreeWalker
-
-
-    for (const n of nodesToRemove) {
-      n.parentNode.removeChild(n);
-    }
-  }
-
-}
-
-exports.Template = Template;
-
-const endsWith = (str, suffix) => {
-  const index = str.length - suffix.length;
-  return index >= 0 && str.slice(index) === suffix;
-};
-
-const isTemplatePartActive = part => part.index !== -1; // Allows `document.createComment('')` to be renamed for a
-// small manual size-savings.
-
-
-exports.isTemplatePartActive = isTemplatePartActive;
-
-const createMarker = () => document.createComment('');
-/**
- * This regex extracts the attribute name preceding an attribute-position
- * expression. It does this by matching the syntax allowed for attributes
- * against the string literal directly preceding the expression, assuming that
- * the expression is in an attribute-value position.
- *
- * See attributes in the HTML spec:
- * https://www.w3.org/TR/html5/syntax.html#elements-attributes
- *
- * " \x09\x0a\x0c\x0d" are HTML space characters:
- * https://www.w3.org/TR/html5/infrastructure.html#space-characters
- *
- * "\0-\x1F\x7F-\x9F" are Unicode control characters, which includes every
- * space character except " ".
- *
- * So an attribute is:
- *  * The name: any character except a control character, space character, ('),
- *    ("), ">", "=", or "/"
- *  * Followed by zero or more space characters
- *  * Followed by "="
- *  * Followed by zero or more space characters
- *  * Followed by:
- *    * Any character except space, ('), ("), "<", ">", "=", (`), or
- *    * (") then any non-("), or
- *    * (') then any non-(')
- */
-
-
-exports.createMarker = createMarker;
-const lastAttributeNameRegex = // eslint-disable-next-line no-control-regex
-/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
-exports.lastAttributeNameRegex = lastAttributeNameRegex;
-},{}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-instance.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.TemplateInstance = void 0;
-
-var _dom = require("./dom.js");
-
-var _template = require("./template.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * An instance of a `Template` that can be attached to the DOM and updated
- * with new values.
- */
-class TemplateInstance {
-  constructor(template, processor, options) {
-    this.__parts = [];
-    this.template = template;
-    this.processor = processor;
-    this.options = options;
-  }
-
-  update(values) {
-    let i = 0;
-
-    for (const part of this.__parts) {
-      if (part !== undefined) {
-        part.setValue(values[i]);
-      }
-
-      i++;
-    }
-
-    for (const part of this.__parts) {
-      if (part !== undefined) {
-        part.commit();
-      }
-    }
-  }
-
-  _clone() {
-    // There are a number of steps in the lifecycle of a template instance's
-    // DOM fragment:
-    //  1. Clone - create the instance fragment
-    //  2. Adopt - adopt into the main document
-    //  3. Process - find part markers and create parts
-    //  4. Upgrade - upgrade custom elements
-    //  5. Update - set node, attribute, property, etc., values
-    //  6. Connect - connect to the document. Optional and outside of this
-    //     method.
-    //
-    // We have a few constraints on the ordering of these steps:
-    //  * We need to upgrade before updating, so that property values will pass
-    //    through any property setters.
-    //  * We would like to process before upgrading so that we're sure that the
-    //    cloned fragment is inert and not disturbed by self-modifying DOM.
-    //  * We want custom elements to upgrade even in disconnected fragments.
-    //
-    // Given these constraints, with full custom elements support we would
-    // prefer the order: Clone, Process, Adopt, Upgrade, Update, Connect
-    //
-    // But Safari does not implement CustomElementRegistry#upgrade, so we
-    // can not implement that order and still have upgrade-before-update and
-    // upgrade disconnected fragments. So we instead sacrifice the
-    // process-before-upgrade constraint, since in Custom Elements v1 elements
-    // must not modify their light DOM in the constructor. We still have issues
-    // when co-existing with CEv0 elements like Polymer 1, and with polyfills
-    // that don't strictly adhere to the no-modification rule because shadow
-    // DOM, which may be created in the constructor, is emulated by being placed
-    // in the light DOM.
-    //
-    // The resulting order is on native is: Clone, Adopt, Upgrade, Process,
-    // Update, Connect. document.importNode() performs Clone, Adopt, and Upgrade
-    // in one step.
-    //
-    // The Custom Elements v1 polyfill supports upgrade(), so the order when
-    // polyfilled is the more ideal: Clone, Process, Adopt, Upgrade, Update,
-    // Connect.
-    const fragment = _dom.isCEPolyfill ? this.template.element.content.cloneNode(true) : document.importNode(this.template.element.content, true);
-    const stack = [];
-    const parts = this.template.parts; // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
-
-    const walker = document.createTreeWalker(fragment, 133
-    /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
-    , null, false);
-    let partIndex = 0;
-    let nodeIndex = 0;
-    let part;
-    let node = walker.nextNode(); // Loop through all the nodes and parts of a template
-
-    while (partIndex < parts.length) {
-      part = parts[partIndex];
-
-      if (!(0, _template.isTemplatePartActive)(part)) {
-        this.__parts.push(undefined);
-
-        partIndex++;
-        continue;
-      } // Progress the tree walker until we find our next part's node.
-      // Note that multiple parts may share the same node (attribute parts
-      // on a single element), so this loop may not run at all.
-
-
-      while (nodeIndex < part.index) {
-        nodeIndex++;
-
-        if (node.nodeName === 'TEMPLATE') {
-          stack.push(node);
-          walker.currentNode = node.content;
-        }
-
-        if ((node = walker.nextNode()) === null) {
-          // We've exhausted the content inside a nested template element.
-          // Because we still have parts (the outer for-loop), we know:
-          // - There is a template in the stack
-          // - The walker will find a nextNode outside the template
-          walker.currentNode = stack.pop();
-          node = walker.nextNode();
-        }
-      } // We've arrived at our part's node.
-
-
-      if (part.type === 'node') {
-        const part = this.processor.handleTextExpression(this.options);
-        part.insertAfterNode(node.previousSibling);
-
-        this.__parts.push(part);
-      } else {
-        this.__parts.push(...this.processor.handleAttributeExpressions(node, part.name, part.strings, this.options));
-      }
-
-      partIndex++;
-    }
-
-    if (_dom.isCEPolyfill) {
-      document.adoptNode(fragment);
-      customElements.upgrade(fragment);
-    }
-
-    return fragment;
-  }
-
-}
-
-exports.TemplateInstance = TemplateInstance;
-},{"./dom.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js","./template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-result.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.TemplateResult = exports.SVGTemplateResult = void 0;
-
-var _dom = require("./dom.js");
-
-var _template = require("./template.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * @module lit-html
- */
-
-/**
- * Our TrustedTypePolicy for HTML which is declared using the html template
- * tag function.
- *
- * That HTML is a developer-authored constant, and is parsed with innerHTML
- * before any untrusted expressions have been mixed in. Therefor it is
- * considered safe by construction.
- */
-const policy = window.trustedTypes && trustedTypes.createPolicy('lit-html', {
-  createHTML: s => s
-});
-const commentMarker = ` ${_template.marker} `;
-/**
- * The return type of `html`, which holds a Template and the values from
- * interpolated expressions.
- */
-
-class TemplateResult {
-  constructor(strings, values, type, processor) {
-    this.strings = strings;
-    this.values = values;
-    this.type = type;
-    this.processor = processor;
-  }
-  /**
-   * Returns a string of HTML used to create a `<template>` element.
-   */
-
-
-  getHTML() {
-    const l = this.strings.length - 1;
-    let html = '';
-    let isCommentBinding = false;
-
-    for (let i = 0; i < l; i++) {
-      const s = this.strings[i]; // For each binding we want to determine the kind of marker to insert
-      // into the template source before it's parsed by the browser's HTML
-      // parser. The marker type is based on whether the expression is in an
-      // attribute, text, or comment position.
-      //   * For node-position bindings we insert a comment with the marker
-      //     sentinel as its text content, like <!--{{lit-guid}}-->.
-      //   * For attribute bindings we insert just the marker sentinel for the
-      //     first binding, so that we support unquoted attribute bindings.
-      //     Subsequent bindings can use a comment marker because multi-binding
-      //     attributes must be quoted.
-      //   * For comment bindings we insert just the marker sentinel so we don't
-      //     close the comment.
-      //
-      // The following code scans the template source, but is *not* an HTML
-      // parser. We don't need to track the tree structure of the HTML, only
-      // whether a binding is inside a comment, and if not, if it appears to be
-      // the first binding in an attribute.
-
-      const commentOpen = s.lastIndexOf('<!--'); // We're in comment position if we have a comment open with no following
-      // comment close. Because <-- can appear in an attribute value there can
-      // be false positives.
-
-      isCommentBinding = (commentOpen > -1 || isCommentBinding) && s.indexOf('-->', commentOpen + 1) === -1; // Check to see if we have an attribute-like sequence preceding the
-      // expression. This can match "name=value" like structures in text,
-      // comments, and attribute values, so there can be false-positives.
-
-      const attributeMatch = _template.lastAttributeNameRegex.exec(s);
-
-      if (attributeMatch === null) {
-        // We're only in this branch if we don't have a attribute-like
-        // preceding sequence. For comments, this guards against unusual
-        // attribute values like <div foo="<!--${'bar'}">. Cases like
-        // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
-        // below.
-        html += s + (isCommentBinding ? commentMarker : _template.nodeMarker);
-      } else {
-        // For attributes we use just a marker sentinel, and also append a
-        // $lit$ suffix to the name to opt-out of attribute-specific parsing
-        // that IE and Edge do for style and certain SVG attributes.
-        html += s.substr(0, attributeMatch.index) + attributeMatch[1] + attributeMatch[2] + _template.boundAttributeSuffix + attributeMatch[3] + _template.marker;
-      }
-    }
-
-    html += this.strings[l];
-    return html;
-  }
-
-  getTemplateElement() {
-    const template = document.createElement('template');
-    let value = this.getHTML();
-
-    if (policy !== undefined) {
-      // this is secure because `this.strings` is a TemplateStringsArray.
-      // TODO: validate this when
-      // https://github.com/tc39/proposal-array-is-template-object is
-      // implemented.
-      value = policy.createHTML(value);
-    }
-
-    template.innerHTML = value;
-    return template;
-  }
-
-}
-/**
- * A TemplateResult for SVG fragments.
- *
- * This class wraps HTML in an `<svg>` tag in order to parse its contents in the
- * SVG namespace, then modifies the template to remove the `<svg>` tag so that
- * clones only container the original fragment.
- */
-
-
-exports.TemplateResult = TemplateResult;
-
-class SVGTemplateResult extends TemplateResult {
-  getHTML() {
-    return `<svg>${super.getHTML()}</svg>`;
-  }
-
-  getTemplateElement() {
-    const template = super.getTemplateElement();
-    const content = template.content;
-    const svgElement = content.firstChild;
-    content.removeChild(svgElement);
-    (0, _dom.reparentNodes)(content, svgElement.firstChild);
-    return template;
-  }
-
-}
-
-exports.SVGTemplateResult = SVGTemplateResult;
-},{"./dom.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js","./template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/parts.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isPrimitive = exports.isIterable = exports.PropertyPart = exports.PropertyCommitter = exports.NodePart = exports.EventPart = exports.BooleanAttributePart = exports.AttributePart = exports.AttributeCommitter = void 0;
-
-var _directive = require("./directive.js");
-
-var _dom = require("./dom.js");
-
-var _part = require("./part.js");
-
-var _templateInstance = require("./template-instance.js");
-
-var _templateResult = require("./template-result.js");
-
-var _template = require("./template.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const isPrimitive = value => {
-  return value === null || !(typeof value === 'object' || typeof value === 'function');
-};
-
-exports.isPrimitive = isPrimitive;
-
-const isIterable = value => {
-  return Array.isArray(value) || // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  !!(value && value[Symbol.iterator]);
-};
-/**
- * Writes attribute values to the DOM for a group of AttributeParts bound to a
- * single attribute. The value is only set once even if there are multiple parts
- * for an attribute.
- */
-
-
-exports.isIterable = isIterable;
-
-class AttributeCommitter {
-  constructor(element, name, strings) {
-    this.dirty = true;
-    this.element = element;
-    this.name = name;
-    this.strings = strings;
-    this.parts = [];
-
-    for (let i = 0; i < strings.length - 1; i++) {
-      this.parts[i] = this._createPart();
-    }
-  }
-  /**
-   * Creates a single part. Override this to create a differnt type of part.
-   */
-
-
-  _createPart() {
-    return new AttributePart(this);
-  }
-
-  _getValue() {
-    const strings = this.strings;
-    const l = strings.length - 1;
-    const parts = this.parts; // If we're assigning an attribute via syntax like:
-    //    attr="${foo}"  or  attr=${foo}
-    // but not
-    //    attr="${foo} ${bar}" or attr="${foo} baz"
-    // then we don't want to coerce the attribute value into one long
-    // string. Instead we want to just return the value itself directly,
-    // so that sanitizeDOMValue can get the actual value rather than
-    // String(value)
-    // The exception is if v is an array, in which case we do want to smash
-    // it together into a string without calling String() on the array.
-    //
-    // This also allows trusted values (when using TrustedTypes) being
-    // assigned to DOM sinks without being stringified in the process.
-
-    if (l === 1 && strings[0] === '' && strings[1] === '') {
-      const v = parts[0].value;
-
-      if (typeof v === 'symbol') {
-        return String(v);
-      }
-
-      if (typeof v === 'string' || !isIterable(v)) {
-        return v;
-      }
-    }
-
-    let text = '';
-
-    for (let i = 0; i < l; i++) {
-      text += strings[i];
-      const part = parts[i];
-
-      if (part !== undefined) {
-        const v = part.value;
-
-        if (isPrimitive(v) || !isIterable(v)) {
-          text += typeof v === 'string' ? v : String(v);
-        } else {
-          for (const t of v) {
-            text += typeof t === 'string' ? t : String(t);
-          }
-        }
-      }
-    }
-
-    text += strings[l];
-    return text;
-  }
-
-  commit() {
-    if (this.dirty) {
-      this.dirty = false;
-      this.element.setAttribute(this.name, this._getValue());
-    }
-  }
-
-}
-/**
- * A Part that controls all or part of an attribute value.
- */
-
-
-exports.AttributeCommitter = AttributeCommitter;
-
-class AttributePart {
-  constructor(committer) {
-    this.value = undefined;
-    this.committer = committer;
-  }
-
-  setValue(value) {
-    if (value !== _part.noChange && (!isPrimitive(value) || value !== this.value)) {
-      this.value = value; // If the value is a not a directive, dirty the committer so that it'll
-      // call setAttribute. If the value is a directive, it'll dirty the
-      // committer if it calls setValue().
-
-      if (!(0, _directive.isDirective)(value)) {
-        this.committer.dirty = true;
-      }
-    }
-  }
-
-  commit() {
-    while ((0, _directive.isDirective)(this.value)) {
-      const directive = this.value;
-      this.value = _part.noChange;
-      directive(this);
-    }
-
-    if (this.value === _part.noChange) {
-      return;
-    }
-
-    this.committer.commit();
-  }
-
-}
-/**
- * A Part that controls a location within a Node tree. Like a Range, NodePart
- * has start and end locations and can set and update the Nodes between those
- * locations.
- *
- * NodeParts support several value types: primitives, Nodes, TemplateResults,
- * as well as arrays and iterables of those types.
- */
-
-
-exports.AttributePart = AttributePart;
-
-class NodePart {
-  constructor(options) {
-    this.value = undefined;
-    this.__pendingValue = undefined;
-    this.options = options;
-  }
-  /**
-   * Appends this part into a container.
-   *
-   * This part must be empty, as its contents are not automatically moved.
-   */
-
-
-  appendInto(container) {
-    this.startNode = container.appendChild((0, _template.createMarker)());
-    this.endNode = container.appendChild((0, _template.createMarker)());
-  }
-  /**
-   * Inserts this part after the `ref` node (between `ref` and `ref`'s next
-   * sibling). Both `ref` and its next sibling must be static, unchanging nodes
-   * such as those that appear in a literal section of a template.
-   *
-   * This part must be empty, as its contents are not automatically moved.
-   */
-
-
-  insertAfterNode(ref) {
-    this.startNode = ref;
-    this.endNode = ref.nextSibling;
-  }
-  /**
-   * Appends this part into a parent part.
-   *
-   * This part must be empty, as its contents are not automatically moved.
-   */
-
-
-  appendIntoPart(part) {
-    part.__insert(this.startNode = (0, _template.createMarker)());
-
-    part.__insert(this.endNode = (0, _template.createMarker)());
-  }
-  /**
-   * Inserts this part after the `ref` part.
-   *
-   * This part must be empty, as its contents are not automatically moved.
-   */
-
-
-  insertAfterPart(ref) {
-    ref.__insert(this.startNode = (0, _template.createMarker)());
-
-    this.endNode = ref.endNode;
-    ref.endNode = this.startNode;
-  }
-
-  setValue(value) {
-    this.__pendingValue = value;
-  }
-
-  commit() {
-    if (this.startNode.parentNode === null) {
-      return;
-    }
-
-    while ((0, _directive.isDirective)(this.__pendingValue)) {
-      const directive = this.__pendingValue;
-      this.__pendingValue = _part.noChange;
-      directive(this);
-    }
-
-    const value = this.__pendingValue;
-
-    if (value === _part.noChange) {
-      return;
-    }
-
-    if (isPrimitive(value)) {
-      if (value !== this.value) {
-        this.__commitText(value);
-      }
-    } else if (value instanceof _templateResult.TemplateResult) {
-      this.__commitTemplateResult(value);
-    } else if (value instanceof Node) {
-      this.__commitNode(value);
-    } else if (isIterable(value)) {
-      this.__commitIterable(value);
-    } else if (value === _part.nothing) {
-      this.value = _part.nothing;
-      this.clear();
-    } else {
-      // Fallback, will render the string representation
-      this.__commitText(value);
-    }
-  }
-
-  __insert(node) {
-    this.endNode.parentNode.insertBefore(node, this.endNode);
-  }
-
-  __commitNode(value) {
-    if (this.value === value) {
-      return;
-    }
-
-    this.clear();
-
-    this.__insert(value);
-
-    this.value = value;
-  }
-
-  __commitText(value) {
-    const node = this.startNode.nextSibling;
-    value = value == null ? '' : value; // If `value` isn't already a string, we explicitly convert it here in case
-    // it can't be implicitly converted - i.e. it's a symbol.
-
-    const valueAsString = typeof value === 'string' ? value : String(value);
-
-    if (node === this.endNode.previousSibling && node.nodeType === 3
-    /* Node.TEXT_NODE */
-    ) {
-      // If we only have a single text node between the markers, we can just
-      // set its value, rather than replacing it.
-      // TODO(justinfagnani): Can we just check if this.value is primitive?
-      node.data = valueAsString;
-    } else {
-      this.__commitNode(document.createTextNode(valueAsString));
-    }
-
-    this.value = value;
-  }
-
-  __commitTemplateResult(value) {
-    const template = this.options.templateFactory(value);
-
-    if (this.value instanceof _templateInstance.TemplateInstance && this.value.template === template) {
-      this.value.update(value.values);
-    } else {
-      // Make sure we propagate the template processor from the TemplateResult
-      // so that we use its syntax extension, etc. The template factory comes
-      // from the render function options so that it can control template
-      // caching and preprocessing.
-      const instance = new _templateInstance.TemplateInstance(template, value.processor, this.options);
-
-      const fragment = instance._clone();
-
-      instance.update(value.values);
-
-      this.__commitNode(fragment);
-
-      this.value = instance;
-    }
-  }
-
-  __commitIterable(value) {
-    // For an Iterable, we create a new InstancePart per item, then set its
-    // value to the item. This is a little bit of overhead for every item in
-    // an Iterable, but it lets us recurse easily and efficiently update Arrays
-    // of TemplateResults that will be commonly returned from expressions like:
-    // array.map((i) => html`${i}`), by reusing existing TemplateInstances.
-    // If _value is an array, then the previous render was of an
-    // iterable and _value will contain the NodeParts from the previous
-    // render. If _value is not an array, clear this part and make a new
-    // array for NodeParts.
-    if (!Array.isArray(this.value)) {
-      this.value = [];
-      this.clear();
-    } // Lets us keep track of how many items we stamped so we can clear leftover
-    // items from a previous render
-
-
-    const itemParts = this.value;
-    let partIndex = 0;
-    let itemPart;
-
-    for (const item of value) {
-      // Try to reuse an existing part
-      itemPart = itemParts[partIndex]; // If no existing part, create a new one
-
-      if (itemPart === undefined) {
-        itemPart = new NodePart(this.options);
-        itemParts.push(itemPart);
-
-        if (partIndex === 0) {
-          itemPart.appendIntoPart(this);
-        } else {
-          itemPart.insertAfterPart(itemParts[partIndex - 1]);
-        }
-      }
-
-      itemPart.setValue(item);
-      itemPart.commit();
-      partIndex++;
-    }
-
-    if (partIndex < itemParts.length) {
-      // Truncate the parts array so _value reflects the current state
-      itemParts.length = partIndex;
-      this.clear(itemPart && itemPart.endNode);
-    }
-  }
-
-  clear(startNode = this.startNode) {
-    (0, _dom.removeNodes)(this.startNode.parentNode, startNode.nextSibling, this.endNode);
-  }
-
-}
-/**
- * Implements a boolean attribute, roughly as defined in the HTML
- * specification.
- *
- * If the value is truthy, then the attribute is present with a value of
- * ''. If the value is falsey, the attribute is removed.
- */
-
-
-exports.NodePart = NodePart;
-
-class BooleanAttributePart {
-  constructor(element, name, strings) {
-    this.value = undefined;
-    this.__pendingValue = undefined;
-
-    if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
-      throw new Error('Boolean attributes can only contain a single expression');
-    }
-
-    this.element = element;
-    this.name = name;
-    this.strings = strings;
-  }
-
-  setValue(value) {
-    this.__pendingValue = value;
-  }
-
-  commit() {
-    while ((0, _directive.isDirective)(this.__pendingValue)) {
-      const directive = this.__pendingValue;
-      this.__pendingValue = _part.noChange;
-      directive(this);
-    }
-
-    if (this.__pendingValue === _part.noChange) {
-      return;
-    }
-
-    const value = !!this.__pendingValue;
-
-    if (this.value !== value) {
-      if (value) {
-        this.element.setAttribute(this.name, '');
-      } else {
-        this.element.removeAttribute(this.name);
-      }
-
-      this.value = value;
-    }
-
-    this.__pendingValue = _part.noChange;
-  }
-
-}
-/**
- * Sets attribute values for PropertyParts, so that the value is only set once
- * even if there are multiple parts for a property.
- *
- * If an expression controls the whole property value, then the value is simply
- * assigned to the property under control. If there are string literals or
- * multiple expressions, then the strings are expressions are interpolated into
- * a string first.
- */
-
-
-exports.BooleanAttributePart = BooleanAttributePart;
-
-class PropertyCommitter extends AttributeCommitter {
-  constructor(element, name, strings) {
-    super(element, name, strings);
-    this.single = strings.length === 2 && strings[0] === '' && strings[1] === '';
-  }
-
-  _createPart() {
-    return new PropertyPart(this);
-  }
-
-  _getValue() {
-    if (this.single) {
-      return this.parts[0].value;
-    }
-
-    return super._getValue();
-  }
-
-  commit() {
-    if (this.dirty) {
-      this.dirty = false; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-      this.element[this.name] = this._getValue();
-    }
-  }
-
-}
-
-exports.PropertyCommitter = PropertyCommitter;
-
-class PropertyPart extends AttributePart {} // Detect event listener options support. If the `capture` property is read
-// from the options object, then options are supported. If not, then the third
-// argument to add/removeEventListener is interpreted as the boolean capture
-// value so we should only pass the `capture` property.
-
-
-exports.PropertyPart = PropertyPart;
-let eventOptionsSupported = false; // Wrap into an IIFE because MS Edge <= v41 does not support having try/catch
-// blocks right into the body of a module
-
-(() => {
-  try {
-    const options = {
-      get capture() {
-        eventOptionsSupported = true;
-        return false;
-      }
-
-    }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-    window.addEventListener('test', options, options); // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-    window.removeEventListener('test', options, options);
-  } catch (_e) {// event options not supported
-  }
-})();
-
-class EventPart {
-  constructor(element, eventName, eventContext) {
-    this.value = undefined;
-    this.__pendingValue = undefined;
-    this.element = element;
-    this.eventName = eventName;
-    this.eventContext = eventContext;
-
-    this.__boundHandleEvent = e => this.handleEvent(e);
-  }
-
-  setValue(value) {
-    this.__pendingValue = value;
-  }
-
-  commit() {
-    while ((0, _directive.isDirective)(this.__pendingValue)) {
-      const directive = this.__pendingValue;
-      this.__pendingValue = _part.noChange;
-      directive(this);
-    }
-
-    if (this.__pendingValue === _part.noChange) {
-      return;
-    }
-
-    const newListener = this.__pendingValue;
-    const oldListener = this.value;
-    const shouldRemoveListener = newListener == null || oldListener != null && (newListener.capture !== oldListener.capture || newListener.once !== oldListener.once || newListener.passive !== oldListener.passive);
-    const shouldAddListener = newListener != null && (oldListener == null || shouldRemoveListener);
-
-    if (shouldRemoveListener) {
-      this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-    }
-
-    if (shouldAddListener) {
-      this.__options = getOptions(newListener);
-      this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-    }
-
-    this.value = newListener;
-    this.__pendingValue = _part.noChange;
-  }
-
-  handleEvent(event) {
-    if (typeof this.value === 'function') {
-      this.value.call(this.eventContext || this.element, event);
-    } else {
-      this.value.handleEvent(event);
-    }
-  }
-
-} // We copy options because of the inconsistent behavior of browsers when reading
-// the third argument of add/removeEventListener. IE11 doesn't support options
-// at all. Chrome 41 only reads `capture` if the argument is an object.
-
-
-exports.EventPart = EventPart;
-
-const getOptions = o => o && (eventOptionsSupported ? {
-  capture: o.capture,
-  passive: o.passive,
-  once: o.once
-} : o.capture);
-},{"./directive.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/directive.js","./dom.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js","./part.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/part.js","./template-instance.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-instance.js","./template-result.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-result.js","./template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/default-template-processor.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.defaultTemplateProcessor = exports.DefaultTemplateProcessor = void 0;
-
-var _parts = require("./parts.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * Creates Parts when a template is instantiated.
- */
-class DefaultTemplateProcessor {
-  /**
-   * Create parts for an attribute-position binding, given the event, attribute
-   * name, and string literals.
-   *
-   * @param element The element containing the binding
-   * @param name  The attribute name
-   * @param strings The string literals. There are always at least two strings,
-   *   event for fully-controlled bindings with a single expression.
-   */
-  handleAttributeExpressions(element, name, strings, options) {
-    const prefix = name[0];
-
-    if (prefix === '.') {
-      const committer = new _parts.PropertyCommitter(element, name.slice(1), strings);
-      return committer.parts;
-    }
-
-    if (prefix === '@') {
-      return [new _parts.EventPart(element, name.slice(1), options.eventContext)];
-    }
-
-    if (prefix === '?') {
-      return [new _parts.BooleanAttributePart(element, name.slice(1), strings)];
-    }
-
-    const committer = new _parts.AttributeCommitter(element, name, strings);
-    return committer.parts;
-  }
-  /**
-   * Create parts for a text-position binding.
-   * @param templateFactory
-   */
-
-
-  handleTextExpression(options) {
-    return new _parts.NodePart(options);
-  }
-
-}
-
-exports.DefaultTemplateProcessor = DefaultTemplateProcessor;
-const defaultTemplateProcessor = new DefaultTemplateProcessor();
-exports.defaultTemplateProcessor = defaultTemplateProcessor;
-},{"./parts.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/parts.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-factory.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.templateCaches = void 0;
-exports.templateFactory = templateFactory;
-
-var _template = require("./template.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * The default TemplateFactory which caches Templates keyed on
- * result.type and result.strings.
- */
-function templateFactory(result) {
-  let templateCache = templateCaches.get(result.type);
-
-  if (templateCache === undefined) {
-    templateCache = {
-      stringsArray: new WeakMap(),
-      keyString: new Map()
-    };
-    templateCaches.set(result.type, templateCache);
-  }
-
-  let template = templateCache.stringsArray.get(result.strings);
-
-  if (template !== undefined) {
-    return template;
-  } // If the TemplateStringsArray is new, generate a key from the strings
-  // This key is shared between all templates with identical content
-
-
-  const key = result.strings.join(_template.marker); // Check if we already have a Template for this key
-
-  template = templateCache.keyString.get(key);
-
-  if (template === undefined) {
-    // If we have not seen this key before, create a new Template
-    template = new _template.Template(result, result.getTemplateElement()); // Cache the Template for this key
-
-    templateCache.keyString.set(key, template);
-  } // Cache all future queries for this TemplateStringsArray
-
-
-  templateCache.stringsArray.set(result.strings, template);
-  return template;
-}
-
-const templateCaches = new Map();
-exports.templateCaches = templateCaches;
-},{"./template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/render.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.render = exports.parts = void 0;
-
-var _dom = require("./dom.js");
-
-var _parts = require("./parts.js");
-
-var _templateFactory = require("./template-factory.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const parts = new WeakMap();
-/**
- * Renders a template result or other value to a container.
- *
- * To update a container with new values, reevaluate the template literal and
- * call `render` with the new result.
- *
- * @param result Any value renderable by NodePart - typically a TemplateResult
- *     created by evaluating a template tag like `html` or `svg`.
- * @param container A DOM parent to render to. The entire contents are either
- *     replaced, or efficiently updated if the same result type was previous
- *     rendered there.
- * @param options RenderOptions for the entire render tree rendered to this
- *     container. Render options must *not* change between renders to the same
- *     container, as those changes will not effect previously rendered DOM.
- */
-
-exports.parts = parts;
-
-const render = (result, container, options) => {
-  let part = parts.get(container);
-
-  if (part === undefined) {
-    (0, _dom.removeNodes)(container, container.firstChild);
-    parts.set(container, part = new _parts.NodePart(Object.assign({
-      templateFactory: _templateFactory.templateFactory
-    }, options)));
-    part.appendInto(container);
-  }
-
-  part.setValue(result);
-  part.commit();
-};
-
-exports.render = render;
-},{"./dom.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js","./parts.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/parts.js","./template-factory.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-factory.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lit-html.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "AttributeCommitter", {
-  enumerable: true,
-  get: function () {
-    return _parts.AttributeCommitter;
-  }
-});
-Object.defineProperty(exports, "AttributePart", {
-  enumerable: true,
-  get: function () {
-    return _parts.AttributePart;
-  }
-});
-Object.defineProperty(exports, "BooleanAttributePart", {
-  enumerable: true,
-  get: function () {
-    return _parts.BooleanAttributePart;
-  }
-});
-Object.defineProperty(exports, "DefaultTemplateProcessor", {
-  enumerable: true,
-  get: function () {
-    return _defaultTemplateProcessor.DefaultTemplateProcessor;
-  }
-});
-Object.defineProperty(exports, "EventPart", {
-  enumerable: true,
-  get: function () {
-    return _parts.EventPart;
-  }
-});
-Object.defineProperty(exports, "NodePart", {
-  enumerable: true,
-  get: function () {
-    return _parts.NodePart;
-  }
-});
-Object.defineProperty(exports, "PropertyCommitter", {
-  enumerable: true,
-  get: function () {
-    return _parts.PropertyCommitter;
-  }
-});
-Object.defineProperty(exports, "PropertyPart", {
-  enumerable: true,
-  get: function () {
-    return _parts.PropertyPart;
-  }
-});
-Object.defineProperty(exports, "SVGTemplateResult", {
-  enumerable: true,
-  get: function () {
-    return _templateResult.SVGTemplateResult;
-  }
-});
-Object.defineProperty(exports, "Template", {
-  enumerable: true,
-  get: function () {
-    return _template.Template;
-  }
-});
-Object.defineProperty(exports, "TemplateInstance", {
-  enumerable: true,
-  get: function () {
-    return _templateInstance.TemplateInstance;
-  }
-});
-Object.defineProperty(exports, "TemplateResult", {
-  enumerable: true,
-  get: function () {
-    return _templateResult.TemplateResult;
-  }
-});
-Object.defineProperty(exports, "createMarker", {
-  enumerable: true,
-  get: function () {
-    return _template.createMarker;
-  }
-});
-Object.defineProperty(exports, "defaultTemplateProcessor", {
-  enumerable: true,
-  get: function () {
-    return _defaultTemplateProcessor.defaultTemplateProcessor;
-  }
-});
-Object.defineProperty(exports, "directive", {
-  enumerable: true,
-  get: function () {
-    return _directive.directive;
-  }
-});
-exports.html = void 0;
-Object.defineProperty(exports, "isDirective", {
-  enumerable: true,
-  get: function () {
-    return _directive.isDirective;
-  }
-});
-Object.defineProperty(exports, "isIterable", {
-  enumerable: true,
-  get: function () {
-    return _parts.isIterable;
-  }
-});
-Object.defineProperty(exports, "isPrimitive", {
-  enumerable: true,
-  get: function () {
-    return _parts.isPrimitive;
-  }
-});
-Object.defineProperty(exports, "isTemplatePartActive", {
-  enumerable: true,
-  get: function () {
-    return _template.isTemplatePartActive;
-  }
-});
-Object.defineProperty(exports, "noChange", {
-  enumerable: true,
-  get: function () {
-    return _part.noChange;
-  }
-});
-Object.defineProperty(exports, "nothing", {
-  enumerable: true,
-  get: function () {
-    return _part.nothing;
-  }
-});
-Object.defineProperty(exports, "parts", {
-  enumerable: true,
-  get: function () {
-    return _render.parts;
-  }
-});
-Object.defineProperty(exports, "removeNodes", {
-  enumerable: true,
-  get: function () {
-    return _dom.removeNodes;
-  }
-});
-Object.defineProperty(exports, "render", {
-  enumerable: true,
-  get: function () {
-    return _render.render;
-  }
-});
-Object.defineProperty(exports, "reparentNodes", {
-  enumerable: true,
-  get: function () {
-    return _dom.reparentNodes;
-  }
-});
-exports.svg = void 0;
-Object.defineProperty(exports, "templateCaches", {
-  enumerable: true,
-  get: function () {
-    return _templateFactory.templateCaches;
-  }
-});
-Object.defineProperty(exports, "templateFactory", {
-  enumerable: true,
-  get: function () {
-    return _templateFactory.templateFactory;
-  }
-});
-
-var _defaultTemplateProcessor = require("./lib/default-template-processor.js");
-
-var _templateResult = require("./lib/template-result.js");
-
-var _directive = require("./lib/directive.js");
-
-var _dom = require("./lib/dom.js");
-
-var _part = require("./lib/part.js");
-
-var _parts = require("./lib/parts.js");
-
-var _render = require("./lib/render.js");
-
-var _templateFactory = require("./lib/template-factory.js");
-
-var _templateInstance = require("./lib/template-instance.js");
-
-var _template = require("./lib/template.js");
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-/**
- *
- * Main lit-html module.
- *
- * Main exports:
- *
- * -  [[html]]
- * -  [[svg]]
- * -  [[render]]
- *
- * @packageDocumentation
- */
-
-/**
- * Do not remove this comment; it keeps typedoc from misplacing the module
- * docs.
- */
-// TODO(justinfagnani): remove line when we get NodePart moving methods
-// IMPORTANT: do not change the property name or the assignment expression.
-// This line will be used in regexes to search for lit-html usage.
-// TODO(justinfagnani): inject version number at build time
-if (typeof window !== 'undefined') {
-  (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.4.1');
-}
-/**
- * Interprets a template literal as an HTML template that can efficiently
- * render to and update a container.
- */
-
-
-const html = (strings, ...values) => new _templateResult.TemplateResult(strings, values, 'html', _defaultTemplateProcessor.defaultTemplateProcessor);
-/**
- * Interprets a template literal as an SVG template that can efficiently
- * render to and update a container.
- */
-
-
-exports.html = html;
-
-const svg = (strings, ...values) => new _templateResult.SVGTemplateResult(strings, values, 'svg', _defaultTemplateProcessor.defaultTemplateProcessor);
-
-exports.svg = svg;
-},{"./lib/default-template-processor.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/default-template-processor.js","./lib/template-result.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-result.js","./lib/directive.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/directive.js","./lib/dom.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js","./lib/part.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/part.js","./lib/parts.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/parts.js","./lib/render.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/render.js","./lib/template-factory.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-factory.js","./lib/template-instance.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-instance.js","./lib/template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/modify-template.js":[function(require,module,exports) {
+},{"./Router":"Router.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"../node_modules/lit-html/lib/modify-template.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9162,7 +8770,7 @@ function insertNodeIntoTemplate(template, node, refNode = null) {
     }
   }
 }
-},{"./template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js"}],"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/shady-render.js":[function(require,module,exports) {
+},{"./template.js":"../node_modules/lit-html/lib/template.js"}],"../node_modules/lit-html/lib/shady-render.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9519,7 +9127,7 @@ const render = (result, container, options) => {
 };
 
 exports.render = render;
-},{"./dom.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/dom.js","./modify-template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/modify-template.js","./render.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/render.js","./template-factory.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-factory.js","./template-instance.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template-instance.js","./template.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/template.js","../lit-html.js":"../node_modules/@polymer/lit-element/node_modules/lit-html/lit-html.js"}],"../node_modules/@polymer/lit-element/lib/updating-element.js":[function(require,module,exports) {
+},{"./dom.js":"../node_modules/lit-html/lib/dom.js","./modify-template.js":"../node_modules/lit-html/lib/modify-template.js","./render.js":"../node_modules/lit-html/lib/render.js","./template-factory.js":"../node_modules/lit-html/lib/template-factory.js","./template-instance.js":"../node_modules/lit-html/lib/template-instance.js","./template.js":"../node_modules/lit-html/lib/template.js","../lit-html.js":"../node_modules/lit-html/lit-html.js"}],"../node_modules/@polymer/lit-element/lib/updating-element.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10744,7 +10352,7 @@ LitElement.finalized = true;
  */
 
 LitElement.render = _shadyRender.render;
-},{"lit-html":"../node_modules/@polymer/lit-element/node_modules/lit-html/lit-html.js","lit-html/lib/shady-render":"../node_modules/@polymer/lit-element/node_modules/lit-html/lib/shady-render.js","./lib/updating-element.js":"../node_modules/@polymer/lit-element/lib/updating-element.js","./lib/decorators.js":"../node_modules/@polymer/lit-element/lib/decorators.js","lit-html/lit-html":"../node_modules/@polymer/lit-element/node_modules/lit-html/lit-html.js","./lib/css-tag.js":"../node_modules/@polymer/lit-element/lib/css-tag.js"}],"components/cb-app-header.js":[function(require,module,exports) {
+},{"lit-html":"../node_modules/lit-html/lit-html.js","lit-html/lib/shady-render":"../node_modules/lit-html/lib/shady-render.js","./lib/updating-element.js":"../node_modules/@polymer/lit-element/lib/updating-element.js","./lib/decorators.js":"../node_modules/@polymer/lit-element/lib/decorators.js","lit-html/lit-html":"../node_modules/lit-html/lit-html.js","./lib/css-tag.js":"../node_modules/@polymer/lit-element/lib/css-tag.js"}],"components/cb-app-header.js":[function(require,module,exports) {
 "use strict";
 
 var _litElement = require("@polymer/lit-element");
@@ -10811,7 +10419,7 @@ customElements.define("cb-app-header", class AppHeader extends _litElement.LitEl
 
 
   render() {
-    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n          .app-header {\n            background: var(--sl-color-primary-50);\n            position: fixed;\n            top: 0;\n            right: 0;\n            left: 0;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            display: flex;\n            z-index: 9;\n            align-items: center;\n          }\n\n          .app-header-main {\n            flex-grow: 1;\n            display: flex;\n            align-items: center;\n          }\n\n          /*.app-header-main::slotted(h1) {\n            color: #fff;\n          }*/\n\n          /*.app-logo a {\n            color: #fff;\n            text-decoration: none;\n            font-weight: bold;\n            font-size: 1.2em;\n            padding: 0.6em;\n            display: inline-block;\n          }*/\n\n          img {\n            width: 9%;\n          }\n\n          /*.hamburger-btn::part(base) {\n            color: #fff;\n          }*/\n\n          .app-top-nav {\n            display: flex;\n            height: 100%;\n            align-items: center;\n          }\n\n          .app-top-nav a {\n            display: inline-block;\n            padding: 1em;\n            margin: 5em;\n            text-decoration: none;\n            color: var(--brand-color);\n            \n          }\n\n          /*.app-side-menu-items {\n            margin-top: 3em;\n          }\n\n          .app-side-menu-items a {\n            display: block;\n            padding: 0.5em;\n            text-decoration: none;\n            font-size: 1.3em;\n            color: #333;\n          }\n\n          .app-side-menu-logo {\n            width: 180px;\n            margin-bottom: 1em;\n            position: absolute;\n            top: 2em;\n            left: 1.5em;\n          }*/\n\n          /*.page-title {\n            color: var(--app-header-txt-color);\n            margin-right: 0.5em;\n            font-size: var(--app-header-title-font-size);\n          }*/\n\n          /* active nav links */\n          .app-top-nav a.active,\n          .app-side-menu-items a.active {\n            font-weight: bold;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n            .app-top-nav {\n              display: none;\n            }\n          }\n        </style>\n\n        <header class=\"app-header\">\n          <!--<sl-icon-button\n            class=\"hamburger-btn\"\n            name=\"list\"\n            @click=\"", "\"\n            style=\"font-size: 1.5em;\"\n          ></sl-icon-button>-->\n\n          <div class=\"app-header-main\"></div>\n          <nav class=\"app-top-nav\">\n            <a href=\"/\" @click=\"", "\">HOME</a>\n            <a href=\"/products\" @click=\"", "\">SHOP</a>\n            <a href=\"/favouriteProducts\" @click=\"", "\">FAVOURITES</a>\n            <img class=\"app-logo\" src=\"/images/brandmark.png\" />\n            <a href=\"/AboutUs\" @click=\"", "\">CONTACT</a>\n            <sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">ACCOUNT</a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n             </sl-dropdown>\n             ", "\n            <!--<a href=\"#\" @click=\"", "\">CART</a>-->\n            <a href=\"/cart\" @click=\"", "\">CART</a>\n\n            <!--<sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">\n                <sl-avatar\n                  style=\"--size: 24px;\"\n                  image=", "\n                ></sl-avatar>\n                ", "\n              </a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n            </sl-dropdown>-->\n          </nav>\n        </header>\n\n        <!--<sl-drawer class=\"app-side-menu\" placement=\"left\">\n          <img class=\"app-side-menu-logo\" src=\"/images/ss3.svg\" />\n          <nav class=\"app-side-menu-items\">\n            <a href=\"/\" @click=\"", "\">Home</a>\n            <a href=\"/cupcakes\" @click=\"", "\"\n                    >Cupcakes</a\n                  >\n            <a href=\"/favouriteCupcakes\" @click=\"", "\"\n                    >Favourite Cupcakes</a\n                  >\n            ", "\n            <a href=\"/jobs\" @click=\"", "\">Jobs</a>\n            <a href=\"#\" @click=\"", "\">Sign Out</a>\n          </nav>\n        </sl-drawer>-->\n      "])), this.hamburgerClick, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, e => e.preventDefault(), () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <a href=\"/newJob\" @click=\"", "\">ADD PRODUCT</a> "])), _Router.anchorRoute) : "", () => _Auth.default.cart(), _Router.anchorRoute, e => e.preventDefault(), this.user && this.user.avatar ? "".concat(_App.default.apiBase, "/images/").concat(this.user.avatar) : "", this.user && this.user.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.menuClick, this.menuClick, this.menuClick, this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  <a href=\"/newProduct\" @click=\"", "\">Post Job</a>\n                "])), this.menuClick) : "", this.menuClick, () => _Auth.default.signOut());
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n          .app-header {\n            background: var(--sl-color-primary-50);\n            position: fixed;\n            top: 0;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            display: flex;\n            z-index: 9;\n            align-items: center;\n          }\n\n          /* .app-header-main {\n            display: flex;\n            align-items: center;\n          } */\n\n          /*.app-header-main::slotted(h1) {\n            color: #fff;\n          }*/\n\n          /*.app-logo a {\n            color: #fff;\n            text-decoration: none;\n            font-weight: bold;\n            font-size: 1.2em;\n            padding: 0.6em;\n            display: inline-block;\n          }*/\n\n          img {\n            width: 18vw;\n            padding: 0 1.5vw;\n            margin: 0 2vw;\n          }\n\n          /*.hamburger-btn::part(base) {\n            color: #fff;\n          }*/\n\n          .app-top-nav {\n            display: flex;\n            margin: 0 auto;\n            height: 100%;\n            align-items: center;\n          }\n\n          .app-top-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 1.5vw;\n            text-decoration: none;\n            color: var(--brand-color);\n            align-items: center;\n          }\n\n          /*.app-side-menu-items {\n            margin-top: 3em;\n          }\n\n          .app-side-menu-items a {\n            display: block;\n            padding: 0.5em;\n            text-decoration: none;\n            font-size: 1.3em;\n            color: #333;\n          }\n\n          .app-side-menu-logo {\n            width: 180px;\n            margin-bottom: 1em;\n            position: absolute;\n            top: 2em;\n            left: 1.5em;\n          }*/\n\n          /*.page-title {\n            color: var(--app-header-txt-color);\n            margin-right: 0.5em;\n            font-size: var(--app-header-title-font-size);\n          }*/\n\n          /* active nav links */\n          .app-top-nav a.active,\n          .app-side-menu-items a.active {\n            font-weight: bold;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n            .app-top-nav {\n              display: none;\n            }\n          }\n        </style>\n\n        <header class=\"app-header\">\n          <!--<sl-icon-button\n            class=\"hamburger-btn\"\n            name=\"list\"\n            @click=\"", "\"\n            style=\"font-size: 1.5em;\"\n          ></sl-icon-button>-->\n\n          <div class=\"app-header-main\"></div>\n          <nav class=\"app-top-nav\">\n            <a href=\"/\" @click=\"", "\">HOME</a>\n            <a href=\"/products\" @click=\"", "\">SHOP</a>\n            <a href=\"/favouriteProducts\" @click=\"", "\">FAVOURITES</a>\n            <img class=\"app-logo\" src=\"/images/brandmark.png\" />\n            <a href=\"/aboutUs\" @click=\"", "\">CONTACT</a>\n            <sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">ACCOUNT</a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n             </sl-dropdown>\n             ", "\n            <!--<a href=\"#\" @click=\"", "\">CART</a>-->\n            <a href=\"/cart\" @click=\"", "\">CART</a>\n\n            <!--<sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">\n                <sl-avatar\n                  style=\"--size: 24px;\"\n                  image=", "\n                ></sl-avatar>\n                ", "\n              </a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n            </sl-dropdown>-->\n          </nav>\n        </header>\n\n        <!--<sl-drawer class=\"app-side-menu\" placement=\"left\">\n          <img class=\"app-side-menu-logo\" src=\"/images/ss3.svg\" />\n          <nav class=\"app-side-menu-items\">\n            <a href=\"/\" @click=\"", "\">Home</a>\n            <a href=\"/cupcakes\" @click=\"", "\"\n                    >Cupcakes</a\n                  >\n            <a href=\"/favouriteCupcakes\" @click=\"", "\"\n                    >Favourite Cupcakes</a\n                  >\n            ", "\n            <a href=\"/jobs\" @click=\"", "\">Jobs</a>\n            <a href=\"#\" @click=\"", "\">Sign Out</a>\n          </nav>\n        </sl-drawer>-->\n      "])), this.hamburgerClick, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, e => e.preventDefault(), () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <a href=\"/newJob\" @click=\"", "\">ADD PRODUCT</a> "])), _Router.anchorRoute) : "", () => _Auth.default.cart(), _Router.anchorRoute, e => e.preventDefault(), this.user && this.user.avatar ? "".concat(_App.default.apiBase, "/images/").concat(this.user.avatar) : "", this.user && this.user.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.menuClick, this.menuClick, this.menuClick, this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  <a href=\"/newProduct\" @click=\"", "\">Post Job</a>\n                "])), this.menuClick) : "", this.menuClick, () => _Auth.default.signOut());
   }
 
 });
@@ -10936,6 +10544,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53262" + '/');
 
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "51461" + '/');
 

@@ -338,20 +338,29 @@ footer {
 // sign in + sign up pages ----------
 .signinup-box,
 .signup-box {
-  //max-width: 320px;
+  width: 60vw;
   text-align: center;
 }
 
+.signinup-box {
+  margin-top: -2vw;
+}
+
 .signinup-logo {
-  width: 20%;
-  margin-bottom: 1em;
+  width: 12vw;
+  margin: 1.2vw 0;
   margin-left: auto;
   margin-right: auto;
 }
 
+.sign-up-level {
+  width: 20vw;
+  margin: 1vw auto;
+}
+
 .home-logo {
-  width: 50%;
-  margin-top: 1.5em;
+  width: 10vw;
+  margin-top: 1.5vw 0;
   height: auto;
 }
 

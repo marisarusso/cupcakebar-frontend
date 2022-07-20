@@ -66,8 +66,7 @@ customElements.define(
             background: var(--sl-color-primary-50);
             position: fixed;
             top: 0;
-            right: 0;
-            left: 0;
+            width: 100%;
             height: var(--app-header-height);
             color: var(--app-header-txt-color);
             display: flex;
