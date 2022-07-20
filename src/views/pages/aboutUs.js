@@ -17,7 +17,7 @@ class AboutUsView {
       <div class="page-content">        
         <h1>About Us</h1>
         <p>Looking to learn more about Cupcake Bar?
-        <br> More details coming soon! </p>
+        <br> More details coming soon!! </p>
         
       </div>      
     `
