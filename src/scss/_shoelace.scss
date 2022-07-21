@@ -10,7 +10,8 @@ sl-input::part(base) {
   background: var(--sl-color-primary-50);
   border-radius: 20px;
   border: 3px solid var(--brand-color);
-  max-width: 35%;
+  max-width: 45%;
+  min-width: 45%;
   position: center;
   margin-bottom: 0.2em;
   margin-left: auto;
