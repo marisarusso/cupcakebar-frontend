@@ -461,6 +461,15 @@ footer {
   border-radius: 15px;
 }
 
+// cart -------------------------------
+.cart {
+  text-align: center;
+  
+  p {
+    font-size: 30px;
+  }
+}
+
 // RESPONSIVE - MOBILE -------------------
 @media all and (max-width: 768px) {
   .signinup-box {
