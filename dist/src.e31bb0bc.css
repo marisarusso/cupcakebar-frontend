@@ -464,6 +464,16 @@ footer {
   border-radius: 15px;
 }
 
+.about-us p {
+text-align: center;
+  font-size: 30px;
+}
+
+.shop p {
+  text-align: center;
+  font-size: 30px;
+}
+
 .cart p {
   text-align: center;
   font-size: 30px;

@@ -22,7 +22,7 @@ class CartView {
         <br>
         <br>
         <p> For cupcake purchases on the go!
-        <br> Coming soon...</p>
+        <br><b>Coming soon...</b></p>
         
       </div> 
       </div>     

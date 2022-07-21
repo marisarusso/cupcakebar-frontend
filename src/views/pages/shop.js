@@ -14,11 +14,21 @@ class ShopView {
   render(){
     const template = html`
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+      <div class="shop">
       <div class="page-content">        
         <h1>Shop</h1>
-        <p>Page content ...</p>
+        <sl-button
+        class="shop-now-btn"@click=${() => gotoRoute("/product")}>SHOP NOW!
+      </sl-button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>Larger collection of tasty treats in the works...
+        <br><b>Stay tuned!</b></p>
         
-      </div>      
+      </div> 
+      </div>     
     `
     render(template, App.rootEl)
   }
