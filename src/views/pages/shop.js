@@ -17,7 +17,7 @@ class ShopView {
       <div class="shop">
       <div class="page-content">        
         <h1>Shop</h1>
-        <sl-button class="product-btn" type="primary" @click=${() => gotoRoute('/product')}>Product
+        <sl-button class="product-btn" type="primary" @click=${() => gotoRoute('/product')}>PRODUCT
       </sl-button>
         <br>
         <br>
