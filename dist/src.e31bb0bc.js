@@ -6919,7 +6919,7 @@ class ShopView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <sl-button\n        class=\"shop-now-btn\"@click=", ">SHOP NOW!\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)("/product"));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <sl-button\n        class=\"btn\"@click=", ">SHOP NOW!\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)("/product"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
