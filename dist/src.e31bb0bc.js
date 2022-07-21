@@ -6886,7 +6886,75 @@ class AboutUsView {
 var _default = new AboutUsView();
 
 exports.default = _default;
-},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"views/pages/shop.js":[function(require,module,exports) {
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"ProductAPI.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./App"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ProductAPI {
+  async newProduct(formData) {
+    // send fetch request
+    const response = await fetch("".concat(_App.default.apiBase, "/product"), {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer ".concat(localStorage.accessToken)
+      },
+      body: formData
+    }); // if response not ok
+
+    if (!response.ok) {
+      let message = 'Problem adding product';
+
+      if (response.status == 400) {
+        const err = await response.json();
+        message = err.message;
+      } // throw error (exit this function)      
+
+
+      throw new Error(message);
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+  async getProducts() {
+    // fetch the json data
+    const response = await fetch("".concat(_App.default.apiBase, "/product"), {
+      headers: {
+        "Authorization": "Bearer ".concat(localStorage.accessToken)
+      }
+    }); // if response not ok
+
+    if (!response.ok) {
+      // console log error
+      const err = await response.json();
+      if (err) console.log(err); // throw error (exit this function)      
+
+      throw new Error('Problem getting products');
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+}
+
+var _default = new ProductAPI();
+
+exports.default = _default;
+},{"./App":"App.js"}],"views/pages/shop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6900,26 +6968,100 @@ var _litHtml = require("lit-html");
 
 var _Router = require("../../Router");
 
-var _Auth = _interopRequireDefault(require("../../Auth"));
-
 var _Utils = _interopRequireDefault(require("../../Utils"));
 
-var _templateObject;
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _ProductAPI = _interopRequireDefault(require("./../../ProductAPI"));
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 class ShopView {
-  init() {
+  async init() {
     document.title = 'Shop';
+    this.products = null;
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    await this.getProducts();
+  }
+
+  async filterProducts(field, match) {
+    // validate
+    if (!field || !match) return; // get fresh copy of the products
+
+    this.products = await _ProductAPI.default.getProducts();
+    let filteredProducts; // gluten free
+
+    if (field == 'glutenFree') {
+      filteredProducts = this.products.filter(product => product.glutenFree == match);
+    } // nut free
+
+
+    if (field == 'nutFree') {
+      filteredProducts = this.products.filter(product => product.nutFree == match);
+    } // dairy free
+
+
+    if (field == 'dairyFree') {
+      this.filteredProducts = this.products.filter(product => product.dairyFree == match);
+    } // vegan
+
+
+    if (field == 'vegan') {
+      this.filteredProducts = this.products.filter(product => product.vegan == match);
+    } // price
+
+
+    if (field == 'price') {
+      // get priceRangeStart
+      const priceRangeStart = match.split('-')[0];
+      const priceRangeEnd = match.split('-')[1];
+      filteredHaircuts = this.products.filter(product => product.price >= priceRangeStart && product.price <= priceRangeEnd);
+    } // render
+
+
+    this.products = filteredProducts;
+    this.render();
+  }
+
+  clearFilterBtns() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => btn.removeAttribute("type"));
+  }
+
+  handleFilterBtn(e) {
+    // clear all active filter buttons (type = primary)
+    this.clearFilterBtns();
+    e.target.setAttribute("type", "primary"); // extract file and match from the button
+
+    const field = e.target.getAttribute("data-field");
+    const match = e.target.getAttribute("data-match"); // filter products
+
+    this.filterProducts(field, match);
+  }
+
+  clearFilters() {
+    this.getProducts();
+    this.clearFilterBtns();
+  }
+
+  async getProducts() {
+    try {
+      this.products = await _ProductAPI.default.getProducts();
+      this.render();
+    } catch (err) {
+      _Toast.default.show(err, "error");
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <sl-button class=\"product-btn\" type=\"primary\" @click=", ">PRODUCT\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)('/product'));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n         <div class=\"filter-menu\">\n          <div>\n            Filter by\n          </div>\n          <div>\n            <strong>Dietry Requirements</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">Gluten Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">Nut Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">Dairy Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"vegan\" data-match=\"vegan\" @click=", ">Vegan</sl-button>\n          </div>\n           <div>\n            <strong>Price</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"price\" data-match=\"10-30\" @click=", ">$10-30</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"price\" data-match=\"30-60\" @click=", ">$30-60</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"price\" data-match=\"60-90\" @click=", ">$60-90</sl-button>\n          </div>\n          <!--<div>\n              <sl-button size=\"small\" @click=", ">Clear Filters</sl-button>\n        </div>\n        </div>\n        <sl-button class=\"product-btn\" type=\"primary\" @click=", ">PRODUCT\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>--> \n      <div class=\"products-grid\">\n          ", "\n        </div>\n      </div>\n    "])), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), () => (0, _Router.gotoRoute)('/product'), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                ", "\n              "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                    <cb-shop\n                      class=\"product-card\"\n                      id=\"", "\"\n                      name=\"", "\"\n                      price=\"", "\"\n                      description=\"", "\"\n                      ingredients=\"", "\"\n                      image=\"", "\"\n                      glutenFree=\"", "\"\n                      nutFree=\"", "\"\n                      dairyFree=\"", "\"\n                      vegan=\"", "\"\n                    >\n                    </cb-shop>\n                  "])), product._id, product.name, product.price, product.description, product.ingredients, product.image, product.glutenFree, product.nutFree, product.dairyFree, product.vegan))));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6928,7 +7070,7 @@ class ShopView {
 var _default = new ShopView();
 
 exports.default = _default;
-},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"views/pages/favouriteProducts.js":[function(require,module,exports) {
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Utils":"Utils.js","../../Toast":"Toast.js","./../../ProductAPI":"ProductAPI.js"}],"views/pages/favouriteProducts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10753,14 +10895,13 @@ var _Router = require("./../Router");
 
 var _Auth = _interopRequireDefault(require("./../Auth"));
 
-var _App = _interopRequireDefault(require("../App"));
-
-var _templateObject, _templateObject2, _templateObject3;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+//import App from "../App";
 customElements.define("cb-app-header", class AppHeader extends _litElement.LitElement {
   constructor() {
     super();
@@ -10793,29 +10934,30 @@ customElements.define("cb-app-header", class AppHeader extends _litElement.LitEl
       }
     });
   }
-  /*hamburgerClick() {
+
+  hamburgerClick() {
     const appMenu = this.shadowRoot.querySelector(".app-side-menu");
     appMenu.show();
   }
-   menuClick(e) {
+
+  menuClick(e) {
     e.preventDefault();
     const pathname = e.target.closest("a").pathname;
-    const appSideMenu = this.shadowRoot.querySelector(".app-side-menu");
-    // hide appMenu
+    const appSideMenu = this.shadowRoot.querySelector(".app-side-menu"); // hide appMenu
+
     appSideMenu.hide();
     appSideMenu.addEventListener("sl-after-hide", () => {
       // goto route after menu is hidden
-      gotoRoute(pathname);
+      (0, _Router.gotoRoute)(pathname);
     });
-  }*/
-
+  }
 
   render() {
-    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n          .app-header {\n            background: var(--sl-color-primary-50);\n            position: fixed;\n            top: 0;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            display: flex;\n            z-index: 9;\n            align-items: center;\n          }\n\n          /* .app-header-main {\n            flex-grow: 1;\n            display: flex;\n            align-items: center;\n          } */\n\n          /*.app-header-main::slotted(h1) {\n            color: #fff;\n          }*/\n\n          /*.app-logo a {\n            color: #fff;\n            text-decoration: none;\n            font-weight: bold;\n            font-size: 1.2em;\n            padding: 0.6em;\n            display: inline-block;\n          }*/\n\n          img {\n            width: 18vw;\n            padding: 0 1.5vw;\n            margin: 0 2vw;\n          }\n\n          /*.hamburger-btn::part(base) {\n            color: #fff;\n          }*/\n\n          .app-top-nav {\n            display: flex;\n            margin: 0 auto;\n            height: 100%;\n            align-items: center;\n          }\n\n          .app-top-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 1.5vw;\n            text-decoration: none;\n            color: var(--brand-color);\n            \n          }\n\n          /*.app-side-menu-items {\n            margin-top: 3em;\n          }\n\n          .app-side-menu-items a {\n            display: block;\n            padding: 0.5em;\n            text-decoration: none;\n            font-size: 1.3em;\n            color: #333;\n          }\n\n          .app-side-menu-logo {\n            width: 180px;\n            margin-bottom: 1em;\n            position: absolute;\n            top: 2em;\n            left: 1.5em;\n          }*/\n\n          /* active nav links */\n          .app-top-nav a.active,\n          .app-side-menu-items a.active {\n            font-weight: bold;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n            .app-top-nav {\n              display: none;\n            }\n          }\n        </style>\n\n        <header class=\"app-header\">\n          <!--<sl-icon-button\n            class=\"hamburger-btn\"\n            name=\"list\"\n            @click=\"", "\"\n            style=\"font-size: 1.5em;\"\n          ></sl-icon-button>-->\n\n          <div class=\"app-header-main\"></div>\n          <nav class=\"app-top-nav\">\n            <a href=\"/\" @click=\"", "\">HOME</a>\n            <a href=\"/shop\" @click=\"", "\">SHOP</a>\n            <a href=\"/favouriteProducts\" @click=\"", "\">FAVOURITES</a>\n            <img class=\"app-logo\" src=\"/images/brandmark.png\" />\n            <a href=\"/aboutUs\" @click=\"", "\">CONTACT</a>\n            <sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">ACCOUNT</a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n             </sl-dropdown>\n             ", "\n            <!--<a href=\"#\" @click=\"", "\">CART</a>-->\n            <a href=\"/cart\" @click=\"", "\">CART</a>\n\n            <!--<sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">\n                <sl-avatar\n                  style=\"--size: 24px;\"\n                  image=", "\n                ></sl-avatar>\n                ", "\n              </a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n            </sl-dropdown>-->\n          </nav>\n        </header>\n\n        <!--<sl-drawer class=\"app-side-menu\" placement=\"left\">\n          <img class=\"app-side-menu-logo\" src=\"/images/ss3.svg\" />\n          <nav class=\"app-side-menu-items\">\n            <a href=\"/\" @click=\"", "\">Home</a>\n            <a href=\"/cupcakes\" @click=\"", "\"\n                    >Cupcakes</a\n                  >\n            <a href=\"/favouriteCupcakes\" @click=\"", "\"\n                    >Favourite Cupcakes</a\n                  >\n            ", "\n            <a href=\"/jobs\" @click=\"", "\">Jobs</a>\n            <a href=\"#\" @click=\"", "\">Sign Out</a>\n          </nav>\n        </sl-drawer>-->\n      "])), this.hamburgerClick, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, e => e.preventDefault(), () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <a href=\"/newJob\" @click=\"", "\">ADD PRODUCT</a> "])), _Router.anchorRoute) : "", () => _Auth.default.cart(), _Router.anchorRoute, e => e.preventDefault(), this.user && this.user.avatar ? "".concat(_App.default.apiBase, "/images/").concat(this.user.avatar) : "", this.user && this.user.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.menuClick, this.menuClick, this.menuClick, this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  <a href=\"/newProduct\" @click=\"", "\">Post Job</a>\n                "])), this.menuClick) : "", this.menuClick, () => _Auth.default.signOut());
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n          .app-header {\n            background: var(--sl-color-primary-50);\n            position: fixed;\n            top: 0;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            display: flex;\n            z-index: 9;\n            align-items: center;\n          }\n\n          /* .app-header-main {\n            flex-grow: 1;\n            display: flex;\n            align-items: center;\n          } */\n\n          /*.app-header-main::slotted(h1) {\n            color: #fff;\n          }*/\n\n          /*.app-logo a {\n            color: #fff;\n            text-decoration: none;\n            font-weight: bold;\n            font-size: 1.2em;\n            padding: 0.6em;\n            display: inline-block;\n          }*/\n\n          img {\n            width: 18vw;\n            padding: 0 1.5vw;\n            margin: 0 2vw;\n          }\n\n          .hamburger-btn::part(base) {\n            color: var(--brand-color);\n          }\n\n          .app-top-nav {\n            display: flex;\n            margin: 0 auto;\n            height: 100%;\n            align-items: center;\n          }\n\n          .app-top-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 1.5vw;\n            text-decoration: none;\n            color: var(--brand-color);\n            \n          }\n\n          .app-side-menu-items {\n            margin-top: 3em;\n          }\n\n          .app-side-menu-items a {\n            display: block;\n            padding: 0.5em;\n            text-decoration: none;\n            font-size: 1.3em;\n            color: #333;\n          }\n\n          .app-side-menu-logo {\n            width: 180px;\n            margin-bottom: 1em;\n            position: absolute;\n            top: 2em;\n            left: 1.5em;\n          }\n\n          sl-icon-button {\n            display: none;\n          }\n\n          .app-logo-mob {\n            display: none;\n          }\n\n          /* active nav links */\n          .app-top-nav a.active,\n          .app-side-menu-items a.active {\n            font-weight: bold;\n            text-decoration: underline;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n            .app-top-nav {\n              display: none;\n            }\n\n            sl-icon-button {\n              display: block;\n            }\n\n            .app-logo-mob {\n              display: block;\n            }\n          }\n        </style>\n\n        <header class=\"app-header\">\n          <sl-icon-button\n            class=\"hamburger-btn\"\n            name=\"list\"\n            @click=\"", "\"\n            style=\"font-size: 1.5em;\"\n          ></sl-icon-button>\n\n          <div class=\"app-header-main\">\n            <img class=\"app-logo-mob\" src=\"/images/brandmark.png\" />\n          </div>\n          <nav class=\"app-top-nav\">\n            <a href=\"/\" @click=\"", "\">HOME</a>\n            <a href=\"/shop\" @click=\"", "\">SHOP</a>\n             ", "\n            <img class=\"app-logo\" src=\"/images/brandmark.png\" />\n            <a href=\"/aboutUs\" @click=\"", "\">CONTACT</a>\n            <a href=\"/cart\" @click=\"", "\">CART</a>\n            <sl-dropdown>\n              <a slot=\"trigger\" href=\"#\" @click=\"", "\">ACCOUNT</a>\n              <sl-menu>\n                <sl-menu-item @click=\"", "\"\n                  >Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Edit Profile</sl-menu-item\n                >\n                <sl-menu-item @click=\"", "\"\n                  >Sign Out</sl-menu-item\n                >\n              </sl-menu>\n             </sl-dropdown>\n          </nav>\n        </header>\n\n        <sl-drawer class=\"app-side-menu\" placement=\"left\">\n          <img class=\"app-side-menu-logo\" src=\"/images/ss3.svg\" />\n          <nav class=\"app-side-menu-items\">\n            <a href=\"/\" @click=\"", "\">Home</a>\n            <a href=\"/cupcakes\" @click=\"", "\"\n                    >Cupcakes</a\n                  >\n            <a href=\"/favouriteCupcakes\" @click=\"", "\"\n                    >Favourite Cupcakes</a\n                  >\n            ", "\n            <a href=\"/jobs\" @click=\"", "\">Jobs</a>\n            <a href=\"#\" @click=\"", "\">Sign Out</a>\n          </nav>\n        </sl-drawer>\n      "])), this.hamburgerClick, _Router.anchorRoute, _Router.anchorRoute, this.user.accessLevel == 1 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <a href=\"/newProduct\" @click=\"", "\">ADD PRODUCT</a> "])), _Router.anchorRoute) : (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral([" <a href=\"/favouriteProducts\" @click=\"", "\">FAVOURITES</a>"])), _Router.anchorRoute), _Router.anchorRoute, _Router.anchorRoute, e => e.preventDefault(), () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/editProfile"), () => _Auth.default.signOut(), this.menuClick, this.menuClick, this.menuClick, this.user.accessLevel == 2 ? (0, _litElement.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                  <a href=\"/newProduct\" @click=\"", "\">Post Job</a>\n                "])), this.menuClick) : "", this.menuClick, () => _Auth.default.signOut());
   }
 
 });
-},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","./../Router":"Router.js","./../Auth":"Auth.js","../App":"App.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","./../Router":"Router.js","./../Auth":"Auth.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -10936,7 +11078,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57936" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61581" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
