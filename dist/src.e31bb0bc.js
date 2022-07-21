@@ -6877,7 +6877,7 @@ class AboutUsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>About Us</h1>\n        <p>Looking to learn more about Cupcake Bar?\n        <br> More details coming soon!! </p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"about-us\">\n      <div class=\"page-content\">        \n        <h1>About Us</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Looking to learn more about Cupcake Bar?\n        <br><b> More details coming soon!! </b></p>\n        \n      </div>    \n      </div>  \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6919,7 +6919,7 @@ class ShopView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6961,7 +6961,7 @@ class FavouriteProductsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"favourites\">\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Save your favourite tasty cupcakes for later!\n        <br> New feature coming soon... </p>\n        \n      </div>     \n      </div> \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"favourites\">\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Save your favourite tasty cupcakes for later!\n        <br><b>New feature coming soon... </b></p>\n        \n      </div>     \n      </div> \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -7045,7 +7045,7 @@ class CartView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <cb-app-header user=\"", "\"></cb-app-header>\n    <div class=\"cart\">\n      <div class=\"page-content\">        \n        <h1>My Cart</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p> For cupcake purchases on the go!\n        <br> Coming soon...</p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <cb-app-header user=\"", "\"></cb-app-header>\n    <div class=\"cart\">\n      <div class=\"page-content\">        \n        <h1>My Cart</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p> For cupcake purchases on the go!\n        <br><b>Coming soon...</b></p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 

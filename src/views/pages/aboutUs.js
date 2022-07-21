@@ -14,12 +14,18 @@ class AboutUsView {
   render(){
     const template = html`
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+      <div class="about-us">
       <div class="page-content">        
         <h1>About Us</h1>
+        <br>
+        <br>
+        <br>
+        <br>
         <p>Looking to learn more about Cupcake Bar?
-        <br> More details coming soon!! </p>
+        <br><b> More details coming soon!! </b></p>
         
-      </div>      
+      </div>    
+      </div>  
     `
     render(template, App.rootEl)
   }
