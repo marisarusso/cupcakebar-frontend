@@ -22,7 +22,7 @@ class FavouriteProductsView {
         <br>
         <br>
         <p>Save your favourite tasty cupcakes for later!
-        <br> New feature coming soon... </p>
+        <br><b>New feature coming soon... </b></p>
         
       </div>     
       </div> 
