@@ -6896,6 +6896,10 @@ exports.default = void 0;
 
 var _App = _interopRequireDefault(require("./App"));
 
+var _Auth = _interopRequireDefault(require("./Auth"));
+
+var _Toast = _interopRequireDefault(require("./Toast"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class ProductAPI {
@@ -6954,7 +6958,7 @@ class ProductAPI {
 var _default = new ProductAPI();
 
 exports.default = _default;
-},{"./App":"App.js"}],"views/pages/shop.js":[function(require,module,exports) {
+},{"./App":"App.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"views/pages/shop.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11078,7 +11082,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61581" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65414" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
