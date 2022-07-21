@@ -464,7 +464,6 @@ footer {
   border-radius: 15px;
 }
 
-<<<<<<< Updated upstream
 .cart p {
   text-align: center;
   font-size: 30px;
@@ -472,12 +471,6 @@ footer {
 
 .favourites p {
   text-align: center;
-=======
-.cart {
-  text-align: center;
-}
-.cart p {
->>>>>>> Stashed changes
   font-size: 30px;
 }
 
