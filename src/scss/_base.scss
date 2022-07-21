@@ -347,14 +347,16 @@ footer {
 }
 
 .signinup-logo {
-  width: 12vw;
+  width: 200px;
+  min-width: 150px;
   margin: 1.2vw 0;
   margin-left: auto;
   margin-right: auto;
 }
 
 .sign-up-level {
-  width: 20vw;
+  max-width: 45%;
+  min-width: 45%;
   margin: 1vw auto;
 }
 
