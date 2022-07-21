@@ -463,11 +463,20 @@ footer {
 
 // cart -------------------------------
 .cart {
-  text-align: center;
-  
   p {
+    text-align: center;
     font-size: 30px;
   }
+}
+
+// -------------------------------------
+
+.favourites {
+  p {
+    text-align: center;
+    font-size: 30px;
+  }
+
 }
 
 // RESPONSIVE - MOBILE -------------------

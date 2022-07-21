@@ -1,25 +1,31 @@
 import App from '../../App'
-import {html, render } from 'lit-html'
-import {gotoRoute, anchorRoute} from '../../Router'
+import { html, render } from 'lit-html'
+import { gotoRoute, anchorRoute } from '../../Router'
 import Auth from '../../Auth'
 import Utils from '../../Utils'
 
 class FavouriteProductsView {
-  init(){
-    document.title = 'Favourite Cupcakes'    
-    this.render()    
+  init() {
+    document.title = 'Favourite Cupcakes'
+    this.render()
     Utils.pageIntroAnim()
   }
 
-  render(){
+  render() {
     const template = html`
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+      <div class="favourites">
       <div class="page-content">        
         <h1>Your favourite cupcakes!</h1>
+        <br>
+        <br>
+        <br>
+        <br>
         <p>Save your favourite tasty cupcakes for later!
-        <br> Coming soon... </p>
+        <br> New feature coming soon... </p>
         
-      </div>      
+      </div>     
+      </div> 
     `
     render(template, App.rootEl)
   }
