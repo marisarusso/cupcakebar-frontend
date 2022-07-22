@@ -17,7 +17,7 @@ class ProfileView {
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
       <div class="page-content calign">        
         <div class="profile">
-          <h1>Profile</h1>        
+          <h1>My Profile</h1>        
             ${Auth.currentUser && Auth.currentUser.avatar ? html`
               <sl-avatar style="--size: 200px; margin-bottom: 1em;" 
                 image=${(Auth.currentUser && Auth.currentUser.avatar) ? `${App.apiBase}/images/${Auth.currentUser.avatar}` : ''}>

@@ -72,7 +72,7 @@ class EditProfileView {
                 <input type="file" name="avatar" />
               `}
             </div>
-            <sl-button type="primary" class="submit-btn" submit>Update Profile</sl-button>
+            <sl-button type="primary" class="submit-btn" submit>Update profile</sl-button>
           </sl-form>
           <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
         `}
