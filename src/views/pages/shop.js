@@ -105,26 +105,25 @@ class ShopView {
       <div class="page-content">        
          <div class="filter-menu">
           <div>
-            Filter by
+            Filters
           </div>
           <div>
-            <strong>Dietry Requirements</strong>
-              <sl-button class="filter-btn" size="small" data-field="glutenFree" data-match="gluten-free" @click=${this.handleFilterBtn.bind(
+              <sl-button class="filter-btn" data-field="glutenFree" data-match="gluten-free" @click=${this.handleFilterBtn.bind(
                 this
-              )}>Gluten Free</sl-button>
-              <sl-button class="filter-btn" size="small" data-field="nutFree" data-match="nut-free" @click=${this.handleFilterBtn.bind(
+              )}>GLUTEN FREE</sl-button>
+              <sl-button class="filter-btn" data-field="nutFree" data-match="nut-free" @click=${this.handleFilterBtn.bind(
                 this
-              )}>Nut Free</sl-button>
-              <sl-button class="filter-btn" size="small" data-field="dairyFree" data-match="dairy-free" @click=${this.handleFilterBtn.bind(
+              )}>NUT FREE</sl-button>
+              <sl-button class="filter-btn" data-field="dairyFree" data-match="dairy-free" @click=${this.handleFilterBtn.bind(
                 this
-              )}>Dairy Free</sl-button>
-              <sl-button class="filter-btn" size="small" data-field="vegan" data-match="vegan" @click=${this.handleFilterBtn.bind(
+              )}>DAIRY FREE</sl-button>
+              <sl-button class="filter-btn"5px; data-field="vegan" data-match="vegan" @click=${this.handleFilterBtn.bind(
                 this
-              )}>Vegan</sl-button>
+              )}>VEGAN</sl-button>
           </div>
-             <sl-button size="small" @click=${this.clearFilters.bind(
+             <sl-button class="clear-btn" @click=${this.clearFilters.bind(
                this
-             )}>Clear Filters</sl-button>
+             )}>CLEAR</sl-button>
         </div>
         <br>
         <!--<sl-button class="product-btn" type="primary" @click=${() =>
@@ -146,9 +145,8 @@ class ShopView {
                       <cb-shop
                         class="product-card"
                         id="${product._id}"
-                        name="${product.name}"
+                        productName="${product.productName}"
                         price="${product.price}"
-                        description="${product.description}"
                         image="${product.image}"
                       >
                       </cb-shop>
