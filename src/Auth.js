@@ -118,7 +118,7 @@ class Auth {
     // delete local token
     localStorage.removeItem('accessToken')
     // redirect to sign in    
-    gotoRoute('/')
+    gotoRoute('/signin')
     // unset currentUser
     this.currentUser = null
   }
