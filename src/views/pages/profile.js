@@ -29,7 +29,7 @@ class ProfileView {
             <p>Email: ${Auth.currentUser.email}</p>
             
             <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
-            <sl-button type="primary" @click=${()=> gotoRoute('/editProfile')}>Edit Profile</sl-button>
+            <sl-button type="primary" @click=${()=> gotoRoute('/editProfile')}>Edit profile</sl-button>
           </div>
         </div>   
         
