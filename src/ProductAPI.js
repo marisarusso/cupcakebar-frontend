@@ -1,4 +1,6 @@
 import App from './App'
+import Auth from './Auth'
+import Toast from './Toast'
 
 class ProductAPI {
 

@@ -113,21 +113,20 @@ class ShopView {
               <sl-button class="filter-btn" size="small" data-field="dairyFree" data-match="dairy-free" @click=${this.handleFilterBtn.bind(this)}>Dairy Free</sl-button>
               <sl-button class="filter-btn" size="small" data-field="vegan" data-match="vegan" @click=${this.handleFilterBtn.bind(this)}>Vegan</sl-button>
           </div>
-          <!--<div>
+
               <sl-button size="small" @click=${this.clearFilters.bind(this)}>Clear Filters</sl-button>
         </div>
         </div>
+        <br>
         <sl-button class="product-btn" type="primary" @click=${() => gotoRoute('/product')}>PRODUCT
       </sl-button>
-        <br>
-        <br>
         <br>
         <br>
         <p>Larger collection of tasty treats in the works...
         <br><b>Stay tuned!</b></p>
         
       </div> 
-      </div>--> 
+      </div>
       <div class="products-grid">
           ${this.products == null
             ? html` <sl-spinner></sl-spinner> `
