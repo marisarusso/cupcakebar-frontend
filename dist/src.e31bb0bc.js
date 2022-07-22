@@ -6988,7 +6988,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class ShopView {
   async init() {
-    document.title = 'Shop';
+    document.title = "Shop";
     this.products = null;
     this.render();
 
@@ -7004,22 +7004,22 @@ class ShopView {
     this.products = await _ProductAPI.default.getProducts();
     let filteredProducts; // gluten free
 
-    if (field == 'glutenFree') {
+    if (field == "glutenFree") {
       filteredProducts = this.products.filter(product => product.glutenFree == match);
     } // nut free
 
 
-    if (field == 'nutFree') {
+    if (field == "nutFree") {
       filteredProducts = this.products.filter(product => product.nutFree == match);
     } // dairy free
 
 
-    if (field == 'dairyFree') {
+    if (field == "dairyFree") {
       this.filteredProducts = this.products.filter(product => product.dairyFree == match);
     } // vegan
 
 
-    if (field == 'vegan') {
+    if (field == "vegan") {
       this.filteredProducts = this.products.filter(product => product.vegan == match);
     } // render
 
@@ -7029,7 +7029,7 @@ class ShopView {
   }
 
   clearFilterBtns() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
+    const filterBtns = document.querySelectorAll(".filter-btn");
     filterBtns.forEach(btn => btn.removeAttribute("type"));
   }
 
@@ -7059,7 +7059,9 @@ class ShopView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filter by\n          </div>\n          <div>\n            <strong>Dietry Requirements</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">Gluten Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">Nut Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">Dairy Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"vegan\" data-match=\"vegan\" @click=", ">Vegan</sl-button>\n          </div>\n          <!--<div>\n              <sl-button size=\"small\" @click=", ">Clear Filters</sl-button>\n        </div>\n        </div>\n        <sl-button class=\"product-btn\" type=\"primary\" @click=", ">PRODUCT\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>--> \n      <div class=\"products-grid\">\n          ", "\n        </div>\n      </div>\n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), () => (0, _Router.gotoRoute)('/product'), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                ", "\n              "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                    <cb-shop\n                      class=\"product-card\"\n                      id=\"", "\"\n                      name=\"", "\"\n                      price=\"", "\"\n                      description=\"", "\"\n                      ingredients=\"", "\"\n                      image=\"", "\"\n                      glutenFree=\"", "\"\n                      nutFree=\"", "\"\n                      dairyFree=\"", "\"\n                      vegan=\"", "\"\n                      >\n                    </cb-shop>\n                  "])), product._id, product.name, product.price, product.description, product.ingredients, product.image, product.glutenFree, product.nutFree, product.dairyFree, product.vegan))));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filter by\n          </div>\n          <div>\n            <strong>Dietry Requirements</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">Gluten Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">Nut Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">Dairy Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"vegan\" data-match=\"vegan\" @click=", ">Vegan</sl-button>\n          </div>\n             <sl-button size=\"small\" @click=", ">Clear Filters</sl-button>\n        </div>\n        <br>\n        <!--<sl-button class=\"product-btn\" type=\"primary\" @click=", ">PRODUCT\n      </sl-button>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n      </div> -->\n    \n      <div class=\"products-grid\">\n          ", "\n        </div>\n      </div>\n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), () => (0, _Router.gotoRoute)("/product"), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  ", "\n                "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                      <cb-shop\n                        class=\"product-card\"\n                        id=\"", "\"\n                        name=\"", "\"\n                        price=\"", "\"\n                        description=\"", "\"\n                        image=\"", "\"\n                      >\n                      </cb-shop>\n                    "])), product._id, product.name, product.price, product.description, product.image))));
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
 
 }
 
@@ -10953,7 +10955,203 @@ customElements.define("cb-app-header", class AppHeader extends _litElement.LitEl
   }
 
 });
-},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","./../Router":"Router.js","./../Auth":"Auth.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","./../Router":"Router.js","./../Auth":"Auth.js"}],"UserAPI.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./App"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class UserAPI {
+  async updateUser(userId, userData) {
+    let dataType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "form";
+    // validate
+    if (!userId || !userData) return;
+    let responseHeader; // form data
+
+    if (dataType == "form") {
+      // fetch response header normal (form data)
+      responseHeader = {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.accessToken)
+        },
+        body: userData
+      }; // json data
+    } else if (dataType == "json") {
+      responseHeader = {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.accessToken),
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      };
+    } // make fetch request to backend
+
+
+    const response = await fetch("".concat(_App.default.apiBase, "/user/").concat(userId), responseHeader); // if response not ok
+
+    if (!response.ok) {
+      // console log error
+      const err = await response.json();
+      if (err) console.log(err); // throw error (exit this function)
+
+      throw new Error("Problem updating user");
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+  async getUser(userId) {
+    // validate
+    if (!userId) return; // fetch the json data
+
+    const response = await fetch("".concat(_App.default.apiBase, "/user/").concat(userId), {
+      headers: {
+        Authorization: "Bearer ".concat(localStorage.accessToken)
+      }
+    }); // if response not ok
+
+    if (!response.ok) {
+      // console log error
+      const err = await response.json();
+      if (err) console.log(err); // throw error (exit this function)
+
+      throw new Error("Problem getting user");
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+  async addFavProduct(productId) {
+    // validate
+    if (!productId) return; // fetch the json data
+
+    const response = await fetch("".concat(_App.default.apiBase, "/user/addFavProduct"), {
+      method: "PUT",
+      headers: {
+        "Authorization": "Bearer ".concat(localStorage.accessToken),
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        productId: productId
+      })
+    }); // if response not ok
+
+    if (!response.ok) {
+      // console log error
+      const err = await response.json();
+      if (err) console.log(err); // throw error (exit this function)      
+
+      throw new Error('Problem adding product to favourites');
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+}
+
+var _default = new UserAPI();
+
+exports.default = _default;
+},{"./App":"App.js"}],"components/cb-shop.js":[function(require,module,exports) {
+"use strict";
+
+var _litElement = require("@polymer/lit-element");
+
+var _litHtml = require("lit-html");
+
+var _Router = require("../Router");
+
+var _Auth = _interopRequireDefault(require("../Auth"));
+
+var _App = _interopRequireDefault(require("../App"));
+
+var _UserAPI = _interopRequireDefault(require("../UserAPI"));
+
+var _Toast = _interopRequireDefault(require("../Toast"));
+
+var _templateObject;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+customElements.define("cb-shop", class Shop extends _litElement.LitElement {
+  constructor() {
+    super();
+  }
+
+  static get properties() {
+    return {
+      id: {
+        type: String
+      },
+      name: {
+        type: String
+      },
+      image: {
+        type: String
+      },
+      description: {
+        type: String
+      },
+      ingredients: {
+        type: String
+      },
+      price: {
+        type: String
+      },
+      glutenFree: {
+        type: Boolean
+      },
+      nutFree: {
+        type: Boolean
+      },
+      dairyFree: {
+        type: Boolean
+      },
+      vegan: {
+        type: Boolean
+      }
+    };
+  }
+
+  firstUpdated() {
+    super.firstUpdated();
+  }
+
+  async addFavHandler() {
+    try {
+      await _UserAPI.default.addFavProduct(this.id);
+
+      _Toast.default.show("Product added to favourites");
+    } catch (err) {
+      _Toast.default.show(err, "error");
+    }
+  }
+
+  render() {
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <sl-card class=\"product-card\">\n          <img slot=\"image\" src=\"", "./images/", "\" />\n          <h2>", "</h2>\n          <h3>$", "</h3>\n          <p>", "</p>\n          <sl-button href=\"/product\" @click=\"", "\" class=\"fav-btn\">More Info</sl-button>\n          <sl-icon-button\n            name=\"heart-fill\"\n            label=\"Add to Favourites\"\n            @click=", "\n          ></sl-icon-button>\n        </sl-card>\n      "])), _App.default.apiBase, this.image, this.name, this.price, this.description, _Router.anchorRoute, this.addFavHandler.bind(this));
+  }
+
+});
+},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","lit-html":"../node_modules/lit-html/lit-html.js","../Router":"Router.js","../Auth":"Auth.js","../App":"App.js","../UserAPI":"UserAPI.js","../Toast":"Toast.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -11032,6 +11230,8 @@ var _App = _interopRequireDefault(require("./App.js"));
 
 require("./components/cb-app-header");
 
+require("./components/cb-shop");
+
 require("./scss/master.scss");
 
 var _gsap = require("gsap");
@@ -11039,14 +11239,13 @@ var _gsap = require("gsap");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // components (custom web components)
-//import './components/cb-product'
 // styles
 // modules
 // app.init
 document.addEventListener('DOMContentLoaded', () => {
   _App.default.init();
 });
-},{"./App.js":"App.js","./components/cb-app-header":"components/cb-app-header.js","./scss/master.scss":"scss/master.scss","gsap":"../node_modules/gsap/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./App.js":"App.js","./components/cb-app-header":"components/cb-app-header.js","./components/cb-shop":"components/cb-shop.js","./scss/master.scss":"scss/master.scss","gsap":"../node_modules/gsap/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11074,9 +11273,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49235" + '/');
-
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54702" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

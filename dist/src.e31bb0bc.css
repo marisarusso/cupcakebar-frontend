@@ -381,14 +381,14 @@ footer {
   color: var(--brand-color);
 }
 
-.guide-step {
+/*.guide-step {
   padding: 1em;
   margin: 1.5em auto;
   max-width: 600px;
-}
-.guide-step img {
-  width: 100%;
-  height: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .workers-grid {
@@ -396,30 +396,30 @@ footer {
   align-items: center;
   margin-left: 10px;
   margin-right: 10px;
-}
-.workers-grid .worker-card {
-  width: calc(33.3% - 1em);
-  margin: 0.5em;
+  //flex-wrap: wrap;
+
+  .worker-card {
+    width: calc(33.3% - 1em);
+    margin: 0.5em;
+  }
 }
 
 .filter-by {
   margin-right: 10px;
 }
 
-.jobs-grid {
-  /*display: flex;
-  flex-wrap: wrap;*/
-  display: inline-block;
-  align-items: center;
-  margin-left: 10px;
-  margin-right: 10%;
-}
-.jobs-grid .job-card {
-  width: calc(33.3% - 1em);
-  margin: 0.5em;
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  .product-card {
+    width: calc(33.3% - 1em);
+    margin: 0.5em;
+
+  }
 }
 
-.job-desc-title {
+/*.job-desc-title {
   color: var(--heading-color);
 }
 
@@ -444,22 +444,21 @@ footer {
 
 .dialog-worker-name {
   color: #fff;
-}
-
-.job-dialog {
+}*/
+.shop-dialog {
   --width: 30%;
 }
 
-.job-dialog::part(body) {
+.shop-dialog::part(body) {
   margin-top: -4em;
   color: #fff;
 }
 
-.job-dialog::part(close-button):hover {
+.shop-dialog::part(close-button):hover {
   color: var(--brand-color);
 }
 
-.job-dialog::part(panel) {
+.shop-dialog::part(panel) {
   background: var(--sl-color-primary-50);
   border: 3px solid #fff;
   border-radius: 15px;
