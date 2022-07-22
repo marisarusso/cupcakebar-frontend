@@ -6968,11 +6968,13 @@ var _litHtml = require("lit-html");
 
 var _Router = require("../../Router");
 
+var _Auth = _interopRequireDefault(require("../../Auth"));
+
 var _Utils = _interopRequireDefault(require("../../Utils"));
 
-var _Toast = _interopRequireDefault(require("../../Toast"));
-
 var _ProductAPI = _interopRequireDefault(require("./../../ProductAPI"));
+
+var _Toast = _interopRequireDefault(require("../../Toast"));
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
@@ -7015,14 +7017,6 @@ class ShopView {
 
     if (field == 'vegan') {
       this.filteredProducts = this.products.filter(product => product.vegan == match);
-    } // price
-
-
-    if (field == 'price') {
-      // get priceRangeStart
-      const priceRangeStart = match.split('-')[0];
-      const priceRangeEnd = match.split('-')[1];
-      filteredHaircuts = this.products.filter(product => product.price >= priceRangeStart && product.price <= priceRangeEnd);
     } // render
 
 
@@ -7061,7 +7055,7 @@ class ShopView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n        <h1>Shop</h1>\n         <div class=\"filter-menu\">\n          <div>\n            Filter by\n          </div>\n          <div>\n            <strong>Dietry Requirements</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">Gluten Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">Nut Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">Dairy Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"vegan\" data-match=\"vegan\" @click=", ">Vegan</sl-button>\n          </div>\n           <div>\n            <strong>Price</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"price\" data-match=\"10-30\" @click=", ">$10-30</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"price\" data-match=\"30-60\" @click=", ">$30-60</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"price\" data-match=\"60-90\" @click=", ">$60-90</sl-button>\n          </div>\n          <!--<div>\n              <sl-button size=\"small\" @click=", ">Clear Filters</sl-button>\n        </div>\n        </div>\n        <sl-button class=\"product-btn\" type=\"primary\" @click=", ">PRODUCT\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>--> \n      <div class=\"products-grid\">\n          ", "\n        </div>\n      </div>\n    "])), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), () => (0, _Router.gotoRoute)('/product'), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                ", "\n              "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                    <cb-shop\n                      class=\"product-card\"\n                      id=\"", "\"\n                      name=\"", "\"\n                      price=\"", "\"\n                      description=\"", "\"\n                      ingredients=\"", "\"\n                      image=\"", "\"\n                      glutenFree=\"", "\"\n                      nutFree=\"", "\"\n                      dairyFree=\"", "\"\n                      vegan=\"", "\"\n                    >\n                    </cb-shop>\n                  "])), product._id, product.name, product.price, product.description, product.ingredients, product.image, product.glutenFree, product.nutFree, product.dairyFree, product.vegan))));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filter by\n          </div>\n          <div>\n            <strong>Dietry Requirements</strong>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">Gluten Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">Nut Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">Dairy Free</sl-button>\n              <sl-button class=\"filter-btn\" size=\"small\" data-field=\"vegan\" data-match=\"vegan\" @click=", ">Vegan</sl-button>\n          </div>\n          <!--<div>\n              <sl-button size=\"small\" @click=", ">Clear Filters</sl-button>\n        </div>\n        </div>\n        <sl-button class=\"product-btn\" type=\"primary\" @click=", ">PRODUCT\n      </sl-button>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n        \n      </div> \n      </div>--> \n      <div class=\"products-grid\">\n          ", "\n        </div>\n      </div>\n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), () => (0, _Router.gotoRoute)('/product'), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                ", "\n              "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                    <cb-shop\n                      class=\"product-card\"\n                      id=\"", "\"\n                      name=\"", "\"\n                      price=\"", "\"\n                      description=\"", "\"\n                      ingredients=\"", "\"\n                      image=\"", "\"\n                      glutenFree=\"", "\"\n                      nutFree=\"", "\"\n                      dairyFree=\"", "\"\n                      vegan=\"", "\"\n                      >\n                    </cb-shop>\n                  "])), product._id, product.name, product.price, product.description, product.ingredients, product.image, product.glutenFree, product.nutFree, product.dairyFree, product.vegan))));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -7070,7 +7064,7 @@ class ShopView {
 var _default = new ShopView();
 
 exports.default = _default;
-},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Utils":"Utils.js","../../Toast":"Toast.js","./../../ProductAPI":"ProductAPI.js"}],"views/pages/favouriteProducts.js":[function(require,module,exports) {
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js","./../../ProductAPI":"ProductAPI.js","../../Toast":"Toast.js"}],"views/pages/favouriteProducts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11078,7 +11072,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61581" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54702" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

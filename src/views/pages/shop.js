@@ -1,10 +1,11 @@
 import App from '../../App'
 import {html, render } from 'lit-html'
 import {gotoRoute, anchorRoute} from '../../Router'
-//import Auth from '../../Auth'
+import Auth from '../../Auth'
 import Utils from '../../Utils'
-import Toast from '../../Toast'
 import ProductAPI from './../../ProductAPI'
+import Toast from '../../Toast'
+
 
 class ShopView {
   async init(){
@@ -46,14 +47,6 @@ class ShopView {
     if (field == 'vegan') {
       this.filteredProducts = this.products.filter(product => product.vegan == match)
 
-    }
-
-    // price
-    if (field == 'price') {
-      // get priceRangeStart
-      const priceRangeStart = match.split('-')[0]
-      const priceRangeEnd = match.split('-')[1]
-      filteredHaircuts = this.products.filter(product => product.price >= priceRangeStart && product.price <= priceRangeEnd)
     }
 
     // render
@@ -106,10 +99,9 @@ class ShopView {
           margin-right: 1em;
         }
       </style>
-      <cb-app-header></cb-app-header>
+      <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
       <div class="shop">
       <div class="page-content">        
-        <h1>Shop</h1>
          <div class="filter-menu">
           <div>
             Filter by
@@ -120,12 +112,6 @@ class ShopView {
               <sl-button class="filter-btn" size="small" data-field="nutFree" data-match="nut-free" @click=${this.handleFilterBtn.bind(this)}>Nut Free</sl-button>
               <sl-button class="filter-btn" size="small" data-field="dairyFree" data-match="dairy-free" @click=${this.handleFilterBtn.bind(this)}>Dairy Free</sl-button>
               <sl-button class="filter-btn" size="small" data-field="vegan" data-match="vegan" @click=${this.handleFilterBtn.bind(this)}>Vegan</sl-button>
-          </div>
-           <div>
-            <strong>Price</strong>
-              <sl-button class="filter-btn" size="small" data-field="price" data-match="10-30" @click=${this.handleFilterBtn.bind(this)}>$10-30</sl-button>
-              <sl-button class="filter-btn" size="small" data-field="price" data-match="30-60" @click=${this.handleFilterBtn.bind(this)}>$30-60</sl-button>
-              <sl-button class="filter-btn" size="small" data-field="price" data-match="60-90" @click=${this.handleFilterBtn.bind(this)}>$60-90</sl-button>
           </div>
           <!--<div>
               <sl-button size="small" @click=${this.clearFilters.bind(this)}>Clear Filters</sl-button>
@@ -160,7 +146,7 @@ class ShopView {
                       nutFree="${product.nutFree}"
                       dairyFree="${product.dairyFree}"
                       vegan="${product.vegan}"
-                    >
+                      >
                     </cb-shop>
                   `
                 )}
