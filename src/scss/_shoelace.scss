@@ -58,6 +58,20 @@ sl-button::part(base) {
   margin-top: 0px;
 }
 
+.filter-btn::part(base) {
+  background-color: #fff;
+  width: 100px;
+  margin-right: 1.1vw;
+  font-size: 12px;
+}
+
+.clear-btn::part(base) {
+  border: none;
+  width: 100px;
+  margin-left: 2vw;
+  font-size: 12px;
+}
+
 sl-card {
   --border-radius: 15em;
 }
