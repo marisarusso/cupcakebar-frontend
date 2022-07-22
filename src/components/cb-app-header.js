@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "@polymer/lit-element";
 import { anchorRoute, gotoRoute } from "./../Router";
 import Auth from "./../Auth";
-import App from "../App";
+//import App from "../App";
 
 customElements.define(
   "cb-app-header",
@@ -39,7 +39,7 @@ customElements.define(
       });
     }
 
-    /*hamburgerClick() {
+    hamburgerClick() {
       const appMenu = this.shadowRoot.querySelector(".app-side-menu");
       appMenu.show();
     }
@@ -54,7 +54,7 @@ customElements.define(
         // goto route after menu is hidden
         gotoRoute(pathname);
       });
-    }*/
+    }
 
     render() {
       return html`
@@ -99,9 +99,9 @@ customElements.define(
             margin: 0 2vw;
           }
 
-          /*.hamburger-btn::part(base) {
-            color: #fff;
-          }*/
+          .hamburger-btn::part(base) {
+            color: var(--brand-color);
+          }
 
           .app-top-nav {
             display: flex;
@@ -119,7 +119,7 @@ customElements.define(
             
           }
 
-          /*.app-side-menu-items {
+          .app-side-menu-items {
             margin-top: 3em;
           }
 
@@ -137,12 +137,21 @@ customElements.define(
             position: absolute;
             top: 2em;
             left: 1.5em;
-          }*/
+          }
+
+          sl-icon-button {
+            display: none;
+          }
+
+          .app-logo-mob {
+            display: none;
+          }
 
           /* active nav links */
           .app-top-nav a.active,
           .app-side-menu-items a.active {
             font-weight: bold;
+            text-decoration: underline;
           }
 
           /* RESPONSIVE - MOBILE ------------------- */
@@ -150,24 +159,37 @@ customElements.define(
             .app-top-nav {
               display: none;
             }
+
+            sl-icon-button {
+              display: block;
+            }
+
+            .app-logo-mob {
+              display: block;
+            }
           }
         </style>
 
         <header class="app-header">
-          <!--<sl-icon-button
+          <sl-icon-button
             class="hamburger-btn"
             name="list"
             @click="${this.hamburgerClick}"
             style="font-size: 1.5em;"
-          ></sl-icon-button>-->
+          ></sl-icon-button>
 
-          <div class="app-header-main"></div>
+          <div class="app-header-main">
+            <img class="app-logo-mob" src="/images/brandmark.png" />
+          </div>
           <nav class="app-top-nav">
             <a href="/" @click="${anchorRoute}">HOME</a>
-            <a href="/products" @click="${anchorRoute}">SHOP</a>
-            <a href="/favouriteProducts" @click="${anchorRoute}">FAVOURITES</a>
+            <a href="/shop" @click="${anchorRoute}">SHOP</a>
+             ${this.user.accessLevel == 1
+              ? html` <a href="/newProduct" @click="${anchorRoute}">ADD PRODUCT</a> `
+              : html` <a href="/favouriteProducts" @click="${anchorRoute}">FAVOURITES</a>`}
             <img class="app-logo" src="/images/brandmark.png" />
             <a href="/aboutUs" @click="${anchorRoute}">CONTACT</a>
+            <a href="/cart" @click="${anchorRoute}">CART</a>
             <sl-dropdown>
               <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">ACCOUNT</a>
               <sl-menu>
@@ -182,38 +204,10 @@ customElements.define(
                 >
               </sl-menu>
              </sl-dropdown>
-             ${this.user.accessLevel == 2
-              ? html` <a href="/newJob" @click="${anchorRoute}">ADD PRODUCT</a> `
-              : ""}
-            <!--<a href="#" @click="${() => Auth.cart()}">CART</a>-->
-            <a href="/cart" @click="${anchorRoute}">CART</a>
-
-            <!--<sl-dropdown>
-              <a slot="trigger" href="#" @click="${(e) => e.preventDefault()}">
-                <sl-avatar
-                  style="--size: 24px;"
-                  image=${this.user && this.user.avatar
-                    ? `${App.apiBase}/images/${this.user.avatar}`
-                    : ""}
-                ></sl-avatar>
-                ${this.user && this.user.firstName}
-              </a>
-              <sl-menu>
-                <sl-menu-item @click="${() => gotoRoute("/profile")}"
-                  >Profile</sl-menu-item
-                >
-                <sl-menu-item @click="${() => gotoRoute("/editProfile")}"
-                  >Edit Profile</sl-menu-item
-                >
-                <sl-menu-item @click="${() => Auth.signOut()}"
-                  >Sign Out</sl-menu-item
-                >
-              </sl-menu>
-            </sl-dropdown>-->
           </nav>
         </header>
 
-        <!--<sl-drawer class="app-side-menu" placement="left">
+        <sl-drawer class="app-side-menu" placement="left">
           <img class="app-side-menu-logo" src="/images/ss3.svg" />
           <nav class="app-side-menu-items">
             <a href="/" @click="${this.menuClick}">Home</a>
@@ -231,7 +225,7 @@ customElements.define(
             <a href="/jobs" @click="${this.menuClick}">Jobs</a>
             <a href="#" @click="${() => Auth.signOut()}">Sign Out</a>
           </nav>
-        </sl-drawer>-->
+        </sl-drawer>
       `;
     }
   }
