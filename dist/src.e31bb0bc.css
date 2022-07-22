@@ -576,6 +576,26 @@ sl-card {
   --border-radius: 15em;
 }
 
+.new-prod-submit-btn::part(base) {
+  background: #fff;
+}
+
+.new-prod-input::part(base) {
+  background: #fff;
+  width: 35vw;
+  margin: 0;
+}
+
+.new-prod-text::part(base) {
+  background: #fff;
+  border: 3px solid var(--brand-color);
+  width: 35vw;
+}
+
+.new-prod-input::part(form-control) {
+  width: 40vw;
+}
+
 @media all and (max-width: 768px) {
   sl-dialog::part(panel) {
     width: 100%;
