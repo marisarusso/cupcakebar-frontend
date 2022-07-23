@@ -87,7 +87,7 @@ customElements.define(
       </style>
         <sl-card class="product-card">
           <div class="img-container">
-          <img slot="image" src="${App.apiBase}./images/${this.image}" />
+          <img slot="image" src="${App.apiBase}/images/${this.image}" />
           <sl-icon-button 
             class="heart"
             name="heart-fill"
