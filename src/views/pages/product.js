@@ -18,7 +18,8 @@ class ProductView {
         <h1>Page title</h1>
         <p>Page content ...</p>
         
-      </div>      
+      </div>
+      <cb-app-footer></cb-app-footer>      
     `
     render(template, App.rootEl)
   }
