@@ -12718,6 +12718,20 @@ class AboutUsView {
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 1
+      }
+    });
+    timeline.from('h1', {
+      opacity: 0
+    }, .2).from('p', {
+      opacity: 0,
+      y: '-50%',
+      ease: 'bounce',
+      stagger: .5
+    }, 1);
   }
 
   render() {
@@ -12838,6 +12852,18 @@ class ShopView {
 
     _Utils.default.pageIntroAnim();
 
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 1
+      }
+    });
+    timeline.from('.products-grid', {
+      opacity: 0
+    }, 1).from('p', {
+      opacity: 0,
+      y: '-50%',
+      ease: 'bounce'
+    }, 1);
     await this.getProducts();
   }
 
@@ -12942,6 +12968,20 @@ class FavouriteProductsView {
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 1
+      }
+    });
+    timeline.from('h1', {
+      opacity: 0
+    }, .2).from('p', {
+      opacity: 0,
+      y: '-50%',
+      ease: 'bounce',
+      stagger: .5
+    }, 1);
   }
 
   render() {
@@ -13059,6 +13099,20 @@ class CartView {
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 1
+      }
+    });
+    timeline.from('h1', {
+      opacity: 0
+    }, .2).from('p', {
+      opacity: 0,
+      y: '-50%',
+      ease: 'bounce',
+      stagger: .5
+    }, 1);
   }
 
   render() {
@@ -17093,6 +17147,7 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "62505" + '/');
+
 
   ws.onmessage = function (event) {
     checkedAssets = {};
