@@ -18,7 +18,7 @@ customElements.define(
         id: {
           type: String,
         },
-        name: {
+        productName: {
           type: String,
         },
         image: {
@@ -52,68 +52,6 @@ customElements.define(
       super.firstUpdated();
     }
 
-    moreInfoHandler() {
-      const dialogEl = document.createElement("sl-dialog");
-      dialogEl.className = "shop-dialog";
-      const dialogContent = html`
-        <style>
-          .wrap {
-            display: flex;
-          }
-          .image {
-            width: 50%;
-          }
-          .image img {
-            width: 100%;
-          }
-          .content {
-            padding-left: 1em;
-          }
-          .glutenFree span,
-          .nutFree span,
-          .dairyFree span,
-          .vegan span {
-            text-transform: uppercase;
-            font-weight: bold;
-          }
-
-          .price {
-            font-size: 1.5em;
-            color: var(--brand-color);
-          }
-        </style>
-        <div class="wrap">
-          <div class="image">
-            <img src="${App.apiBase}/images/${this.image}" alt="${this.name}" />
-          </div>
-          <div class="content">
-            <h1>${this.name}</h1>
-            <p>${this.description}</p>
-            <p>${this.ingredients}</p>
-            <p class="price">$${this.price}</p>
-            <!--<p class="glutenFree">Gluten Free: <span>${this.glutenFree}</span></p>
-            <p class="nutFree">Nut Free <span>${this.nutFree}</span></p>
-            <p class="dairyFree">Dairy Free <span>${this.dairyFree}</span></p>
-            <p class="vegan">Vegan <span>${this.vegan}</span></p>-->
-
-            <sl-button @click=${this.addFavHandler.bind(this)}>
-              <sl-icon slot="prefix" name="heart-fill"></sl-icon>
-              Add to Favourites
-            </sl-button>
-          </div>
-        </div>
-      `;
-      render(dialogContent, dialogEl);
-
-      document.body.append(dialogEl);
-
-      dialogEl.show();
-
-      dialogEl.addEventListener("sl-after-hide", () => {
-        dialogEl.remove();
-      });
-    }
-
     async addFavHandler() {
       try {
         await UserAPI.addFavProduct(this.id);
@@ -125,18 +63,42 @@ customElements.define(
 
     render() {
       return html`
-        <sl-card>
+      <style>
+        .shop-btn::part(base) {
+          border-radius: 50px;
+          width: 100px;
+          border: 3px solid var(--brand-color);
+          font-size: 12px;
+          color: var(--brand-color);
+        }
+
+        .name {
+          text-transform: uppercase;
+        }
+
+        .product-card {
+          text-align: center;
+        }
+
+        .heart::part(base) {
+          color: var(--brand-color);
+        }
+
+      </style>
+        <sl-card class="product-card">
+          <div class="img-container">
           <img slot="image" src="${App.apiBase}/images/${this.image}" />
-          <h2>${this.name}</h2>
-          <h3>$${this.price}</h3>
-          <p>${this.description}</p>
-          <p>${this.ingredients}</p>
-          <sl-button href="/product" @click="${anchorRoute}" class="fav-btn">More Info</sl-button>
-          <sl-icon-button
+          <sl-icon-button 
+            class="heart"
             name="heart-fill"
             label="Add to Favourites"
             @click=${this.addFavHandler.bind(this)}
           ></sl-icon-button>
+          </div>
+          <h3 class="name">${this.productName}</h3>
+          <p>Box of a dozen - $${this.price}</p>
+          <p>${this.description}</p>
+          <sl-button class="shop-btn" @click=${() => gotoRoute('/product')}>SHOP NOW!</sl-button>
         </sl-card>
       `;
     }

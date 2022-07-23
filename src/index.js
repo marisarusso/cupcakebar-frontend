@@ -2,7 +2,7 @@ import App from './App.js'
 
 // components (custom web components)
 import './components/cb-app-header'
-//import './components/cb-product'
+import './components/cb-shop'
 
 
 // styles
