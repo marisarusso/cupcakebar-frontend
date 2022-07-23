@@ -6,7 +6,7 @@ import signupView from './views/pages/signup'
 import profileView from './views/pages/profile'
 import editProfileView from './views/pages/editProfile'
 import aboutUsView from './views/pages/aboutUs'
-import productsView from './views/pages/products'
+import shopView from './views/pages/shop'
 import favouriteProductsView from './views/pages/favouriteProducts'
 import newProductView from './views/pages/newProduct'
 import cartView from './views/pages/cart'
@@ -15,7 +15,7 @@ import cartView from './views/pages/cart'
 const routes = {
 	'/': homeView,	
 	'/aboutUs': aboutUsView,
-	'/products': productsView,
+	'/shop': shopView,
 	'/favouriteProducts': favouriteProductsView,
 	'/newProduct': newProductView,
 	'/cart': cartView,

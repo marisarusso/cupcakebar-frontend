@@ -354,14 +354,15 @@ footer {
 }
 
 .signinup-logo {
-  width: 12vw;
+  max-width: 35%;
   margin: 1.2vw 0;
   margin-left: auto;
   margin-right: auto;
 }
 
 .sign-up-level {
-  width: 20vw;
+  max-width: 45%;
+  min-width: 45%;
   margin: 1vw auto;
 }
 
@@ -380,18 +381,14 @@ footer {
   color: var(--brand-color);
 }
 
-.cart {
-  text-align: center;
-}
-
-.guide-step {
+/*.guide-step {
   padding: 1em;
   margin: 1.5em auto;
   max-width: 600px;
-}
-.guide-step img {
-  width: 100%;
-  height: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .workers-grid {
@@ -399,30 +396,30 @@ footer {
   align-items: center;
   margin-left: 10px;
   margin-right: 10px;
-}
-.workers-grid .worker-card {
-  width: calc(33.3% - 1em);
-  margin: 0.5em;
+  //flex-wrap: wrap;
+
+  .worker-card {
+    width: calc(33.3% - 1em);
+    margin: 0.5em;
+  }
 }
 
 .filter-by {
   margin-right: 10px;
 }
 
-.jobs-grid {
-  /*display: flex;
-  flex-wrap: wrap;*/
-  display: inline-block;
-  align-items: center;
-  margin-left: 10px;
-  margin-right: 10%;
-}
-.jobs-grid .job-card {
-  width: calc(33.3% - 1em);
-  margin: 0.5em;
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  .product-card {
+    width: calc(33.3% - 1em);
+    margin: 0.5em;
+
+  }
 }
 
-.job-desc-title {
+/*.job-desc-title {
   color: var(--heading-color);
 }
 
@@ -447,31 +444,53 @@ footer {
 
 .dialog-worker-name {
   color: #fff;
-}
-
-.job-dialog {
+}*/
+.shop-dialog {
   --width: 30%;
 }
 
-.job-dialog::part(body) {
+.shop-dialog::part(body) {
   margin-top: -4em;
   color: #fff;
 }
 
-.job-dialog::part(close-button):hover {
+.shop-dialog::part(close-button):hover {
   color: var(--brand-color);
 }
 
-.job-dialog::part(panel) {
+.shop-dialog::part(panel) {
   background: var(--sl-color-primary-50);
   border: 3px solid #fff;
   border-radius: 15px;
+}
+
+.about-us p {
+  text-align: center;
+  font-size: 30px;
+}
+
+.shop p {
+  text-align: center;
+  font-size: 30px;
+}
+
+.cart p {
+  text-align: center;
+  font-size: 30px;
+}
+
+.favourites p {
+  text-align: center;
+  font-size: 30px;
 }
 
 @media all and (max-width: 768px) {
   .signinup-box {
     width: 90%;
     max-width: none;
+  }
+  .signinup-logo {
+    min-width: 50%;
   }
 }
 .input-group {
@@ -491,7 +510,8 @@ sl-input::part(base) {
   background: var(--sl-color-primary-50);
   border-radius: 20px;
   border: 3px solid var(--brand-color);
-  max-width: 35%;
+  max-width: 45%;
+  min-width: 45%;
   position: center;
   margin-bottom: 0.2em;
   margin-left: auto;
@@ -528,8 +548,52 @@ sl-button::part(base) {
   margin-top: 0px;
 }
 
+.product-btn::part(base) {
+  background: var(--brand-color);
+  color: var(--page-body-bg);
+  width: 12em;
+  height: 4em;
+  border-radius: 50px;
+  padding: 5px;
+  margin-top: 0px;
+}
+
+.filter-btn::part(base) {
+  background-color: #fff;
+  width: 100px;
+  margin-right: 1.1vw;
+  font-size: 12px;
+}
+
+.clear-btn::part(base) {
+  border: none;
+  width: 100px;
+  margin-left: 2vw;
+  font-size: 12px;
+}
+
 sl-card {
   --border-radius: 15em;
+}
+
+.new-prod-submit-btn::part(base) {
+  background: #fff;
+}
+
+.new-prod-input::part(base) {
+  background: #fff;
+  width: 35vw;
+  margin: 0;
+}
+
+.new-prod-text::part(base) {
+  background: #fff;
+  border: 3px solid var(--brand-color);
+  width: 35vw;
+}
+
+.new-prod-input::part(form-control) {
+  width: 40vw;
 }
 
 @media all and (max-width: 768px) {

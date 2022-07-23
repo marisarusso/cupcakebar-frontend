@@ -347,14 +347,15 @@ footer {
 }
 
 .signinup-logo {
-  width: 12vw;
+  max-width: 35%;
   margin: 1.2vw 0;
   margin-left: auto;
   margin-right: auto;
 }
 
 .sign-up-level {
-  width: 20vw;
+  max-width: 45%;
+  min-width: 45%;
   margin: 1vw auto;
 }
 
@@ -374,7 +375,7 @@ footer {
 }
 
 // guide page ---------------
-.guide-step {
+/*.guide-step {
   padding: 1em;
   margin: 1.5em auto;
   max-width: 600px;
@@ -401,21 +402,18 @@ footer {
   margin-right: 10px;
 }
 
-.jobs-grid {
-  /*display: flex;
-  flex-wrap: wrap;*/
-  display: inline-block;
-  align-items: center;
-  margin-left: 10px;
-  margin-right: 10%;
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
 
-  .job-card {
+  .product-card {
     width: calc(33.3% - 1em);
     margin: 0.5em;
+
   }
 }
 
-.job-desc-title {
+/*.job-desc-title {
   color: var(--heading-color);
 }
 
@@ -440,25 +438,59 @@ footer {
 
 .dialog-worker-name {
   color: #fff;
-}
+}*/
 
-.job-dialog {
+.shop-dialog {
   --width: 30%;
 }
 
-.job-dialog::part(body) {
+.shop-dialog::part(body) {
   margin-top: -4em;
   color: #fff;
 }
 
-.job-dialog::part(close-button):hover {
+.shop-dialog::part(close-button):hover {
   color: var(--brand-color);
 }
 
-.job-dialog::part(panel) {
+.shop-dialog::part(panel) {
   background: var(--sl-color-primary-50);
   border: 3px solid #fff;
   border-radius: 15px;
+}
+
+// about us ---------------------------
+.about-us {
+  p {
+    text-align: center;
+    font-size: 30px;
+  }
+}
+
+// shop -------------------------------
+.shop {
+  p{
+    text-align: center;
+    font-size: 30px;
+  }
+}
+
+// cart -------------------------------
+.cart {
+  p {
+    text-align: center;
+    font-size: 30px;
+  }
+}
+
+// -------------------------------------
+
+.favourites {
+  p {
+    text-align: center;
+    font-size: 30px;
+  }
+
 }
 
 // RESPONSIVE - MOBILE -------------------
@@ -466,5 +498,9 @@ footer {
   .signinup-box {
     width: 90%;
     max-width: none;
+  }
+
+  .signinup-logo {
+    min-width: 50%;
   }
 }
