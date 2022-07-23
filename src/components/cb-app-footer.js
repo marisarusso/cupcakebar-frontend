@@ -50,7 +50,6 @@ customElements.define(
             position: absolute; 
             left: 0 ; right: 0; bottom: 0;
             width: 100%;
-            margin-top: auto;
             height: max-content;
             background: var(--sl-color-primary-50);
           }
@@ -105,13 +104,6 @@ customElements.define(
             width: 22%;
             float: right;
             margin: 0;
-          }
-
-
-          /* active nav links */
-          .app-footer-nav a.active {
-            font-weight: bold;
-            text-decoration: underline;
           }
 
           .footer-disclaimer {
