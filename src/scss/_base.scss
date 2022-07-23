@@ -253,7 +253,6 @@ a {
   &.no-pad {
     padding: 0;
   }
-  margin-bottom: var(--app-header-height);
 }
 
 .page-content-post {
@@ -267,7 +266,6 @@ a {
   &.no-pad {
     padding: 0;
   }
-  margin-bottom: var(--app-header-height);
 }
 
 .bio {
@@ -333,7 +331,6 @@ a {
 .signup-box {
   width: 60vw;
   text-align: center;
-  margin-bottom: none !important;
 }
 
 .signinup-box {
@@ -342,7 +339,7 @@ a {
 }
 
 .signinup-logo {
-  max-width: 10vw;
+  max-width: 12vw;
   margin: 1.2vw 0;
   margin-left: auto;
   margin-right: auto;
@@ -356,9 +353,14 @@ a {
 }
 
 .home-logo {
-  width: 10vw;
+  width: 12vw;
   margin-top: 1.5vw 0;
   height: auto;
+}
+
+.social-media-box{
+  margin-bottom: var(--app-header-height);
+  padding-bottom: 5vw;
 }
 
 .link {
