@@ -12718,6 +12718,20 @@ class AboutUsView {
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 1
+      }
+    });
+    timeline.from('h1', {
+      opacity: 0
+    }, .5).from('p', {
+      opacity: 0,
+      y: '-50%',
+      ease: 'bounce',
+      stagger: .5
+    }, 1);
   }
 
   render() {
