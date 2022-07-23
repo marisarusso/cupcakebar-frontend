@@ -12726,7 +12726,7 @@ class AboutUsView {
     });
     timeline.from('h1', {
       opacity: 0
-    }, .5).from('p', {
+    }, .2).from('p', {
       opacity: 0,
       y: '-50%',
       ease: 'bounce',
@@ -13081,7 +13081,7 @@ class CartView {
     });
     timeline.from('h1', {
       opacity: 0
-    }, .5).from('p', {
+    }, .2).from('p', {
       opacity: 0,
       y: '-50%',
       ease: 'bounce',
