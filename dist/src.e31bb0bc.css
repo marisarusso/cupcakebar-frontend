@@ -258,6 +258,7 @@ a {
   bottom: 0;
   overflow-y: scroll;
   padding: 1em;
+  padding-bottom: var(--app-header-height);
 }
 .page-content.no-pad {
   padding: 0;
@@ -271,9 +272,16 @@ a {
   bottom: 0;
   overflow-y: scroll;
   padding: 1em;
+  padding-bottom: var(--app-header-height);
 }
 .page-content-post.no-pad {
   padding: 0;
+}
+
+.profile, .editProfile {
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+  padding-bottom: var(--app-header-height);
 }
 
 .bio {
@@ -341,7 +349,6 @@ a {
 }
 
 .signinup-box {
-  margin-top: var(--app-header-height);
   margin-bottom: none !important;
 }
 

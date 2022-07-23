@@ -51,6 +51,8 @@ class EditProfileView {
           <sl-spinner></sl-spinner>
         `:html`
           <sl-form class="page-form" @sl-submit=${this.updateProfileSubmitHandler.bind(this)}>
+          <div class="editProfile">
+            <h1>Edit Profile</h1> 
             <div class="input-group">
               <sl-input label="Name" type="text" name="firstName" value="${this.user.firstName}" placeholder="First Name"></sl-input>
             </div>
@@ -61,7 +63,7 @@ class EditProfileView {
               <sl-input label="Email" type="text" name="email" value="${this.user.email}" placeholder="Email Address"></sl-input>
             </div> 
             <div class="input-group">
-              <sl-input label="Password" type="text" name="password" value="${this.user.password}" placeholder="New Password"></sl-input>
+              <sl-input label="New Password" type="text" name="password" value="${this.user.password}" placeholder="New Password"></sl-input>
             </div>           
             <div class="input-group">
               <label>Avatar</label><br>          
@@ -73,8 +75,9 @@ class EditProfileView {
               `}
             </div>
             <sl-button type="primary" class="submit-btn" submit>Update profile</sl-button>
-          </sl-form>
+          </div>
           <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
+          </sl-form>
         `}
       </div>
       <cb-app-footer></cb-app-footer>     
