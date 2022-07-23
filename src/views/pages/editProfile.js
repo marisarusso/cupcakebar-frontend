@@ -76,7 +76,8 @@ class EditProfileView {
           </sl-form>
           <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
         `}
-      </div>     
+      </div>
+      <cb-app-footer></cb-app-footer>     
     `
     render(template, App.rootEl)
   }

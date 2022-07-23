@@ -63,10 +63,8 @@ class HomeView {
             </div>
           </div>
         </div>
-        <footer>
-
-        </footer>
       </div>
+      <cb-app-footer></cb-app-footer>
     `;
     render(template, App.rootEl);
   }
