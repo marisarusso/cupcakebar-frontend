@@ -13059,6 +13059,20 @@ class CartView {
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: 1
+      }
+    });
+    timeline.from('h1', {
+      opacity: 0
+    }, .5).from('p', {
+      opacity: 0,
+      y: '-50%',
+      ease: 'bounce',
+      stagger: .5
+    }, 1);
   }
 
   render() {
@@ -16910,7 +16924,7 @@ customElements.define("cb-shop", class Shop extends _litElement.LitElement {
   }
 
   render() {
-    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <style>\n        .shop-btn::part(base) {\n          border-radius: 50px;\n          width: 100px;\n          border: 3px solid var(--brand-color);\n          font-size: 12px;\n          color: var(--brand-color);\n        }\n\n        .name {\n          text-transform: uppercase;\n        }\n\n        .product-card {\n          text-align: center;\n        }\n\n        .heart::part(base) {\n          color: var(--brand-color);\n        }\n\n      </style>\n        <sl-card class=\"product-card\">\n          <div class=\"img-container\">\n          <img slot=\"image\" src=\"", "./images/", "\" />\n          <sl-icon-button \n            class=\"heart\"\n            name=\"heart-fill\"\n            label=\"Add to Favourites\"\n            @click=", "\n          ></sl-icon-button>\n          </div>\n          <h3 class=\"name\">", "</h3>\n          <p>Box of a dozen - $", "</p>\n          <p>", "</p>\n          <sl-button class=\"shop-btn\" @click=", ">SHOP NOW!</sl-button>\n        </sl-card>\n      "])), _App.default.apiBase, this.image, this.addFavHandler.bind(this), this.productName, this.price, this.description, () => (0, _Router.gotoRoute)('/product'));
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <style>\n        .shop-btn::part(base) {\n          border-radius: 50px;\n          width: 100px;\n          border: 3px solid var(--brand-color);\n          font-size: 12px;\n          color: var(--brand-color);\n        }\n\n        .name {\n          text-transform: uppercase;\n        }\n\n        .product-card {\n          text-align: center;\n        }\n\n        .heart::part(base) {\n          color: var(--brand-color);\n        }\n\n      </style>\n        <sl-card class=\"product-card\">\n          <div class=\"img-container\">\n          <img slot=\"image\" src=\"", "/images/", "\" />\n          <sl-icon-button \n            class=\"heart\"\n            name=\"heart-fill\"\n            label=\"Add to Favourites\"\n            @click=", "\n          ></sl-icon-button>\n          </div>\n          <h3 class=\"name\">", "</h3>\n          <p>Box of a dozen - $", "</p>\n          <p>", "</p>\n          <sl-button class=\"shop-btn\" @click=", ">SHOP NOW!</sl-button>\n        </sl-card>\n      "])), _App.default.apiBase, this.image, this.addFavHandler.bind(this), this.productName, this.price, this.description, () => (0, _Router.gotoRoute)('/product'));
   }
 
 });
@@ -17036,7 +17050,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54702" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65166" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
