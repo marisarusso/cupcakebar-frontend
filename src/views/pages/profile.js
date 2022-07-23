@@ -33,7 +33,8 @@ class ProfileView {
           </div>
         </div>   
         
-      </div>      
+      </div>
+      <cb-app-footer></cb-app-footer>      
     `
     render(template, App.rootEl)
   }

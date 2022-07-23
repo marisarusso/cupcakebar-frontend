@@ -12,7 +12,12 @@ class ShopView {
     this.products = null;
     this.render();
     Utils.pageIntroAnim();
+    const timeline = gsap.timeline({ defaults: { duration: 1 } })
+    timeline.from('.products-grid', { opacity: 0},1)
+    .from('p',{ opacity: 0, y: '-50%', ease: 'bounce'}, 1)
+    
     await this.getProducts();
+    
   }
 
   async filterProducts(field, match) {
@@ -102,6 +107,7 @@ class ShopView {
         }
       </style>
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+      <div class="shop">
       <div class="page-content">        
          <div class="filter-menu">
           <div>
@@ -125,16 +131,7 @@ class ShopView {
                this
              )}>CLEAR</sl-button>
         </div>
-        <br>
-        <!--<sl-button class="product-btn" type="primary" @click=${() =>
-          gotoRoute("/product")}>PRODUCT
-      </sl-button>
-        <br>
-        <br>
-        <p>Larger collection of tasty treats in the works...
-        <br><b>Stay tuned!</b></p>
-      </div> -->
-    
+        
       <div class="products-grid">
           ${
             this.products == null
@@ -154,7 +151,12 @@ class ShopView {
                   )}
                 `}
         </div>
+        <br>
+        <p>Larger collection of tasty treats in the works...
+        <br><b>Stay tuned!</b></p>
       </div>
+      </div>
+      <cb-app-footer></cb-app-footer>
     `;
     render(template, App.rootEl);
   }

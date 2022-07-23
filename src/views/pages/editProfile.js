@@ -51,6 +51,8 @@ class EditProfileView {
           <sl-spinner></sl-spinner>
         `:html`
           <sl-form class="page-form" @sl-submit=${this.updateProfileSubmitHandler.bind(this)}>
+          <div class="editProfile">
+            <h1>Edit Profile</h1> 
             <div class="input-group">
               <sl-input label="Name" type="text" name="firstName" value="${this.user.firstName}" placeholder="First Name"></sl-input>
             </div>
@@ -61,11 +63,11 @@ class EditProfileView {
               <sl-input label="Email" type="text" name="email" value="${this.user.email}" placeholder="Email Address"></sl-input>
             </div> 
             <div class="input-group">
-<<<<<<< Updated upstream
+
               <sl-input label="Password" type="text" name="password" value="${this.user.password}" placeholder="New Password"></sl-input>
-=======
+
               <sl-input label="New Password" type="text" name="password" placeholder="Password" toggle-password></sl-input>
->>>>>>> Stashed changes
+
             </div>           
             <div class="input-group">
               <label>Avatar</label><br>          
@@ -77,15 +79,12 @@ class EditProfileView {
               `}
             </div>
             <sl-button type="primary" class="submit-btn" submit>Update profile</sl-button>
-<<<<<<< Updated upstream
-=======
             <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
           </div>
->>>>>>> Stashed changes
           </sl-form>
-          <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
         `}
-      </div>     
+      </div>
+      <cb-app-footer></cb-app-footer>     
     `
     render(template, App.rootEl)
   }

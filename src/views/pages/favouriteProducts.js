@@ -9,6 +9,9 @@ class FavouriteProductsView {
     document.title = 'Favourite Cupcakes'
     this.render()
     Utils.pageIntroAnim()
+    const timeline = gsap.timeline({ defaults: { duration: 1 } })
+    timeline.from('h1', { opacity: 0 }, .2)
+      .from('p',{ opacity: 0, y: '-50%', ease: 'bounce', stagger: .5 }, 1)
   }
 
   render() {
@@ -25,7 +28,8 @@ class FavouriteProductsView {
         <br><b>New feature coming soon... </b></p>
         
       </div>     
-      </div> 
+      </div>
+      <cb-app-footer></cb-app-footer> 
     `
     render(template, App.rootEl)
   }
