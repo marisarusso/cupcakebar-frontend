@@ -64,8 +64,6 @@ class EditProfileView {
             </div> 
             <div class="input-group">
 
-              <sl-input label="Password" type="text" name="password" value="${this.user.password}" placeholder="New Password"></sl-input>
-
               <sl-input label="New Password" type="text" name="password" placeholder="Password" toggle-password></sl-input>
 
             </div>           
