@@ -149,11 +149,12 @@ class ShopView {
                     `
                   )}
                 `}
-        </div> 
-          <br>
-          <p>Larger collection of tasty treats in the works...
-          <br><b>Stay tuned!</b></p>
-          <br>       
+
+        </div>
+        <p>Larger collection of tasty treats in the works...
+        <br><b>Stay tuned!</b></p>
+      </div>
+
       </div>
       <cb-app-footer></cb-app-footer>
     `;
