@@ -5,7 +5,7 @@
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 html {
-  height: 120%;
+  height: 100%;
 }
 
 body {
@@ -253,6 +253,7 @@ a {
   }
   padding-bottom: var(--app-header-height);
   min-height: 100vh;
+  margin-bottom: 3vw;
 }
 
 .page-content-post {
@@ -268,6 +269,7 @@ a {
   }
   padding-bottom: var(--app-header-height);
   min-height: 100vh;
+  margin-bottom: 3vw;
 }
 
 .profile, .editProfile {

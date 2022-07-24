@@ -29,7 +29,7 @@
 }
 
 html {
-  height: 120%;
+  height: 100%;
 }
 
 body {
@@ -259,6 +259,7 @@ a {
   padding: 1em;
   padding-bottom: var(--app-header-height);
   min-height: 100vh;
+  margin-bottom: 3vw;
 }
 .page-content.no-pad {
   padding: 0;
@@ -274,6 +275,7 @@ a {
   padding: 1em;
   padding-bottom: var(--app-header-height);
   min-height: 100vh;
+  margin-bottom: 3vw;
 }
 .page-content-post.no-pad {
   padding: 0;
@@ -505,6 +507,7 @@ a {
 
 .page-form {
   max-width: 80vw;
+  margin-bottom: 10vw;
 }
 
 sl-dialog::part(title) {
