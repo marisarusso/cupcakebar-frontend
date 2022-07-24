@@ -4,6 +4,9 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
+html {
+  height: 120%;
+}
 
 body {
   padding: 0;
@@ -12,7 +15,10 @@ body {
   font-family: var(--base-font-family);
   font-weight: 300;
   background: var(--page-body-bg);
-  height: 100vh;
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .background {
@@ -188,14 +194,14 @@ a {
   padding: 2em;
 }
 
-footer {
-  max-width: 100vw;
+.footer {
+  max-width: 100%;
   background: var(--sl-color-primary-50);
   height: 10em;
-  margin-top: 2em;
   left: 0;
   right: 0;
   bottom: 0;
+  margin-top: auto;
 }
 
 // app splash screen -------
