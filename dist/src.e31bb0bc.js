@@ -6601,7 +6601,11 @@ class HomeView {
   }
 
   render() {
+<<<<<<< HEAD
     const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header\n        user=\"", "\"\n      ></cb-app-header>\n      <div class=\"page-content\">\n        <div class=\"feature-box\">\n          <img class=\"feature-img\" src=\"/images/feature-img.png\" />\n          <div class=\"feature-txt-box\">\n            <img class=\"feature-txt\" src=\"/images/feature-txt.png\" />\n            <sl-button class=\"shop-now-btn\" type=\"primary\" @click=", ">SHOP NOW!\n            </sl-button>\n          </div>\n        </div>\n        <div class=\"image-box\">\n          <img class=\"home-img1\" src=\"/images/pink-two.png\" />\n          <img class=\"home-img2\" src=\"/images/mint-two.png\" />\n          <img class=\"home-img3\" src=\"/images/coral-two.png\" />\n          <img class=\"home-img4\" src=\"/images/yellow-two.png\" />\n        </div>\n        <div class=\"blurb-box\">\n          <img class=\"blurb-img\" src=\"/images/blurb-img.png\" />\n          <div class=\"blurb-txt-box\">\n            <a class=\"blurb-txt\"\n              >Scrumptious, retro inspired cupcakes, handmade from scratch with\n              a whole lotta love using premium quality, locally sourced\n              ingredients. All of our cupcakes are freshly baked on site all\n              day, every day, untill they're golden and crispy on the outside\n              and soft and fluffy on the inside. Topped with your favourite\n              frosting and topping!\n            </a>\n          </div>\n        </div>\n\n       <div class=\"social-media-box calign\">\n          <h1 class=\"insta\">Follow us on Instagram</h1>\n          <div class=\"image-box\">\n            <img class=\"home-img5\" src=\"/images/feature-img.png\" />\n            <img class=\"home-img6\" src=\"/images/yellow.jpeg\" />\n            <img class=\"home-img7\" src=\"/images/cupcake-queen.png\" />\n            <img class=\"home-img8\" src=\"/images/coral.jpeg\" />\n          </div>\n       \n        </div>\n      </div>\n      \n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)('/shop'));
+=======
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header\n        user=\"", "\"\n      ></cb-app-header>\n      <div class=\"page-content\">\n        <div class=\"feature-box\">\n          <img class=\"feature-img\" src=\"/images/feature-img.png\" />\n          <div class=\"feature-txt-box\">\n            <img class=\"feature-txt\" src=\"/images/feature-txt.png\" />\n            <sl-button class=\"shop-now-btn\" type=\"primary\" @click=", ">SHOP NOW!\n            </sl-button>\n          </div>\n        </div>\n        <div class=\"image-box\">\n          <img class=\"home-img1\" src=\"/images/pink-two.png\" />\n          <img class=\"home-img2\" src=\"/images/mint-two.png\" />\n          <img class=\"home-img3\" src=\"/images/coral-two.png\" />\n          <img class=\"home-img4\" src=\"/images/yellow-two.png\" />\n        </div>\n        <div class=\"blurb-box\">\n          <img class=\"blurb-img\" src=\"/images/blurb-img.png\" />\n          <div class=\"blurb-txt-box\">\n            <a class=\"blurb-txt\"\n              >Scrumptious, retro inspired cupcakes, handmade from scratch with\n              a whole lotta love using premium quality, locally sourced\n              ingredients. All of our cupcakes are freshly baked on site all\n              day, every day, untill they're golden and crispy on the outside\n              and soft and fluffy on the inside. Topped with your favourite\n              frosting and topping!\n            </a>\n          </div>\n        </div>\n        <div class=\"social-media-box calign\">\n          <h1 class=\"insta\">Follow us on Instagram</h1>\n          <div class=\"image-box\">\n            <img class=\"home-img5\" src=\"/images/feature-img.png\" />\n            <img class=\"home-img6\" src=\"/images/yellow.jpeg\" />\n            <img class=\"home-img7\" src=\"/images/cupcake-queen.png\" />\n            <img class=\"home-img8\" src=\"/images/coral.jpeg\" />\n          </div>\n          <div class=\"txt-box calign\">\n            <div class=\"acknowledge-txt-box\">\n            <a class=\"acknowledge-txt\">\n              Cupcake Bar acknowledges that we live and work on lands belonging\n              to the Julin Nation. we pay our respects to Elders, both past,\n              present and emerging of the Kulin Nation and any lands to which we\n              may travel. This always was and always will be Aboriginal land.\n            </a>\n            </div>\n          </div>\n        </div>\n      </div>\n      <cb-app-footer></cb-app-footer>\n    "])), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)('/shop'));
+>>>>>>> 5673568c8c13f2a26ceb6eee273b8cc37dd67d3d
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -6643,7 +6647,7 @@ class FourOFourView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Ooops!</h1>\n        <p>This page doesn't exist. Take me <a href=\"/\" @click=\"", "\">home</a>.</p>\n        <cb-app-footer></cb-app-footer>\n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser), _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -12484,7 +12488,7 @@ class ProfileView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content calign\">        \n        <div class=\"profile\">\n          <h1>My Profile</h1>        \n            ", "\n            <p>Username: ", " ", "</p>\n            <p>Email: ", "</p>\n            \n            <p>Last updated: ", "</p>\n            <sl-button type=\"primary\" @click=", ">Edit profile</sl-button>\n          </div>\n        </div>   \n        \n      </div>      \n    "])), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser && _Auth.default.currentUser.avatar ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n              <sl-avatar style=\"--size: 200px; margin-bottom: 1em;\" \n                image=", ">\n              </sl-avatar>\n            "])), _Auth.default.currentUser && _Auth.default.currentUser.avatar ? "".concat(_App.default.apiBase, "/images/").concat(_Auth.default.currentUser.avatar) : '') : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n            <sl-avatar style=\"--size: 200px; margin-bottom: 1em;\"></sl-avatar>\n            "]))), _Auth.default.currentUser.firstName, _Auth.default.currentUser.lastName, _Auth.default.currentUser.email, (0, _moment.default)(_Auth.default.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a'), () => (0, _Router.gotoRoute)('/editProfile'));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content calign\">        \n        <div class=\"profile\">\n          <h1>My Profile</h1>        \n            ", "\n            <p>Username: ", " ", "</p>\n            <p>Email: ", "</p>\n            \n            <p>Last updated: ", "</p>\n            <sl-button type=\"primary\" @click=", ">Edit profile</sl-button>\n          </div>\n        </div>   \n        \n      </div>\n      <cb-app-footer></cb-app-footer>      \n    "])), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser && _Auth.default.currentUser.avatar ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n              <sl-avatar style=\"--size: 200px; margin-bottom: 1em;\" \n                image=", ">\n              </sl-avatar>\n            "])), _Auth.default.currentUser && _Auth.default.currentUser.avatar ? "".concat(_App.default.apiBase, "/images/").concat(_Auth.default.currentUser.avatar) : '') : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n            <sl-avatar style=\"--size: 200px; margin-bottom: 1em;\"></sl-avatar>\n            "]))), _Auth.default.currentUser.firstName, _Auth.default.currentUser.lastName, _Auth.default.currentUser.email, (0, _moment.default)(_Auth.default.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a'), () => (0, _Router.gotoRoute)('/editProfile'));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -12679,7 +12683,8 @@ class EditProfileView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        ", "\n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser), this.user == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n          <sl-spinner></sl-spinner>\n        "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n          <sl-form class=\"page-form\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input label=\"Name\" type=\"text\" name=\"firstName\" value=\"", "\" placeholder=\"First Name\"></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input label=\"Surname\" type=\"text\" name=\"lastName\" value=\"", "\" placeholder=\"Last Name\"></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input label=\"Email\" type=\"text\" name=\"email\" value=\"", "\" placeholder=\"Email Address\"></sl-input>\n            </div> \n            <div class=\"input-group\">\n              <sl-input label=\"Password\" type=\"text\" name=\"password\" value=\"", "\" placeholder=\"New Password\"></sl-input>\n            </div>           \n            <div class=\"input-group\">\n              <label>Avatar</label><br>          \n              ", "\n            </div>\n            <sl-button type=\"primary\" class=\"submit-btn\" submit>Update profile</sl-button>\n          </sl-form>\n          <p>Last updated: ", "</p>\n        "])), this.updateProfileSubmitHandler.bind(this), this.user.firstName, this.user.lastName, this.user.email, this.user.password, this.user.avatar ? (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                <sl-avatar image=\"", "/images/", "\"></sl-avatar>\n                <input type=\"file\" name=\"avatar\" />\n              "])), _App.default.apiBase, this.user.avatar) : (0, _litHtml.html)(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n                <input type=\"file\" name=\"avatar\" />\n              "]))), (0, _moment.default)(_Auth.default.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        ", "\n      </div>\n      <cb-app-footer></cb-app-footer>     \n    "])), JSON.stringify(_Auth.default.currentUser), this.user == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n          <sl-spinner></sl-spinner>\n        "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n          <sl-form class=\"page-form\" @sl-submit=", ">\n          <div class=\"editProfile\">\n            <h1>Edit Profile</h1> \n            <div class=\"input-group\">\n              <sl-input label=\"Name\" type=\"text\" name=\"firstName\" value=\"", "\" placeholder=\"First Name\"></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input label=\"Surname\" type=\"text\" name=\"lastName\" value=\"", "\" placeholder=\"Last Name\"></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input label=\"Email\" type=\"text\" name=\"email\" value=\"", "\" placeholder=\"Email Address\"></sl-input>\n            </div> \n            <div class=\"input-group\">\n              <sl-input label=\"New Password\" type=\"text\" name=\"password\" value=\"", "\" placeholder=\"New Password\"></sl-input>\n            </div>           \n            <div class=\"input-group\">\n              <label>Avatar</label><br>          \n              ", "\n            </div>\n            <sl-button type=\"primary\" class=\"submit-btn\" submit>Update profile</sl-button>\n          </div>\n          <p>Last updated: ", "</p>\n          </sl-form>\n        "])), this.updateProfileSubmitHandler.bind(this), this.user.firstName, this.user.lastName, this.user.email, this.user.password, this.user.avatar ? (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                <sl-avatar image=\"", "/images/", "\"></sl-avatar>\n                <input type=\"file\" name=\"avatar\" />\n              "])), _App.default.apiBase, this.user.avatar) : (0, _litHtml.html)(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n                <input type=\"file\" name=\"avatar\" />\n              "]))), (0, _moment.default)(_Auth.default.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')));
+
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -12735,7 +12740,7 @@ class AboutUsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"about-us\">\n      <div class=\"page-content\">        \n        <h1>About Us</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Looking to learn more about Cupcake Bar?\n        <br><b> More details coming soon!! </b></p>\n        \n      </div>    \n      </div>  \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"about-us\">\n      <div class=\"page-content\">        \n        <h1>About Us</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Looking to learn more about Cupcake Bar?\n        <br><b> More details coming soon!! </b></p>\n        \n      </div>    \n      </div>\n      <cb-app-footer></cb-app-footer>  \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -12929,7 +12934,11 @@ class ShopView {
   }
 
   render() {
+<<<<<<< HEAD
     const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filters\n          </div>\n          <div>\n              <sl-button class=\"filter-btn\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">GLUTEN FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">NUT FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">DAIRY FREE</sl-button>\n              <sl-button class=\"filter-btn\"5px; data-field=\"vegan\" data-match=\"vegan\" @click=", ">VEGAN</sl-button>\n          </div>\n             <sl-button class=\"clear-btn\" @click=", ">CLEAR</sl-button>\n        </div>\n        \n      <div class=\"products-grid\">\n          ", "\n        </div>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n      \n        </div>\n      </div>\n\n      \n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  ", "\n                "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                      <cb-shop\n                        class=\"product-card\"\n                        id=\"", "\"\n                        productName=\"", "\"\n                        price=\"", "\"\n                        image=\"", "\"\n                      >\n                      </cb-shop>\n                    "])), product._id, product.productName, product.price, product.image))));
+=======
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filters\n          </div>\n          <div>\n              <sl-button class=\"filter-btn\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">GLUTEN FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">NUT FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">DAIRY FREE</sl-button>\n              <sl-button class=\"filter-btn\"5px; data-field=\"vegan\" data-match=\"vegan\" @click=", ">VEGAN</sl-button>\n          </div>\n             <sl-button class=\"clear-btn\" @click=", ">CLEAR</sl-button>\n        </div>\n        \n      <div class=\"products-grid\">\n          ", "\n        </div>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n      </div>\n      </div>\n      <cb-app-footer></cb-app-footer>\n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  ", "\n                "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                      <cb-shop\n                        class=\"product-card\"\n                        id=\"", "\"\n                        productName=\"", "\"\n                        price=\"", "\"\n                        image=\"", "\"\n                      >\n                      </cb-shop>\n                    "])), product._id, product.productName, product.price, product.image))));
+>>>>>>> 5673568c8c13f2a26ceb6eee273b8cc37dd67d3d
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -12985,7 +12994,7 @@ class FavouriteProductsView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"favourites\">\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Save your favourite tasty cupcakes for later!\n        <br><b>New feature coming soon... </b></p>\n        \n      </div>     \n      </div> \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"favourites\">\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Save your favourite tasty cupcakes for later!\n        <br><b>New feature coming soon... </b></p>\n        \n      </div>     \n      </div>\n      <cb-app-footer></cb-app-footer> \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -13116,7 +13125,7 @@ class CartView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <cb-app-header user=\"", "\"></cb-app-header>\n    <div class=\"cart\">\n      <div class=\"page-content\">        \n        <h1>My Cart</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p> For cupcake purchases on the go!\n        <br><b>Coming soon...</b></p>\n        \n      </div> \n      </div>     \n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    <cb-app-header user=\"", "\"></cb-app-header>\n    <div class=\"cart\">\n      <div class=\"page-content\">        \n        <h1>My Cart</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p> For cupcake purchases on the go!\n        <br><b>Coming soon...</b></p>\n        \n      </div> \n      </div>\n      <cb-app-footer></cb-app-footer>     \n    "])), JSON.stringify(_Auth.default.currentUser));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -16968,7 +16977,61 @@ customElements.define("cb-shop", class Shop extends _litElement.LitElement {
   }
 
 });
-},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","lit-html":"../node_modules/lit-html/lit-html.js","../Router":"Router.js","../Auth":"Auth.js","../App":"App.js","../UserAPI":"UserAPI.js","../Toast":"Toast.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","lit-html":"../node_modules/lit-html/lit-html.js","../Router":"Router.js","../Auth":"Auth.js","../App":"App.js","../UserAPI":"UserAPI.js","../Toast":"Toast.js"}],"components/cb-app-footer.js":[function(require,module,exports) {
+"use strict";
+
+var _litElement = require("@polymer/lit-element");
+
+var _Router = require("./../Router");
+
+var _Auth = _interopRequireDefault(require("./../Auth"));
+
+var _templateObject;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+// import App from "../App";
+customElements.define("cb-app-footer", class AppFooter extends _litElement.LitElement {
+  constructor() {
+    super();
+  }
+
+  static get properties() {
+    return {
+      title: {
+        type: String
+      },
+      user: {
+        type: Object
+      }
+    };
+  }
+
+  firstUpdated() {
+    super.firstUpdated();
+    this.navActiveLinks();
+  }
+
+  navActiveLinks() {
+    const currentPath = window.location.pathname;
+    const navLinks = this.shadowRoot.querySelectorAll(".app-footer-nav a");
+    navLinks.forEach(navLink => {
+      if (navLink.href.slice(-1) == "#") return;
+
+      if (navLink.pathname === currentPath) {
+        navLink.classList.add("active");
+      }
+    });
+  }
+
+  render() {
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n\n          .footer-container {\n            position: absolute; \n            left: 0 ; right: 0; bottom: 0;\n            width: 100%;\n            height: max-content;\n            background: var(--sl-color-primary-50);\n          }\n\n          .app-footer {\n            background: var(--sl-color-primary-50);\n            display: flex;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            align-items: center;\n          }\n          \n\n          img {\n            width: 15vw;\n            padding: 0 1.5vw;\n            margin: 0 2 0 2vw;\n          }\n\n          .app-footer-nav {\n            display: flex;\n            align-items: center;\n            margin-left: 15vw;\n          }\n\n          .app-footer-socials {\n            display: inline-block;\n          }\n\n          .app-footer-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 2.5vw;\n            font-size: 1.1vw;\n            width: max-content;\n            text-decoration: none;\n            color: var(--brand-color);\n            align-items: center;\n            \n          }\n\n          sl-icon-button {\n            display: none;\n          }\n\n          .app-logo-footer {\n            display: block;\n          }\n\n          img.app-social-icon {\n            width: 22%;\n            float: right;\n            margin: 0;\n          }\n\n          .footer-disclaimer {\n            text-align: center;\n            font-size: .9vw;\n            padding-bottom: 1vw;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n\n          }\n        </style>\n        <footer class=\"footer-container\">\n            <div class=\"app-footer\">\n\n            <div class=\"app-footer-logo\">\n                <a href=\"/\" @click=\"", "\"><img class=\"app-logo-footer\" src=\"/images/brandmark.png\" /></a>\n            </div>\n            <nav class=\"app-footer-nav\">\n                <a href=\"/aboutUs\" @click=\"", "\">Visit us instore</a>\n                <a href=\"/shop\" @click=\"", "\">Order online</a>\n                <a href=\"/aboutUs\" @click=\"", "\">Contact us</a>\n            </nav>\n            <nav class=\"app-footer-socials\">\n                <a href=\"https://www.facebook.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/facebook.png\" /></a>\n                <a href=\"https://www.twitter.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/twitter.png\" /></a>\n                <a href=\"https://www.instagram.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/instagram.png\" /></a>\n            </nav>\n\n            </div>\n            <div class=\"footer-disclaimer\">\n                <p>Please note this website has been created for educational purposes<br>only by students of Curtin University.</p>\n            </div>\n        </footer>\n      "])), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute);
+  }
+
+});
+},{"@polymer/lit-element":"../node_modules/@polymer/lit-element/lit-element.js","./../Router":"Router.js","./../Auth":"Auth.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -17049,6 +17112,8 @@ require("./components/cb-app-header");
 
 require("./components/cb-shop");
 
+require("./components/cb-app-footer");
+
 require("./scss/master.scss");
 
 var _gsap = require("gsap");
@@ -17062,7 +17127,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', () => {
   _App.default.init();
 });
-},{"./App.js":"App.js","./components/cb-app-header":"components/cb-app-header.js","./components/cb-shop":"components/cb-shop.js","./scss/master.scss":"scss/master.scss","gsap":"../node_modules/gsap/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./App.js":"App.js","./components/cb-app-header":"components/cb-app-header.js","./components/cb-shop":"components/cb-shop.js","./components/cb-app-footer":"components/cb-app-footer.js","./scss/master.scss":"scss/master.scss","gsap":"../node_modules/gsap/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -17090,7 +17155,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "51242" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62505" + '/');
+>>>>>>> 5673568c8c13f2a26ceb6eee273b8cc37dd67d3d
 
   ws.onmessage = function (event) {
     checkedAssets = {};
