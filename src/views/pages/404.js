@@ -15,9 +15,9 @@ class FourOFourView {
     const template = html`
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
       <div class="page-content">        
-        <h1>Page title</h1>
-        <p>Page content ...</p>
-        
+        <h1>Ooops!</h1>
+        <p>This page doesn't exist. Take me <a href="/" @click="${anchorRoute}">home</a>.</p>
+        <cb-app-footer></cb-app-footer>
       </div>      
     `
     render(template, App.rootEl)
