@@ -15,14 +15,10 @@ body {
   font-family: var(--base-font-family);
   font-weight: 300;
   background: var(--page-body-bg);
-<<<<<<< HEAD
-  min-height: 100%;
-
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-=======
-  height: 100%;
->>>>>>> 5673568c8c13f2a26ceb6eee273b8cc37dd67d3d
+
 }
 
 .background {
@@ -199,7 +195,6 @@ a {
   padding: 2em;
 }
 
-<<<<<<< HEAD
 .footer {
   max-width: 100%;
   background: var(--sl-color-primary-50);
@@ -210,8 +205,6 @@ a {
   margin-top: auto;
 }
 
-=======
->>>>>>> 5673568c8c13f2a26ceb6eee273b8cc37dd67d3d
 // app splash screen -------
 .app-splash {
   position: fixed;
