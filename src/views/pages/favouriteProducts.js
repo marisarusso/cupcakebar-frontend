@@ -29,6 +29,7 @@ class FavouriteProductsView {
         
       </div>     
       </div> 
+      <cb-app-footer></cb-app-footer>
     `
     render(template, App.rootEl)
   }

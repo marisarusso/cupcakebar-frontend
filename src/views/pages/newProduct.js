@@ -90,7 +90,8 @@ class newProductView {
           <sl-button type="primary" class="new-prod-submit-btn" submit>Add Product</sl-button>
         </sl-form>   
         
-      </div>      
+      </div>
+      <cb-app-footer></cb-app-footer>      
     `
     render(template, App.rootEl)
   }

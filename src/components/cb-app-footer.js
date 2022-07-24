@@ -112,6 +112,13 @@ customElements.define(
             padding-bottom: 1vw;
           }
 
+          .acknowledge-txt-box {
+            text-align: center;
+            /* max-width: 80%; */
+            font-size: 1vw;
+            padding-bottom: 1vw;
+          }
+
           /* RESPONSIVE - MOBILE ------------------- */
           @media all and (max-width: 768px) {
 
@@ -134,6 +141,14 @@ customElements.define(
                 <a href="https://www.instagram.com/" target="_blank"><img class="app-social-icon" src="/images/instagram.png" /></a>
             </nav>
 
+            </div>
+            <div class="acknowledge-txt-box"> 
+              <p>
+              Cupcake Bar acknowledges that we live and work on lands belonging
+              to the Kulin Nation. We pay our respects to Elders, both past,<br>
+              present and emerging of the Kulin Nation and any lands to which we
+              may travel. This always was and always will be Aboriginal land.
+            </p>
             </div>
             <div class="footer-disclaimer">
                 <p>Please note this website has been created for educational purposes<br>only by students of Curtin University.</p>
