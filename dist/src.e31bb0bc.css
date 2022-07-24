@@ -61,6 +61,10 @@ a {
   color: var(--link-color);
 }
 
+a:hover {
+  color: white;
+}
+
 .feature-box {
   display: flex;
   background: var(--body-bg);
@@ -547,6 +551,11 @@ sl-button::part(base) {
   color: var(--brand-color);
 }
 
+sl-button::part(base):hover {
+  background-color: #e16a2f;
+  color: white;
+}
+
 .shop-now-btn::part(base) {
   background: var(--brand-color);
   color: var(--page-body-bg);
@@ -555,6 +564,11 @@ sl-button::part(base) {
   border-radius: 50px;
   padding: 5px;
   margin-top: 0px;
+}
+
+.shop-now-btn::part(base):hover {
+  background-color: white;
+  color: #e16a2f;
 }
 
 .product-btn::part(base) {
