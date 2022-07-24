@@ -13209,15 +13209,15 @@ const routes = {
   '/': _home.default,
   '/aboutUs': _aboutUs.default,
   '/shop': _shop.default,
+  '/product': _product.default,
   '/favouriteProducts': _favouriteProducts.default,
   '/newProduct': _newProduct.default,
   '/cart': _cart.default,
-  '404': _.default,
+  '/404': _.default,
   '/signin': _signin.default,
   '/signup': _signup.default,
   '/profile': _profile.default,
-  '/editProfile': _editProfile.default,
-  '/product': _product.default
+  '/editProfile': _editProfile.default
 };
 
 class Router {
