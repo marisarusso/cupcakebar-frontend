@@ -44,7 +44,8 @@ class HomeView {
             </a>
           </div>
         </div>
-        <div class="social-media-box calign">
+
+       <div class="social-media-box calign">
           <h1 class="insta">Follow us on Instagram</h1>
           <div class="image-box">
             <img class="home-img5" src="/images/feature-img.png" />
@@ -52,19 +53,10 @@ class HomeView {
             <img class="home-img7" src="/images/cupcake-queen.png" />
             <img class="home-img8" src="/images/coral.jpeg" />
           </div>
-          <div class="txt-box calign">
-            <div class="acknowledge-txt-box">
-            <a class="acknowledge-txt">
-              Cupcake Bar acknowledges that we live and work on lands belonging
-              to the Julin Nation. we pay our respects to Elders, both past,
-              present and emerging of the Kulin Nation and any lands to which we
-              may travel. This always was and always will be Aboriginal land.
-            </a>
-            </div>
-          </div>
+       
         </div>
       </div>
-      <cb-app-footer></cb-app-footer>
+      
     `;
     render(template, App.rootEl);
   }

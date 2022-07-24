@@ -28,8 +28,7 @@ class FavouriteProductsView {
         <br><b>New feature coming soon... </b></p>
         
       </div>     
-      </div>
-      <cb-app-footer></cb-app-footer> 
+      </div> 
     `
     render(template, App.rootEl)
   }
