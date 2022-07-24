@@ -17,15 +17,15 @@ const routes = {
 	'/': homeView,	
 	'/aboutUs': aboutUsView,
 	'/shop': shopView,
+	'/product': productView,
 	'/favouriteProducts': favouriteProductsView,
 	'/newProduct': newProductView,
 	'/cart': cartView,
-	'404': fourOFourView,
+	'/404': fourOFourView,
 	'/signin': signinView,
 	'/signup': signupView,
 	'/profile': profileView,
 	'/editProfile': editProfileView,
-	'/product':productView
 }
 
 class Router {
