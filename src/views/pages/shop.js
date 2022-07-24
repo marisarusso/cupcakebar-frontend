@@ -151,7 +151,6 @@ class ShopView {
                   )}
                 `}
         </div>
-        <br>
         <p>Larger collection of tasty treats in the works...
         <br><b>Stay tuned!</b></p>
       </div>
