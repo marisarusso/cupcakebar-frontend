@@ -12929,7 +12929,7 @@ class ShopView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filters\n          </div>\n          <div>\n              <sl-button class=\"filter-btn\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">GLUTEN FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">NUT FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">DAIRY FREE</sl-button>\n              <sl-button class=\"filter-btn\"5px; data-field=\"vegan\" data-match=\"vegan\" @click=", ">VEGAN</sl-button>\n          </div>\n             <sl-button class=\"clear-btn\" @click=", ">CLEAR</sl-button>\n        </div>\n        \n      <div class=\"products-grid\">\n          ", "\n        </div>\n        <br>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n      </div>\n      </div>\n      <cb-app-footer></cb-app-footer>\n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  ", "\n                "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                      <cb-shop\n                        class=\"product-card\"\n                        id=\"", "\"\n                        productName=\"", "\"\n                        price=\"", "\"\n                        image=\"", "\"\n                      >\n                      </cb-shop>\n                    "])), product._id, product.productName, product.price, product.image))));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n     <style>\n        .filter-menu {\n          display: flex;\n          align-items: center;\n        }\n\n        .filter-menu >div{\n          margin-right: 1em;\n        }\n      </style>\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"shop\">\n      <div class=\"page-content\">        \n         <div class=\"filter-menu\">\n          <div>\n            Filters\n          </div>\n          <div>\n              <sl-button class=\"filter-btn\" data-field=\"glutenFree\" data-match=\"gluten-free\" @click=", ">GLUTEN FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"nutFree\" data-match=\"nut-free\" @click=", ">NUT FREE</sl-button>\n              <sl-button class=\"filter-btn\" data-field=\"dairyFree\" data-match=\"dairy-free\" @click=", ">DAIRY FREE</sl-button>\n              <sl-button class=\"filter-btn\"5px; data-field=\"vegan\" data-match=\"vegan\" @click=", ">VEGAN</sl-button>\n          </div>\n             <sl-button class=\"clear-btn\" @click=", ">CLEAR</sl-button>\n        </div>\n        \n      <div class=\"products-grid\">\n          ", "\n        </div>\n        <p>Larger collection of tasty treats in the works...\n        <br><b>Stay tuned!</b></p>\n      </div>\n      </div>\n      <cb-app-footer></cb-app-footer>\n    "])), JSON.stringify(_Auth.default.currentUser), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.handleFilterBtn.bind(this), this.clearFilters.bind(this), this.products == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  ", "\n                "])), this.products.map(product => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                      <cb-shop\n                        class=\"product-card\"\n                        id=\"", "\"\n                        productName=\"", "\"\n                        price=\"", "\"\n                        image=\"", "\"\n                      >\n                      </cb-shop>\n                    "])), product._id, product.productName, product.price, product.image))));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -13125,6 +13125,48 @@ class CartView {
 var _default = new CartView();
 
 exports.default = _default;
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"views/pages/product.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("../../App"));
+
+var _litHtml = require("lit-html");
+
+var _Router = require("../../Router");
+
+var _Auth = _interopRequireDefault(require("../../Auth"));
+
+var _Utils = _interopRequireDefault(require("../../Utils"));
+
+var _templateObject;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class ProductView {
+  init() {
+    document.title = 'Product';
+    this.render();
+
+    _Utils.default.pageIntroAnim();
+  }
+
+  render() {
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>\n      <cb-app-footer></cb-app-footer>      \n    "])), JSON.stringify(_Auth.default.currentUser));
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new ProductView();
+
+exports.default = _default;
 },{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Router":"Router.js","../../Auth":"Auth.js","../../Utils":"Utils.js"}],"Router.js":[function(require,module,exports) {
 "use strict";
 
@@ -13157,6 +13199,8 @@ var _newProduct = _interopRequireDefault(require("./views/pages/newProduct"));
 
 var _cart = _interopRequireDefault(require("./views/pages/cart"));
 
+var _product = _interopRequireDefault(require("./views/pages/product"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import views
@@ -13172,7 +13216,8 @@ const routes = {
   '/signin': _signin.default,
   '/signup': _signup.default,
   '/profile': _profile.default,
-  '/editProfile': _editProfile.default
+  '/editProfile': _editProfile.default,
+  '/product': _product.default
 };
 
 class Router {
@@ -13226,7 +13271,7 @@ function anchorRoute(e) {
   const pathname = e.target.closest('a').pathname;
   AppRouter.gotoRoute(pathname);
 }
-},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/aboutUs":"views/pages/aboutUs.js","./views/pages/shop":"views/pages/shop.js","./views/pages/favouriteProducts":"views/pages/favouriteProducts.js","./views/pages/newProduct":"views/pages/newProduct.js","./views/pages/cart":"views/pages/cart.js"}],"App.js":[function(require,module,exports) {
+},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/aboutUs":"views/pages/aboutUs.js","./views/pages/shop":"views/pages/shop.js","./views/pages/favouriteProducts":"views/pages/favouriteProducts.js","./views/pages/newProduct":"views/pages/newProduct.js","./views/pages/cart":"views/pages/cart.js","./views/pages/product":"views/pages/product.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16964,7 +17009,7 @@ customElements.define("cb-shop", class Shop extends _litElement.LitElement {
   }
 
   render() {
-    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <style>\n        .shop-btn::part(base) {\n          border-radius: 50px;\n          width: 100px;\n          border: 3px solid var(--brand-color);\n          font-size: 12px;\n          color: var(--brand-color);\n        }\n\n        .name {\n          text-transform: uppercase;\n        }\n\n        .product-card {\n          text-align: center;\n        }\n\n        .heart::part(base) {\n          color: var(--brand-color);\n        }\n\n      </style>\n        <sl-card class=\"product-card\">\n          <div class=\"img-container\">\n          <img slot=\"image\" src=\"", "/images/", "\" />\n          <sl-icon-button \n            class=\"heart\"\n            name=\"heart-fill\"\n            label=\"Add to Favourites\"\n            @click=", "\n          ></sl-icon-button>\n          </div>\n          <h3 class=\"name\">", "</h3>\n          <p>Box of a dozen - $", "</p>\n          <p>", "</p>\n          <sl-button class=\"shop-btn\" @click=", ">SHOP NOW!</sl-button>\n        </sl-card>\n      "])), _App.default.apiBase, this.image, this.addFavHandler.bind(this), this.productName, this.price, this.description, () => (0, _Router.gotoRoute)('/product'));
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <style>\n        .shop-btn::part(base) {\n          border-radius: 50px;\n          width: 100px;\n          border: 3px solid var(--brand-color);\n          font-size: 12px;\n          color: var(--brand-color);\n        }\n\n        .shop-btn::part(base):hover {\n          background-color: #e16a2f;\n          color: #f5dbdf;\n        }\n\n        .name {\n          text-transform: uppercase;\n        }\n\n        .product-card {\n          text-align: center;\n        }\n\n        .heart::part(base) {\n          color: var(--brand-color);\n        }\n\n      </style>\n        <sl-card class=\"product-card\">\n          <div class=\"img-container\">\n          <img slot=\"image\" src=\"", "/images/", "\" />\n          <sl-icon-button \n            class=\"heart\"\n            name=\"heart-fill\"\n            label=\"Add to Favourites\"\n            @click=", "\n          ></sl-icon-button>\n          </div>\n          <h3 class=\"name\">", "</h3>\n          <p>Box of a dozen - $", "</p>\n          <p>", "</p>\n          <sl-button class=\"shop-btn\" @click=", ">SHOP NOW!</sl-button>\n        </sl-card>\n      "])), _App.default.apiBase, this.image, this.addFavHandler.bind(this), this.productName, this.price, this.description, () => (0, _Router.gotoRoute)('/product'));
   }
 
 });
@@ -17018,7 +17063,7 @@ customElements.define("cb-app-footer", class AppFooter extends _litElement.LitEl
   }
 
   render() {
-    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n\n          .footer-container {\n            position: absolute; \n            left: 0 ; right: 0; bottom: 0;\n            width: 100%;\n            height: max-content;\n            background: var(--sl-color-primary-50);\n            margin-top: 10vw;\n          }\n\n          .app-footer {\n            background: var(--sl-color-primary-50);\n            display: flex;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            align-items: center;\n          }\n          \n\n          img {\n            width: 15vw;\n            padding: 0 1.5vw;\n            margin: 0 2 0 2vw;\n          }\n\n          .app-footer-nav {\n            display: flex;\n            align-items: center;\n            margin-left: 15vw;\n          }\n\n          .app-footer-socials {\n            display: inline-block;\n          }\n\n          .app-footer-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 2.5vw;\n            font-size: 1.1vw;\n            width: max-content;\n            text-decoration: none;\n            color: var(--brand-color);\n            align-items: center;\n            \n          }\n\n          sl-icon-button {\n            display: none;\n          }\n\n          .app-logo-footer {\n            display: block;\n          }\n\n          img.app-social-icon {\n            width: 22%;\n            float: right;\n            margin: 0;\n          }\n\n          .footer-disclaimer {\n            text-align: center;\n            font-size: .9vw;\n            padding-bottom: 1vw;\n          }\n\n          .acknowledge-txt-box {\n            text-align: center;\n            /* max-width: 80%; */\n            font-size: 1vw;\n            padding-bottom: 1vw;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n\n          }\n        </style>\n        <footer class=\"footer-container\">\n            <div class=\"app-footer\">\n\n            <div class=\"app-footer-logo\">\n                <a href=\"/\" @click=\"", "\"><img class=\"app-logo-footer\" src=\"/images/brandmark.png\" /></a>\n            </div>\n            <nav class=\"app-footer-nav\">\n                <a href=\"/aboutUs\" @click=\"", "\">Visit us instore</a>\n                <a href=\"/shop\" @click=\"", "\">Order online</a>\n                <a href=\"/aboutUs\" @click=\"", "\">Contact us</a>\n            </nav>\n            <nav class=\"app-footer-socials\">\n                <a href=\"https://www.facebook.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/facebook.png\" /></a>\n                <a href=\"https://www.twitter.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/twitter.png\" /></a>\n                <a href=\"https://www.instagram.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/instagram.png\" /></a>\n            </nav>\n\n            </div>\n            <div class=\"acknowledge-txt-box\"> \n              <p>\n              Cupcake Bar acknowledges that we live and work on lands belonging\n              to the Kulin Nation. We pay our respects to Elders, both past,<br>\n              present and emerging of the Kulin Nation and any lands to which we\n              may travel. This always was and always will be Aboriginal land.\n            </p>\n            </div>\n            <div class=\"footer-disclaimer\">\n                <p>Please note this website has been created for educational purposes<br>only by students of Curtin University.</p>\n            </div>\n        </footer>\n      "])), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute);
+    return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <style>\n          * {\n            box-sizing: border-box;\n          }\n\n          .footer-container {\n            position: absolute; \n            left: 0 ; right: 0; bottom: 0;\n            width: 100%;\n            height: max-content;\n            background: var(--sl-color-primary-50);\n            margin-top: 10vw;\n          }\n\n          .app-footer {\n            background: var(--sl-color-primary-50);\n            display: flex;\n            width: 100%;\n            height: var(--app-header-height);\n            color: var(--app-header-txt-color);\n            align-items: center;\n          }\n          \n\n          img {\n            width: 15vw;\n            padding: 0 1.5vw;\n            margin: 0 2 0 2vw;\n          }\n\n          .app-footer-nav {\n            display: flex;\n            align-items: center;\n            margin-left: 15vw;\n          }\n\n          .app-footer-socials {\n            display: inline-block;\n          }\n\n          .app-footer-nav a {\n            display: flex;\n            padding: 1vw;\n            margin: 0 2.5vw;\n            font-size: 1.1vw;\n            width: max-content;\n            text-decoration: none;\n            color: var(--brand-color);\n            align-items: center;\n            \n          }\n\n          sl-icon-button {\n            display: none;\n          }\n\n          .app-logo-footer {\n            display: block;\n          }\n\n          img.app-social-icon {\n            width: 22%;\n            float: right;\n            margin: 0;\n          }\n\n          .footer-disclaimer {\n            text-align: center;\n            font-size: .9vw;\n            padding-bottom: 1vw;\n          }\n\n          .acknowledge-txt-box {\n            text-align: center;\n            /* max-width: 80%; */\n            font-size: 1vw;\n            padding-bottom: 1vw;\n          }\n\n          a:hover{\n            color: white;\n          }\n\n          /* RESPONSIVE - MOBILE ------------------- */\n          @media all and (max-width: 768px) {\n\n          }\n        </style>\n        <footer class=\"footer-container\">\n            <div class=\"app-footer\">\n\n            <div class=\"app-footer-logo\">\n                <a href=\"/\" @click=\"", "\"><img class=\"app-logo-footer\" src=\"/images/brandmark.png\" /></a>\n            </div>\n            <nav class=\"app-footer-nav\">\n                <a href=\"/aboutUs\" @click=\"", "\">Visit us instore</a>\n                <a href=\"/shop\" @click=\"", "\">Order online</a>\n                <a href=\"/aboutUs\" @click=\"", "\">Contact us</a>\n            </nav>\n            <nav class=\"app-footer-socials\">\n                <a href=\"https://www.facebook.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/facebook.png\" /></a>\n                <a href=\"https://www.twitter.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/twitter.png\" /></a>\n                <a href=\"https://www.instagram.com/\" target=\"_blank\"><img class=\"app-social-icon\" src=\"/images/instagram.png\" /></a>\n            </nav>\n\n            </div>\n            <div class=\"acknowledge-txt-box\"> \n              <p>\n              Cupcake Bar acknowledges that we live and work on lands belonging\n              to the Kulin Nation. We pay our respects to Elders, both past,<br>\n              present and emerging of the Kulin Nation and any lands to which we\n              may travel. This always was and always will be Aboriginal land.\n            </p>\n            </div>\n            <div class=\"footer-disclaimer\">\n                <p>Please note this website has been created for educational purposes<br>only by students of Curtin University.</p>\n            </div>\n        </footer>\n      "])), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute);
   }
 
 });
@@ -17146,7 +17191,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54538" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62863" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
