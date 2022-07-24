@@ -107,12 +107,11 @@ class ShopView {
         }
       </style>
       <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
-      <div class="shop">
-      <div class="page-content">        
+      <div class="page-content shop">        
          <div class="filter-menu">
-          <div>
-            Filters
-          </div>
+            <div>
+              Filters
+            </div>
           <div>
               <sl-button class="filter-btn" data-field="glutenFree" data-match="gluten-free" @click=${this.handleFilterBtn.bind(
                 this
@@ -132,7 +131,7 @@ class ShopView {
              )}>CLEAR</sl-button>
         </div>
         
-      <div class="products-grid">
+        <div class="products-grid">
           ${
             this.products == null
               ? html` <sl-spinner></sl-spinner> `
@@ -150,11 +149,11 @@ class ShopView {
                     `
                   )}
                 `}
-        </div>
-        <br>
-        <p>Larger collection of tasty treats in the works...
-        <br><b>Stay tuned!</b></p>
-      </div>
+        </div> 
+          <br>
+          <p>Larger collection of tasty treats in the works...
+          <br><b>Stay tuned!</b></p>
+          <br>       
       </div>
       <cb-app-footer></cb-app-footer>
     `;
