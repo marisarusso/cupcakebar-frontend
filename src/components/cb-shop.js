@@ -72,6 +72,11 @@ customElements.define(
           color: var(--brand-color);
         }
 
+        .shop-btn::part(base):hover {
+          background-color: #e16a2f;
+          color: #f5dbdf;
+        }
+
         .name {
           text-transform: uppercase;
         }
