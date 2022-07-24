@@ -120,6 +120,10 @@ customElements.define(
             padding-bottom: 1vw;
           }
 
+          a:hover{
+            color: white;
+          }
+
           /* RESPONSIVE - MOBILE ------------------- */
           @media all and (max-width: 768px) {
 
