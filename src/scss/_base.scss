@@ -256,17 +256,18 @@ a {
 
 // root ---------------
 #root {
-  position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 // page --------------------
 .page-content {
-  position: absolute;
+  position: relative;
   top: var(--app-header-height);
   left: 0;
   right: 0;
@@ -277,10 +278,11 @@ a {
     padding: 0;
   }
   padding-bottom: var(--app-header-height);
+  min-height: 100vh;
 }
 
 .page-content-post {
-  position: absolute;
+  position: relative;
   top: var(--app-header-height);
   left: 0;
   right: 0;
@@ -291,6 +293,7 @@ a {
     padding: 0;
   }
   padding-bottom: var(--app-header-height);
+  min-height: 100vh;
 }
 
 .profile, .editProfile {
