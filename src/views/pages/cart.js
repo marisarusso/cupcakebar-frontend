@@ -28,7 +28,8 @@ class CartView {
         <br><b>Coming soon...</b></p>
         
       </div> 
-      </div>     
+      </div>
+      <cb-app-footer></cb-app-footer>     
     `
     render(template, App.rootEl)
   }

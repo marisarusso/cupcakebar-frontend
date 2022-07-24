@@ -32,8 +32,8 @@ class ProfileView {
             <sl-button type="primary" @click=${()=> gotoRoute('/editProfile')}>Edit profile</sl-button>
           </div>
         </div>   
-        
-      </div>      
+      </div>
+      <cb-app-footer></cb-app-footer>      
     `
     render(template, App.rootEl)
   }
