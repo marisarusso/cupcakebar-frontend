@@ -63,7 +63,11 @@ class EditProfileView {
               <sl-input label="Email" type="text" name="email" value="${this.user.email}" placeholder="Email Address"></sl-input>
             </div> 
             <div class="input-group">
-              <sl-input label="New Password" type="text" name="password" value="${this.user.password}" placeholder="New Password"></sl-input>
+
+              <sl-input label="Password" type="text" name="password" value="${this.user.password}" placeholder="New Password"></sl-input>
+
+              <sl-input label="New Password" type="text" name="password" placeholder="Password" toggle-password></sl-input>
+
             </div>           
             <div class="input-group">
               <label>Avatar</label><br>          
@@ -75,8 +79,8 @@ class EditProfileView {
               `}
             </div>
             <sl-button type="primary" class="submit-btn" submit>Update profile</sl-button>
+            <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
           </div>
-          <p>Last updated: ${moment(Auth.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a')}</p>
           </sl-form>
         `}
       </div>

@@ -28,8 +28,7 @@ class AboutUsView {
         <br><b> More details coming soon!! </b></p>
         
       </div>    
-      </div>
-      <cb-app-footer></cb-app-footer>  
+      </div>  
     `
     render(template, App.rootEl)
   }
