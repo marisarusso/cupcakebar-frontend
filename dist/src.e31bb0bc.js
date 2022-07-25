@@ -12811,6 +12811,13 @@ class ProductAPI {
     return data;
   }
 
+  getParams() {
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop)
+    });
+    return params;
+  }
+
 }
 
 var _default = new ProductAPI();
@@ -12956,7 +12963,7 @@ var _Auth = _interopRequireDefault(require("../../Auth"));
 
 var _Utils = _interopRequireDefault(require("../../Utils"));
 
-var _templateObject;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12969,6 +12976,7 @@ class FavouriteProductsView {
 
     _Utils.default.pageIntroAnim();
 
+    this.getfavProducts();
     const timeline = gsap.timeline({
       defaults: {
         duration: 1
@@ -12984,12 +12992,44 @@ class FavouriteProductsView {
     }, 1);
   }
 
+  async getFavProducts() {
+    try {
+      const currentUser = await UserAPI.getUser(_Auth.default.currentUser._id);
+      this.favProducts = currentUser.favouriteProducts;
+      console.log(this.favProducts);
+      this.render();
+    } catch (err) {
+      Toast.show(err, "error");
+    }
+  }
+
   render() {
-    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header user=\"", "\"></cb-app-header>\n      <div class=\"favourites\">\n      <div class=\"page-content\">        \n        <h1>Your favourite cupcakes!</h1>\n        <br>\n        <br>\n        <br>\n        <br>\n        <p>Save your favourite tasty cupcakes for later!\n        <br><b>New feature coming soon... </b></p>\n        \n      </div>     \n      </div> \n      <cb-app-footer></cb-app-footer>\n    "])), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <cb-app-header\n        user=\"", "\"\n      ></cb-app-header>\n      <div class=\"page-content\">\n       <div class=\"products-grid\">\n          ", "\n\n        </div>\n      </div>\n    "])), JSON.stringify(_Auth.default.currentUser), this.favProducts == null ? (0, _litHtml.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([" <sl-spinner></sl-spinner> "]))) : (0, _litHtml.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n                  ", "\n                "])), this.favProducts.map(favourite => (0, _litHtml.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n                      <cb-shop\n                        class=\"product-card\"\n                        id=\"", "\"\n                        productName=\"", "\"\n                        price=\"", "\"\n                        image=\"", "\"\n                      >\n                      </cb-shop>\n                    "])), favourite._id, favourite.productName, favourite.price, favourite.image))));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
 }
+/*render() {
+  const template = html`
+    <cb-app-header user="${JSON.stringify(Auth.currentUser)}"></cb-app-header>
+    <div class="favourites">
+    <div class="page-content">        
+      <h1>Your favourite cupcakes!</h1>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p>Save your favourite tasty cupcakes for later!
+      <br><b>New feature coming soon... </b></p>
+      
+    </div>     
+    </div> 
+    <cb-app-footer></cb-app-footer>
+  `
+  render(template, App.rootEl)
+}
+}*/
+
 
 var _default = new FavouriteProductsView();
 
@@ -17191,7 +17231,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50216" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64882" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
