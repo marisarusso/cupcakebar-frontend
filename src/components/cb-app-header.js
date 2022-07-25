@@ -185,8 +185,8 @@ customElements.define(
             <a href="/" @click="${anchorRoute}">HOME</a>
             <a href="/shop" @click="${anchorRoute}">SHOP</a>
              ${this.user.accessLevel == 1
-              ? html` <a href="/newProduct" @click="${anchorRoute}">ADD PRODUCT</a> `
-              : html` <a href="/favouriteProducts" @click="${anchorRoute}">FAVOURITES</a>`}
+              ? html` <a href="/favouriteProducts" @click="${anchorRoute}">FAVOURITES</a> `
+              : html`<a href="/newProduct" @click="${anchorRoute}">ADD PRODUCT</a>`}
             <img class="app-logo" src="/images/brandmark.png" />
             <a href="/aboutUs" @click="${anchorRoute}">CONTACT</a>
             <a href="/cart" @click="${anchorRoute}">CART</a>
@@ -211,18 +211,18 @@ customElements.define(
           <img class="app-side-menu-logo" src="/images/ss3.svg" />
           <nav class="app-side-menu-items">
             <a href="/" @click="${this.menuClick}">Home</a>
-            <a href="/cupcakes" @click="${this.menuClick}"
-                    >Cupcakes</a
-                  >
-            <a href="/favouriteCupcakes" @click="${this.menuClick}"
-                    >Favourite Cupcakes</a
-                  >
+            <a href="/shop" @click="${anchorRoute}">Shop</a>
+            <a href="/favouriteProducts" @click="${this.menuClick}">Favourite Cupcakes</a>
+            <a href="/aboutUs" @click="${anchorRoute}">Contact</a>
+            <a href="/cart" @click="${anchorRoute}">Cart</a>
+            <a href="/profile" @click="${anchorRoute}">My Profile</a>
+            <a href="/editProfile" @click="${anchorRoute}">Edit Profile</a>
+
             ${this.user.accessLevel == 2
               ? html`
-                  <a href="/newProduct" @click="${this.menuClick}">Post Job</a>
-                `
-              : ""}
-            <a href="/jobs" @click="${this.menuClick}">Jobs</a>
+              <a href="/newProduct" @click="${this.menuClick}">Add Products</a>
+              <a href="/jobs" @click="${this.menuClick}">Jobs</a>
+                `: ""}
             <a href="#" @click="${() => Auth.signOut()}">Sign Out</a>
           </nav>
         </sl-drawer>
